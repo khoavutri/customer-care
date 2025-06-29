@@ -1,0 +1,21 @@
+{
+  "name": "customer-care",
+  "version": "1.0.0",
+  "description": "Follow these steps:",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run start:a\" \"npm run start:b\"",
+    "start:a": "cd server && npm start",
+    "start:b": "cd client && npm start",
+    "i:all": "npm install && concurrently \"npm run install:a\" \"npm run install:b\"",
+    "install:a": "cd server && npm install",
+    "install:b": "cd client && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
