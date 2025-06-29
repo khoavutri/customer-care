@@ -1,0 +1,32 @@
+# Thư mục node_modules chứa các package của dự án
+node_modules/
+
+# Các file biên dịch của TypeScript
+/dist
+
+# Thư mục chứa file tạm thời của editor, ví dụ: VS Code
+.vscode/
+
+# Các file tạm thời của hệ thống OS
+.DS_Store
+Thumbs.db
+
+# Các file tạm thời của IDE khác như JetBrains
+.idea/
+
+# Các file log
+*.log
+
+# Các file cache của NPM
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Thư mục của ts-node
+*.tsbuildinfo
+
+# Thư mục tạm thời từ TypeScript
+*.d.ts
+
+# Các file môi trường (ví dụ .env) nếu không cần chia sẻ qua Git
+.env
