@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Send, Bot, User, LogOut, Settings } from "lucide-react";
 import ChatSidebar from "@/components/ChatSidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
+import ChatSidebarMobile from "@/components/ChatSidebarMobile";
 
 interface Message {
   id: string;
@@ -26,7 +28,7 @@ const Chat = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
+  const mobile = useIsMobile()
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -75,14 +77,20 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex h-screen bg-background">
-      <ChatSidebar
+    <div className="flex h-screen bg-background" style={{ overflow: 'hidden' }}>
+      {mobile ? <ChatSidebarMobile
+        isOpen={sidebarCollapsed}
+        onClose={() => setSidebarCollapsed(false)}
+      /> : <ChatSidebar
         isCollapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-      />
+      />}
       <div className="flex flex-col flex-1">
         <header className="border-b bg-card/50 backdrop-blur-sm p-4 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div
+            className="flex items-center space-x-3 cursor-pointer"
+            onClick={() => setSidebarCollapsed(prev => !prev)}>
+
             <div className="w-10 h-10 bg-chat-gradient rounded-xl flex items-center justify-center">
               <Bot className="w-5 h-5 text-white" />
             </div>
@@ -96,6 +104,14 @@ const Chat = () => {
 
           <div className="flex items-center space-x-2">
             <ThemeToggle />
+            {/* <Button
+              variant="ghost"
+              size="sm"
+              className="h-10 w-10 rounded-full"
+              onClick={() => setSidebarCollapsed(prev => !prev)}
+            >
+              <Settings className="h-4 w-4" />
+            </Button> */}
             {/* <Button
               variant="ghost"
               size="sm"
@@ -121,16 +137,14 @@ const Chat = () => {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${
-                message.sender === "user"
-                  ? "flex-row-reverse space-x-reverse"
-                  : ""
-              }`}
+              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
+                ? "flex-row-reverse space-x-reverse"
+                : ""
+                }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                  }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -140,19 +154,17 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${
-                  message.sender === "user"
-                    ? "chat-bubble-user"
-                    : "chat-bubble-assistant"
-                }`}
+                className={`chat-bubble ${message.sender === "user"
+                  ? "chat-bubble-user"
+                  : "chat-bubble-assistant"
+                  }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${
-                    message.sender === "user"
-                      ? "text-white/70"
-                      : "text-muted-foreground"
-                  }`}
+                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
+                    ? "text-white/70"
+                    : "text-muted-foreground"
+                    }`}
                 >
                   {message.timestamp.toLocaleTimeString("vi-VN", {
                     hour: "2-digit",
