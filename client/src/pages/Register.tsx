@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
+import { servicesManager } from "@/service/service-manager";
+import { toast } from "sonner";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,15 +25,26 @@ const Register = () => {
     confirmPassword: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Mật khẩu không khớp!");
+    console.log("Register attempt:", formData);
+    if (formData.confirmPassword !== formData.password) {
+      toast("Xác nhận mật khẩu không chính xác");
       return;
     }
-    console.log("Register attempt:", formData);
     // Redirect to login after successful registration
-    window.location.href = "/login";
+    // window.location.href = "/login";
+    const action = await servicesManager.RISService.signup({
+      name: formData.name,
+      password: formData.password,
+      email: formData.email,
+    });
+    if (action && action.status === 1) {
+      toast("Đăng ký thành công!");
+      window.location.href = "/login";
+    } else {
+      toast("Đăng ký không thành công!");
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {

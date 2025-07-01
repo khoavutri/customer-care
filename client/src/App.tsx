@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,6 +10,8 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
+import PrivateRouter from "./router/PrivateRouter";
+import PublicRouter from "./router/PublicRouter";
 
 const queryClient = new QueryClient();
 
@@ -22,11 +23,46 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/chat" element={<Chat />} />
+            <Route
+              path="/"
+              element={
+                <PublicRouter>
+                  <Index />
+                </PublicRouter>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRouter>
+                  <Login />
+                </PublicRouter>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRouter>
+                  <Register />
+                </PublicRouter>
+              }
+            />
+            <Route
+              path="/forgot-password"
+              element={
+                <PublicRouter>
+                  <ForgotPassword />
+                </PublicRouter>
+              }
+            />
+            <Route
+              path="/chat"
+              element={
+                <PrivateRouter>
+                  <Chat />
+                </PrivateRouter>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -15,11 +15,14 @@ interface ChatHistory {
 interface ChatSidebarProps {
   isCollapsed: boolean;
   onToggle: () => void;
+  handleLogout: () => void;
 }
 
-const ChatSidebar = ({ isCollapsed, onToggle }: ChatSidebarProps) => {
-  const navigate = useNavigate();
-  const isMobile = useIsMobile()
+const ChatSidebar = ({
+  isCollapsed,
+  onToggle,
+  handleLogout,
+}: ChatSidebarProps) => {
   const [chatHistory] = useState<ChatHistory[]>([
     {
       id: "1",
@@ -47,15 +50,11 @@ const ChatSidebar = ({ isCollapsed, onToggle }: ChatSidebarProps) => {
     },
   ]);
 
-  const handleLogout = () => {
-    navigate("/login");
-  };
-
-
   return (
     <div
-      className={`${isCollapsed ? "w-16" : "w-80"
-        } bg-sidebar border-r border-sidebar-border h-full flex flex-col transition-all duration-300`}
+      className={`${
+        isCollapsed ? "w-16" : "w-80"
+      } bg-sidebar border-r border-sidebar-border h-full flex flex-col transition-all duration-300`}
     >
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border">
@@ -79,8 +78,9 @@ const ChatSidebar = ({ isCollapsed, onToggle }: ChatSidebarProps) => {
       {/* New Chat Button */}
       <div className="p-4">
         <Button
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full"
-            } bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white transition-all duration-200`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full"
+          } bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white transition-all duration-200`}
           onClick={() => window.location.reload()}
         >
           <Plus className="h-4 w-4" />
@@ -127,8 +127,9 @@ const ChatSidebar = ({ isCollapsed, onToggle }: ChatSidebarProps) => {
       <div className="p-4 border-t border-sidebar-border space-y-2">
         <Button
           variant="ghost"
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
-            } text-sidebar-foreground hover:bg-sidebar-accent`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
+          } text-sidebar-foreground hover:bg-sidebar-accent`}
         >
           <Settings className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Cài đặt</span>}
@@ -136,8 +137,9 @@ const ChatSidebar = ({ isCollapsed, onToggle }: ChatSidebarProps) => {
         <Button
           variant="ghost"
           onClick={handleLogout}
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
-            } text-sidebar-foreground hover:bg-sidebar-accent hover:text-red-500`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
+          } text-sidebar-foreground hover:bg-sidebar-accent hover:text-red-500`}
         >
           <LogOut className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Đăng xuất</span>}

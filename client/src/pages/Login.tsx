@@ -12,17 +12,29 @@ import {
 } from "@/components/ui/card";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { servicesManager } from "@/service/service-manager";
+import { toast } from "sonner";
+import { setToken } from "@/manager/store-manager";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt:", { email, password });
-    // Redirect to chat after successful login
-    window.location.href = "/chat";
+    const action = await servicesManager.RISService.login({
+      username: email,
+      password: password,
+    });
+    if (action && action.status === 1) {
+      setToken(action.data.token);
+      toast("Đăng nhập thành công!");
+      window.location.href = "/chat";
+      return;
+    }
+
+    toast("Đăng nhập không thành công!");
   };
 
   return (

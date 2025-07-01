@@ -1,15 +1,23 @@
 import express from "express";
 import http from "http";
-import demo from "./routers/demo";
 import authRouter from "./routers/auth-router";
+import userRouter from "./routers/user-router";
+import cors from "cors";
+import connectDB from "./config/database";
+import { authenticateJWT } from "./config/auth";
 
 const app = express();
-const PORT = 8668;
+const PORT = process.env.PORT || 8080;
 // Tạo HTTP server từ Express
 const server = http.createServer(app);
-app.use("/demo", demo);
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors({ origin: "*", credentials: true }));
+connectDB();
+
 app.use("/auth", authRouter);
+app.use("/user", authenticateJWT, userRouter);
 
 // Endpoint kiểm tra
 app.get("/", (req, res) => {
