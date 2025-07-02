@@ -8,6 +8,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import ChatSidebarMobile from "@/components/ChatSidebarMobile";
 import { setToken } from "@/manager/store-manager";
 import { servicesManager } from "@/service/service-manager";
+import { toast } from "sonner";
 
 interface Message {
   id: string;
@@ -55,17 +56,21 @@ const Chat = () => {
     const action = await servicesManager.RISService.chat(inputMessage);
     console.log(action);
     // Simulate AI response
-    setTimeout(() => {
-      const aiResponse: Message = {
-        id: (Date.now() + 1).toString(),
-        content:
-          "Cảm ơn bạn đã nhắn tin! Đây là phản hồi mẫu từ AI Assistant. Tôi đang ở đây để hỗ trợ bạn với bất kỳ câu hỏi nào.",
-        sender: "assistant",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, aiResponse]);
+    if (action && action.status === 1) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now().toString(),
+          content: action.data.reply,
+          sender: "assistant",
+          timestamp: action.data.created,
+        },
+      ]);
       setIsTyping(false);
-    }, 1500);
+    } else {
+      setIsTyping(false);
+      toast("Câu hỏi không thành công!");
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -147,14 +152,16 @@ const Chat = () => {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
-                ? "flex-row-reverse space-x-reverse"
-                : ""
-                }`}
+              className={`flex items-start space-x-3 animate-fade-in ${
+                message.sender === "user"
+                  ? "flex-row-reverse space-x-reverse"
+                  : ""
+              }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                  }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -164,19 +171,21 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${message.sender === "user"
-                  ? "chat-bubble-user"
-                  : "chat-bubble-assistant"
-                  }`}
+                className={`chat-bubble ${
+                  message.sender === "user"
+                    ? "chat-bubble-user"
+                    : "chat-bubble-assistant"
+                }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
-                    ? "text-white/70"
-                    : "text-muted-foreground"
-                    }`}
+                  className={`text-xs mt-1 opacity-70 ${
+                    message.sender === "user"
+                      ? "text-white/70"
+                      : "text-muted-foreground"
+                  }`}
                 >
-                  {message.timestamp.toLocaleTimeString("vi-VN", {
+                  {new Date(message.timestamp).toLocaleTimeString("vi-VN", {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}

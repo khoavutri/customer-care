@@ -23,9 +23,9 @@ class ServiceRIS extends ServiceBase {
     return response;
   };
 
-  chat = async (prompt: string) => {
+  chat = async (prompt: string, conversationId?: any) => {
     const url = "/user/chat";
-    const response = await this.service.post(url, { prompt });
+    const response = await this.service.post(url, { prompt: prompt.trim(), conversationId, date: new Date().toISOString() });
     return response;
   };
 }
