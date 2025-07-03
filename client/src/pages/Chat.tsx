@@ -17,6 +17,16 @@ interface Message {
   timestamp: Date;
 }
 
+const preMessage = [
+  {
+    id: "1",
+    content:
+      "Xin chào! Tôi là AI Assistant của bạn. Tôi có thể giúp gì cho bạn hôm nay?",
+    sender: "assistant",
+    timestamp: new Date(),
+  },
+]
+
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -27,22 +37,20 @@ const Chat = () => {
       timestamp: new Date(),
     },
   ]);
+  const [history, setHistory] = useState([])
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [current, setCurrent] = useState<any>(undefined)
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const mobile = useIsMobile();
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
-
     const userMessage: Message = {
       id: Date.now().toString(),
       content: inputMessage,
@@ -53,9 +61,7 @@ const Chat = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsTyping(true);
-    const action = await servicesManager.RISService.chat(inputMessage);
-    console.log(action);
-    // Simulate AI response
+    const action = await servicesManager.RISService.chat(inputMessage, current);
     if (action && action.status === 1) {
       setMessages((prev) => [
         ...prev,
@@ -85,6 +91,31 @@ const Chat = () => {
     window.location.href = "/login";
   };
 
+  const fetchHistoryList = async () => {
+    const action = await servicesManager.RISService.getHistoryList();
+    if (action && action.status === 1) {
+      setHistory(action.data)
+    }
+  }
+
+  const getMessageList = async (id: string) => {
+    const action = await servicesManager.RISService.getMessage(id);
+    if (action && action.status === 1) {
+      setCurrent(id)
+      setMessages([...preMessage,
+      ...action.data.messages.map(item =>
+        ({ id: item.id, content: item.content, sender: item.sender, timestamp: item.timestamp }))])
+    }
+  }
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    fetchHistoryList()
+  }, [])
+
   return (
     <div className="flex h-screen bg-background" style={{ overflow: "hidden" }}>
       {mobile ? (
@@ -92,12 +123,16 @@ const Chat = () => {
           isOpen={sidebarCollapsed}
           onClose={() => setSidebarCollapsed(false)}
           handleLogout={handleLogout}
+          list={history}
+          handleItemClick={getMessageList}
         />
       ) : (
         <ChatSidebar
           isCollapsed={sidebarCollapsed}
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
           handleLogout={handleLogout}
+          list={history}
+          handleItemClick={getMessageList}
         />
       )}
       <div className="flex flex-col flex-1">
@@ -152,16 +187,14 @@ const Chat = () => {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${
-                message.sender === "user"
-                  ? "flex-row-reverse space-x-reverse"
-                  : ""
-              }`}
+              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
+                ? "flex-row-reverse space-x-reverse"
+                : ""
+                }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                  }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -171,19 +204,17 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${
-                  message.sender === "user"
-                    ? "chat-bubble-user"
-                    : "chat-bubble-assistant"
-                }`}
+                className={`chat-bubble ${message.sender === "user"
+                  ? "chat-bubble-user"
+                  : "chat-bubble-assistant"
+                  }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${
-                    message.sender === "user"
-                      ? "text-white/70"
-                      : "text-muted-foreground"
-                  }`}
+                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
+                    ? "text-white/70"
+                    : "text-muted-foreground"
+                    }`}
                 >
                   {new Date(message.timestamp).toLocaleTimeString("vi-VN", {
                     hour: "2-digit",

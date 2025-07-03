@@ -28,6 +28,18 @@ class ServiceRIS extends ServiceBase {
     const response = await this.service.post(url, { prompt: prompt.trim(), conversationId, date: new Date().toISOString() });
     return response;
   };
+
+  getHistoryList = async () => {
+    const url = "/user/history-list";
+    const response = await this.service.get(url);
+    return response;
+  };
+
+  getMessage = async (id: string) => {
+    const url = `/user/message/${id}`;
+    const response = await this.service.get(url);
+    return response;
+  };
 }
 
 export { ServiceRIS };

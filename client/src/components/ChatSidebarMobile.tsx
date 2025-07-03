@@ -3,57 +3,28 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageSquare, Plus, Settings, LogOut, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
-interface ChatHistory {
-  id: string;
-  title: string;
-  timestamp: string;
-  preview: string;
-}
+import { formatDate } from "@/util/format-date";
 
 interface ChatSidebarMobileProps {
   isOpen: boolean;
   onClose: () => void;
   handleLogout: () => void;
+  list: Array<any>;
+  handleItemClick: (id: string) => void
 }
 
 const ChatSidebarMobile = ({
   isOpen,
   onClose,
   handleLogout,
+  list,
+  handleItemClick
 }: ChatSidebarMobileProps) => {
-  const [chatHistory] = useState<ChatHistory[]>([
-    {
-      id: "1",
-      title: "Tư vấn marketing",
-      timestamp: "2 giờ trước",
-      preview: "Làm thế nào để tăng traffic website?",
-    },
-    {
-      id: "2",
-      title: "Phân tích đối thủ",
-      timestamp: "1 ngày trước",
-      preview: "Phân tích chiến lược marketing của đối thủ",
-    },
-    {
-      id: "3",
-      title: "SEO optimization",
-      timestamp: "3 ngày trước",
-      preview: "Tối ưu hóa SEO cho website bán hàng",
-    },
-    {
-      id: "4",
-      title: "Content strategy",
-      timestamp: "1 tuần trước",
-      preview: "Lập kế hoạch content cho 3 tháng",
-    },
-  ]);
 
   return (
     <div
-      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${
-        isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-      }`}
+      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+        }`}
     >
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border flex justify-between items-center shrink-0">
@@ -93,23 +64,23 @@ const ChatSidebarMobile = ({
           </h3>
           <ScrollArea className="h-[calc(100dvh-220px)]">
             <div className="space-y-3">
-              {chatHistory.map((chat) => (
+              {list.map((chat, index) => (
                 <div
-                  key={chat.id}
+                  key={chat?.conversationId || index}
                   className="p-4 rounded-lg bg-sidebar-accent hover:bg-sidebar-accent/80 cursor-pointer transition-colors"
-                  onClick={onClose}
+                  onClick={() => { handleItemClick(chat?.conversationId) }}
                   role="button"
                   tabIndex={0}
-                  aria-label={`Mở cuộc trò chuyện ${chat.title}`}
+                  aria-label={`Mở cuộc trò chuyện ${chat?.title}`}
                 >
                   <h4 className="text-base font-medium text-sidebar-foreground line-clamp-1">
-                    {chat.title}
+                    {chat?.title}
                   </h4>
                   <p className="text-sm text-sidebar-foreground/60 mt-1 line-clamp-2">
                     {chat.preview}
                   </p>
                   <p className="text-xs text-sidebar-foreground/50 mt-2">
-                    {chat.timestamp}
+                    {formatDate(chat?.latestTimestamp || chat?.updatedAt)}
                   </p>
                 </div>
               ))}
