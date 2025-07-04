@@ -6,7 +6,20 @@ import { Bot, MessageCircle, Zap, Shield, ArrowRight } from 'lucide-react';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
+    <div
+      style={{ overflow: 'auto', height: "100vh" }}
+      className="min-h-screen bg-gradient-to-br 
+      from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900
+      [&::-webkit-scrollbar]:w-[6px] 
+            [&::-webkit-scrollbar-track]:bg-slate-100 
+            dark:[&::-webkit-scrollbar-track]:bg-slate-800
+             [&::-webkit-scrollbar-thumb]:bg-slate-400 
+             dark:[&::-webkit-scrollbar-thumb]:bg-slate-600 
+             [&::-webkit-scrollbar-thumb]:rounded-full 
+             [&::-webkit-scrollbar-track]:rounded-full 
+             [&::-webkit-scrollbar-thumb]:hover:bg-slate-500 
+             dark:[&::-webkit-scrollbar-thumb]:hover:bg-slate-500 
+             scrollbar-hide hover:scrollbar-default">
       {/* Header */}
       <header className="p-6 flex items-center justify-between">
         <div className="flex items-center space-x-3">
@@ -27,12 +40,12 @@ const Index = () => {
               <br />
               <span className="text-foreground">thông minh với AI</span>
             </h1>
-            
+
             <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-              Trải nghiệm dịch vụ hỗ trợ khách hàng 24/7 với công nghệ AI tiên tiến. 
+              Trải nghiệm dịch vụ hỗ trợ khách hàng 24/7 với công nghệ AI tiên tiến.
               Nhanh chóng, chính xác và luôn sẵn sàng giúp đỡ bạn.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
               <Link to="/register">
                 <Button size="lg" className="h-14 px-8 bg-chat-gradient hover:opacity-90 transition-opacity text-white font-medium shadow-2xl">
@@ -40,7 +53,7 @@ const Index = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              
+
               <Link to="/login">
                 <Button variant="outline" size="lg" className="h-14 px-8 border-2 border-primary/20 hover:border-primary/40 transition-colors">
                   Đăng nhập
@@ -60,7 +73,7 @@ const Index = () => {
                 AI hiểu ngữ cảnh và cung cấp câu trả lời chính xác, phù hợp với từng tình huống cụ thể.
               </p>
             </div>
-            
+
             <div className="p-8 rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-shadow">
               <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                 <Zap className="w-8 h-8 text-purple-600 dark:text-purple-400" />
@@ -70,7 +83,7 @@ const Index = () => {
                 Không cần chờ đợi. Nhận được hỗ trợ ngay lập tức bất kỳ lúc nào trong ngày.
               </p>
             </div>
-            
+
             <div className="p-8 rounded-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-white/20 dark:border-gray-700/20 shadow-xl hover:shadow-2xl transition-shadow">
               <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-6 mx-auto">
                 <Shield className="w-8 h-8 text-green-600 dark:text-green-400" />
