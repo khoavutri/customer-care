@@ -3,6 +3,7 @@ import Message from "../models/message.model"
 import dotenv from "dotenv";
 import { Request, Response } from "express";
 import axios from "axios";
+import { generateTitle } from "../util/generate-title";
 
 dotenv.config();
 
@@ -41,7 +42,7 @@ export const onChat = async (req: Request, res: Response) => {
     } else {
       const newConversation = new Conversation({
         userId,
-        title: 'New Conversation',
+        title: generateTitle(prompt),
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -62,14 +63,24 @@ export const onChat = async (req: Request, res: Response) => {
       userMessageTimestamp = parsedDate;
     }
 
+    const userMessage = new Message({
+      conversationId: finalConversationId,
+      senderId: userId,
+      sender: "user",
+      content: prompt.trim(),
+      model: 'Perplexity',
+      timestamp: userMessageTimestamp,
+      realExchange: prompt.trim()
+    });
+    userMessage.save();
     const response = await axios.post(
       'https://api.perplexity.ai/chat/completions',
       {
-        model: 'llama-3.1-sonar-small-128k-online',
+        model: 'sonar-pro',
         messages: [
           {
             role: 'system',
-            content: 'Nói tiếng Việt, trả lời tự nhiên, vui vẻ như nói với bố! Cung cấp thông tin chính xác và ngắn gọn.',
+            content: 'Nói tiếng Việt, trả lời tự nhiên.',
           },
           { role: 'user', content: prompt.trim() },
         ],
@@ -97,15 +108,6 @@ export const onChat = async (req: Request, res: Response) => {
     const reply = response.data.choices[0]?.message?.content ?? 'Hỏng rồi, không có phản hồi!';
     const aiMessageTimestamp = new Date(response.data.created * 1000);
 
-    const userMessage = new Message({
-      conversationId: finalConversationId,
-      senderId: userId,
-      sender: "user",
-      content: prompt.trim(),
-      model: 'Perplexity',
-      timestamp: userMessageTimestamp,
-      realExchange: prompt.trim()
-    });
     const aiMessage = new Message({
       conversationId: finalConversationId,
       senderId: userId,
@@ -115,7 +117,8 @@ export const onChat = async (req: Request, res: Response) => {
       timestamp: aiMessageTimestamp,
       realExchange: reply
     });
-    await Promise.all([userMessage.save(), aiMessage.save()]);
+
+    aiMessage.save();
 
     await Conversation.findByIdAndUpdate(finalConversationId, { updatedAt: new Date() });
 
@@ -131,8 +134,6 @@ export const onChat = async (req: Request, res: Response) => {
     });
 
   } catch (error: any) {
-    console.error('Error in onChat:', JSON.stringify(error.response?.data || error.message, null, 2));
-
     if (error.response && error.response.status === 400) {
       return res.status(400).json({
         status: 0,

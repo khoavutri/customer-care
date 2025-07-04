@@ -9,6 +9,7 @@ import ChatSidebarMobile from "@/components/ChatSidebarMobile";
 import { setToken } from "@/manager/store-manager";
 import { servicesManager } from "@/service/service-manager";
 import { toast } from "sonner";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface Message {
   id: string;
@@ -17,7 +18,7 @@ interface Message {
   timestamp: Date;
 }
 
-const preMessage = [
+const preMessage: Array<Message> = [
   {
     id: "1",
     content:
@@ -25,29 +26,22 @@ const preMessage = [
     sender: "assistant",
     timestamp: new Date(),
   },
-]
+];
 
 const Chat = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      content:
-        "Xin chào! Tôi là AI Assistant của bạn. Tôi có thể giúp gì cho bạn hôm nay?",
-      sender: "assistant",
-      timestamp: new Date(),
-    },
-  ]);
-  const [history, setHistory] = useState([])
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [history, setHistory] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [current, setCurrent] = useState<any>(undefined)
+  const navigate = useNavigate();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const params = useParams();
+
   const mobile = useIsMobile();
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
@@ -61,8 +55,15 @@ const Chat = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsTyping(true);
-    const action = await servicesManager.RISService.chat(inputMessage, current);
+    const action = await servicesManager.RISService.chat(
+      inputMessage,
+      params?.id || undefined
+    );
     if (action && action.status === 1) {
+      if (action?.data?.conversation && !params?.id) {
+        navigate(`/chat/${action?.data?.conversationId}`);
+      }
+
       setMessages((prev) => [
         ...prev,
         {
@@ -94,27 +95,37 @@ const Chat = () => {
   const fetchHistoryList = async () => {
     const action = await servicesManager.RISService.getHistoryList();
     if (action && action.status === 1) {
-      setHistory(action.data)
+      setHistory(action.data);
     }
-  }
+  };
 
   const getMessageList = async (id: string) => {
+    if (!id) {
+      setMessages(preMessage);
+      return;
+    }
     const action = await servicesManager.RISService.getMessage(id);
     if (action && action.status === 1) {
-      setCurrent(id)
-      setMessages([...preMessage,
-      ...action.data.messages.map(item =>
-        ({ id: item.id, content: item.content, sender: item.sender, timestamp: item.timestamp }))])
+      setMessages([
+        ...preMessage,
+        ...action.data.messages.map((item) => ({
+          id: item.id,
+          content: item.content,
+          sender: item.sender,
+          timestamp: item.timestamp,
+        })),
+      ]);
     }
-  }
+  };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
   useEffect(() => {
-    fetchHistoryList()
-  }, [])
+    fetchHistoryList();
+    getMessageList(params?.id);
+  }, [params]);
 
   return (
     <div className="flex h-screen bg-background" style={{ overflow: "hidden" }}>
@@ -124,7 +135,6 @@ const Chat = () => {
           onClose={() => setSidebarCollapsed(false)}
           handleLogout={handleLogout}
           list={history}
-          handleItemClick={getMessageList}
         />
       ) : (
         <ChatSidebar
@@ -132,7 +142,6 @@ const Chat = () => {
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
           handleLogout={handleLogout}
           list={history}
-          handleItemClick={getMessageList}
         />
       )}
       <div className="flex flex-col flex-1">
@@ -187,14 +196,16 @@ const Chat = () => {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
-                ? "flex-row-reverse space-x-reverse"
-                : ""
-                }`}
+              className={`flex items-start space-x-3 animate-fade-in ${
+                message.sender === "user"
+                  ? "flex-row-reverse space-x-reverse"
+                  : ""
+              }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                  }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -204,17 +215,19 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${message.sender === "user"
-                  ? "chat-bubble-user"
-                  : "chat-bubble-assistant"
-                  }`}
+                className={`chat-bubble ${
+                  message.sender === "user"
+                    ? "chat-bubble-user"
+                    : "chat-bubble-assistant"
+                }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
-                    ? "text-white/70"
-                    : "text-muted-foreground"
-                    }`}
+                  className={`text-xs mt-1 opacity-70 ${
+                    message.sender === "user"
+                      ? "text-white/70"
+                      : "text-muted-foreground"
+                  }`}
                 >
                   {new Date(message.timestamp).toLocaleTimeString("vi-VN", {
                     hour: "2-digit",

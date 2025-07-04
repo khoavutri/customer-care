@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquare, Plus, Settings, LogOut, X } from "lucide-react";
+import { Plus, Settings, LogOut, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "@/util/format-date";
 
@@ -10,7 +10,6 @@ interface ChatSidebarMobileProps {
   onClose: () => void;
   handleLogout: () => void;
   list: Array<any>;
-  handleItemClick: (id: string) => void
 }
 
 const ChatSidebarMobile = ({
@@ -18,13 +17,14 @@ const ChatSidebarMobile = ({
   onClose,
   handleLogout,
   list,
-  handleItemClick
 }: ChatSidebarMobileProps) => {
+  const navigate = useNavigate();
 
   return (
     <div
-      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-        }`}
+      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${
+        isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+      }`}
     >
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border flex justify-between items-center shrink-0">
@@ -47,7 +47,7 @@ const ChatSidebarMobile = ({
         <Button
           className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white h-12 text-base"
           onClick={() => {
-            window.location.reload();
+            navigate(`/chat`);
             onClose();
           }}
         >
@@ -68,7 +68,10 @@ const ChatSidebarMobile = ({
                 <div
                   key={chat?.conversationId || index}
                   className="p-4 rounded-lg bg-sidebar-accent hover:bg-sidebar-accent/80 cursor-pointer transition-colors"
-                  onClick={() => { handleItemClick(chat?.conversationId) }}
+                  onClick={() => {
+                    navigate(`/chat/${chat?.conversationId}`);
+                    onClose();
+                  }}
                   role="button"
                   tabIndex={0}
                   aria-label={`Mở cuộc trò chuyện ${chat?.title}`}
@@ -89,7 +92,6 @@ const ChatSidebarMobile = ({
         </div>
       </div>
 
-      {/* Bottom Actions */}
       <div className="p-4 border-t border-sidebar-border space-y-2 shrink-0">
         <Button
           variant="ghost"

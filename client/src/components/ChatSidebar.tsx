@@ -11,7 +11,6 @@ interface ChatSidebarProps {
   onToggle: () => void;
   handleLogout: () => void;
   list: Array<any>;
-  handleItemClick: (id: string) => void
 }
 
 const ChatSidebar = ({
@@ -19,13 +18,14 @@ const ChatSidebar = ({
   onToggle,
   handleLogout,
   list,
-  handleItemClick
 }: ChatSidebarProps) => {
+  const navigate = useNavigate();
 
   return (
     <div
-      className={`${isCollapsed ? "w-16" : "w-80"
-        } bg-sidebar border-r border-sidebar-border h-full flex flex-col transition-all duration-300`}
+      className={`${
+        isCollapsed ? "w-16" : "w-80"
+      } bg-sidebar border-r border-sidebar-border h-full flex flex-col transition-all duration-300`}
     >
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border">
@@ -49,9 +49,10 @@ const ChatSidebar = ({
       {/* New Chat Button */}
       <div className="p-4">
         <Button
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full"
-            } bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white transition-all duration-200`}
-          onClick={() => window.location.reload()}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full"
+          } bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white transition-all duration-200`}
+          onClick={() => navigate(`/chat`)}
         >
           <Plus className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Cuộc trò chuyện mới</span>}
@@ -60,19 +61,19 @@ const ChatSidebar = ({
 
       {/* Chat History */}
       {!isCollapsed && (
-        <div className="flex-1 px-4">
-          <div className="mb-4">
+        <div className="flex flex-col flex-1 px-4">
+          <div className="mb-4 flex-1">
             <h3 className="text-sm font-medium text-sidebar-foreground/70 mb-2">
               Lịch sử trò chuyện
             </h3>
-            <ScrollArea className="h-[400px]">
+            <ScrollArea>
               <div className="space-y-2">
                 {list.map((chat, index) => (
                   <div
                     key={chat?.conversationId || index}
                     className="p-3 rounded-lg bg-sidebar-accent hover:bg-sidebar-accent/80 cursor-pointer transition-colors group"
                     aria-label={`Mở cuộc trò chuyện ${chat?.title}`}
-                    onClick={() => handleItemClick(chat?.conversationId)}
+                    onClick={() => navigate(`/chat/${chat?.conversationId}`)}
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1 min-w-0">
@@ -99,8 +100,9 @@ const ChatSidebar = ({
       <div className="p-4 border-t border-sidebar-border space-y-2">
         <Button
           variant="ghost"
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
-            } text-sidebar-foreground hover:bg-sidebar-accent`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
+          } text-sidebar-foreground hover:bg-sidebar-accent`}
         >
           <Settings className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Cài đặt</span>}
@@ -108,8 +110,9 @@ const ChatSidebar = ({
         <Button
           variant="ghost"
           onClick={handleLogout}
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
-            } text-sidebar-foreground hover:bg-sidebar-accent hover:text-red-500`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
+          } text-sidebar-foreground hover:bg-sidebar-accent hover:text-red-500`}
         >
           <LogOut className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Đăng xuất</span>}

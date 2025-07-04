@@ -56,13 +56,14 @@ const App = () => (
               }
             />
             <Route
-              path="/chat"
+              path="/chat/:id?"
               element={
                 <PrivateRouter>
                   <Chat />
                 </PrivateRouter>
               }
             />
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
