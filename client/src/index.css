@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -77,7 +76,7 @@ All colors MUST be HSL.
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 259 100% 65%;
-    
+
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 259 100% 65%;
@@ -104,7 +103,7 @@ All colors MUST be HSL.
   .dark input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 1000px hsl(var(--background)) inset;
     -webkit-text-fill-color: white;
-    color:white;
+    color: white;
   }
 }
 
@@ -112,24 +111,38 @@ All colors MUST be HSL.
   .chat-bubble {
     @apply rounded-2xl px-4 py-3 max-w-xs lg:max-w-md animate-slide-up;
   }
-  
+
   .chat-bubble-user {
     @apply bg-chat-primary text-white ml-auto;
   }
-  
+
   .chat-bubble-assistant {
     @apply bg-chat-assistant dark:bg-chat-assistant-dark text-foreground mr-auto;
   }
-  
+
   .glass-morphism {
     @apply backdrop-blur-lg bg-white/10 dark:bg-black/10 border border-white/20 dark:border-white/10;
   }
-  
+
   .gradient-text {
     @apply bg-gradient-to-r from-chat-primary to-chat-secondary bg-clip-text text-transparent;
   }
-  
+
   .floating-action {
     @apply fixed bottom-6 right-6 w-14 h-14 rounded-full bg-chat-gradient shadow-2xl flex items-center justify-center text-white hover:scale-110 transition-transform duration-200 z-50;
   }
+}
+
+html {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
 }

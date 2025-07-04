@@ -22,9 +22,8 @@ const ChatSidebarMobile = ({
 
   return (
     <div
-      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${
-        isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-      }`}
+      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+        }`}
     >
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border flex justify-between items-center shrink-0">
@@ -57,13 +56,13 @@ const ChatSidebarMobile = ({
       </div>
 
       {/* Chat History */}
-      <div className="flex-1 px-4 overflow-hidden">
-        <div className="mb-4">
-          <h3 className="text-sm font-medium text-sidebar-foreground/70 mb-2">
+      <div className="flex-1 px-2 min-h-0 flex flex-col mb-3">
+        <div className="mb-4 flex-1 min-h-0">
+          <h3 className="text-sm font-medium text-sidebar-foreground/70 mb-2 px-1">
             Lịch sử trò chuyện
           </h3>
-          <ScrollArea className="h-[calc(100dvh-220px)]">
-            <div className="space-y-3">
+          <ScrollArea className="h-full">
+            <div className="space-y-3 px-3 pb-4 mt-1">
               {list.map((chat, index) => (
                 <div
                   key={chat?.conversationId || index}

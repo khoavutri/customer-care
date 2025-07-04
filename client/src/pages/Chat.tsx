@@ -10,6 +10,7 @@ import { setToken } from "@/manager/store-manager";
 import { servicesManager } from "@/service/service-manager";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 interface Message {
   id: string;
@@ -40,7 +41,10 @@ const Chat = () => {
 
   const mobile = useIsMobile();
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "auto",
+      block: "end"
+    });
   };
 
   const handleSendMessage = async () => {
@@ -128,7 +132,7 @@ const Chat = () => {
   }, [params]);
 
   return (
-    <div className="flex h-screen bg-background" style={{ overflow: "hidden" }}>
+    <div className="flex bg-background" style={{ height: '100vh' }}>
       {mobile ? (
         <ChatSidebarMobile
           isOpen={sidebarCollapsed}
@@ -163,49 +167,34 @@ const Chat = () => {
 
           <div className="flex items-center space-x-2">
             <ThemeToggle />
-            {/* <Button
-              variant="ghost"
-              size="sm"
-              className="h-10 w-10 rounded-full"
-              onClick={() => setSidebarCollapsed(prev => !prev)}
-            >
-              <Settings className="h-4 w-4" />
-            </Button> */}
-            {/* <Button
-              variant="ghost"
-              size="sm"
-              className="h-10 w-10 rounded-full"
-            >
-              <Settings className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleLogout}
-              className="h-10 w-10 rounded-full hover:bg-destructive/10 hover:text-destructive"
-            >
-              <LogOut className="h-4 w-4" />
-            </Button> */}
           </div>
         </header>
         {/* Messages */}
         <div
-          className="flex-1 overflow-y-auto p-4 space-y-4"
+          className="flex-1 overflow-y-auto p-4 space-y-4
+            [&::-webkit-scrollbar]:w-[6px] 
+            [&::-webkit-scrollbar-track]:bg-slate-100 
+            dark:[&::-webkit-scrollbar-track]:bg-slate-800
+             [&::-webkit-scrollbar-thumb]:bg-slate-400 
+             dark:[&::-webkit-scrollbar-thumb]:bg-slate-600 
+             [&::-webkit-scrollbar-thumb]:rounded-full 
+             [&::-webkit-scrollbar-track]:rounded-full 
+             [&::-webkit-scrollbar-thumb]:hover:bg-slate-500 
+             dark:[&::-webkit-scrollbar-thumb]:hover:bg-slate-500 
+             scrollbar-hide hover:scrollbar-default"
           style={{ backgroundColor: "222.2 84% 4.9%" }}
         >
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${
-                message.sender === "user"
-                  ? "flex-row-reverse space-x-reverse"
-                  : ""
-              }`}
+              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
+                ? "flex-row-reverse space-x-reverse"
+                : ""
+                }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                  }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -215,19 +204,17 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${
-                  message.sender === "user"
-                    ? "chat-bubble-user"
-                    : "chat-bubble-assistant"
-                }`}
+                className={`chat-bubble ${message.sender === "user"
+                  ? "chat-bubble-user"
+                  : "chat-bubble-assistant"
+                  }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${
-                    message.sender === "user"
-                      ? "text-white/70"
-                      : "text-muted-foreground"
-                  }`}
+                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
+                    ? "text-white/70"
+                    : "text-muted-foreground"
+                    }`}
                 >
                   {new Date(message.timestamp).toLocaleTimeString("vi-VN", {
                     hour: "2-digit",
@@ -284,7 +271,7 @@ const Chat = () => {
           </p>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
