@@ -1,9 +1,9 @@
 import React, { useRef, useLayoutEffect, useState } from 'react';
 import * as ScrollArea from '@radix-ui/react-scroll-area';
 import { useNavigate } from 'react-router-dom';
-import { MessageSquare, Plus, Settings, LogOut } from 'lucide-react';
+import { MessageSquare, Plus, Settings, LogOut, MoreVertical, Trash } from 'lucide-react';
 import { Button } from './ui/button';
-
+import * as Tooltip from '@radix-ui/react-tooltip';
 
 interface Chat {
   conversationId?: string;
@@ -18,12 +18,13 @@ interface ChatSidebarProps {
   onToggle: () => void;
   handleLogout: () => void;
   list: Chat[];
+  handleDelete: (id: string) => void
 }
 
 const formatDate = (time?: string) =>
   time ? new Date(time).toLocaleDateString('vi-VN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : 'Không rõ';
 
-const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handleLogout, list }) => {
+const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handleLogout, list, handleDelete }) => {
   const navigate = useNavigate();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -119,8 +120,21 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handle
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-medium text-sidebar-foreground truncate">
-                            {chat?.title || 'Không tên'}
+                          <h4 className="flex items-center justify-between text-sm font-medium text-sidebar-foreground">
+                            <span className="truncate">{chat?.title || 'Không tên'}</span>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="ml-2 p-2 h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/50 
+                               rounded-full transition-colors duration-150 group"
+                              title='Xóa cuộc trò chuyện'
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                handleDelete(chat?.conversationId)
+                              }}
+                            >
+                              <Trash className="w-4 h-4 group-hover:scale-110 transition-transform duration-150" />
+                            </Button>
                           </h4>
                           <p className="text-xs text-sidebar-foreground/50 mt-2">
                             {formatDate(chat?.latestTimestamp || chat?.updatedAt)}

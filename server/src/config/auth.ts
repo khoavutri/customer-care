@@ -5,18 +5,16 @@ dotenv.config();
 
 const SECRET_KEY = process.env.JWT_SECRET || "khoa12345";
 
-// Định nghĩa interface cho payload của JWT
 interface JwtPayload {
   id: number;
   username: string;
+  role: "user" | "admin"; // Thêm trường role
 }
 
-// Mở rộng Request để thêm thuộc tính user
 interface AuthenticatedRequest extends Request {
   user?: JwtPayload;
 }
 
-// Middleware xác thực JWT
 export const authenticateJWT = (
   req: AuthenticatedRequest,
   res: Response,
@@ -39,9 +37,36 @@ export const authenticateJWT = (
   }
 };
 
+export const isAdmin = (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+): void => {
+  if (req.user && req.user.role === "admin") {
+    next();
+  } else {
+    res.status(403).json({ message: "Yêu cầu quyền admin" });
+  }
+};
+
+export const generateJWT = (user: {
+  id: any;
+  username: string;
+  role: "user" | "admin";
+}) => {
+  return jwt.sign(
+    { id: user.id, username: user.username, role: user.role },
+    SECRET_KEY,
+    {
+      expiresIn: "24h",
+    }
+  );
+};
+
 export interface AuthRequest extends Request {
-  user?: { id: string; username: string };
+  user?: { id: string; username: string; role: "user" | "admin" };
 }
+
 export const verifyToken = (
   req: AuthRequest,
   res: Response,
@@ -72,6 +97,7 @@ export const verifyToken = (
     const decoded = jwt.verify(token, SECRET_KEY) as {
       id: string;
       username: string;
+      role: "user" | "admin";
     };
     req.user = decoded;
     next();
@@ -79,11 +105,4 @@ export const verifyToken = (
     console.error("Token verification failed:", error);
     res.status(401).json({ status: 0, message: "Token không hợp lệ" });
   }
-};
-
-// Hàm tạo JWT
-export const generateJWT = (user: { id: number; username: string }) => {
-  return jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, {
-    expiresIn: "1d",
-  });
 };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Plus, Settings, LogOut, X } from "lucide-react";
+import { Plus, Settings, LogOut, X, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "@/util/format-date";
 
@@ -10,6 +10,7 @@ interface ChatSidebarMobileProps {
   onClose: () => void;
   handleLogout: () => void;
   list: Array<any>;
+  handleDelete: (id: string) => void
 }
 
 const ChatSidebarMobile = ({
@@ -17,6 +18,7 @@ const ChatSidebarMobile = ({
   onClose,
   handleLogout,
   list,
+  handleDelete
 }: ChatSidebarMobileProps) => {
   const navigate = useNavigate();
 
@@ -75,8 +77,21 @@ const ChatSidebarMobile = ({
                   tabIndex={0}
                   aria-label={`Mở cuộc trò chuyện ${chat?.title}`}
                 >
-                  <h4 className="text-base font-medium text-sidebar-foreground line-clamp-1">
-                    {chat?.title}
+                  <h4 className="flex items-center justify-between text-sm font-medium text-sidebar-foreground">
+                    <span className="truncate">{chat?.title || 'Không tên'}</span>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="ml-2 p-2 h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/50 
+                               rounded-full transition-colors duration-150 group"
+                      title='Xóa cuộc trò chuyện'
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleDelete(chat?.conversationId)
+                      }}
+                    >
+                      <Trash className="w-4 h-4 group-hover:scale-110 transition-transform duration-150" />
+                    </Button>
                   </h4>
                   <p className="text-sm text-sidebar-foreground/60 mt-1 line-clamp-2">
                     {chat.preview}

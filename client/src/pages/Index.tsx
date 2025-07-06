@@ -3,23 +3,14 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Bot, MessageCircle, Zap, Shield, ArrowRight } from 'lucide-react';
+import { scrollBar } from '@/constant/constant';
 
 const Index = () => {
   return (
     <div
       style={{ overflow: 'auto', height: "100vh" }}
-      className="min-h-screen bg-gradient-to-br 
-      from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900
-      [&::-webkit-scrollbar]:w-[6px] 
-            [&::-webkit-scrollbar-track]:bg-slate-100 
-            dark:[&::-webkit-scrollbar-track]:bg-slate-800
-             [&::-webkit-scrollbar-thumb]:bg-slate-400 
-             dark:[&::-webkit-scrollbar-thumb]:bg-slate-600 
-             [&::-webkit-scrollbar-thumb]:rounded-full 
-             [&::-webkit-scrollbar-track]:rounded-full 
-             [&::-webkit-scrollbar-thumb]:hover:bg-slate-500 
-             dark:[&::-webkit-scrollbar-thumb]:hover:bg-slate-500 
-             scrollbar-hide hover:scrollbar-default">
+      className={`min-h-screen bg-gradient-to-br 
+      from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 ${scrollBar}`}>
       {/* Header */}
       <header className="p-6 flex items-center justify-between">
         <div className="flex items-center space-x-3">

@@ -15,7 +15,6 @@ export const checkAuth = (req: Request, res: Response) => {
   });
 };
 
-
 export const onChat = async (req: Request, res: Response) => {
   try {
     const { prompt, conversationId, date } = req.body;
@@ -95,7 +94,7 @@ export const onChat = async (req: Request, res: Response) => {
         presence_penalty: 0,
         frequency_penalty: 0,
         web_search_options: { search_context_size: 'low' },
-        max_tokens: 100,
+        max_tokens: 250,
         return_citations: false,
       },
       {
@@ -278,6 +277,51 @@ export const getMessageById = async (req: Request, res: Response) => {
     res.status(500).json({
       status: 0,
       message: 'Không thể lấy thông tin cuộc trò chuyện.',
+      error: error.message || 'Lỗi không xác định',
+    });
+  }
+};
+
+export const deleteConversation = async (req: Request, res: Response) => {
+  try {
+    const { conversationId } = req.params;
+    const userId = (req as any).user?.id;
+
+    if (!userId) {
+      return res.status(200).json({
+        status: 0,
+        message: 'Không tìm thấy thông tin người dùng từ token.',
+      });
+    }
+
+    if (!conversationId) {
+      return res.status(200).json({
+        status: 0,
+        message: 'Vui lòng cung cấp conversationId.',
+      });
+    }
+
+    const conversation = await Conversation.findOne({ _id: conversationId, userId });
+    if (!conversation) {
+      return res.status(200).json({
+        status: 0,
+        message: 'Cuộc trò chuyện không tồn tại hoặc không thuộc về bạn.',
+      });
+    }
+
+    await Conversation.deleteOne({ _id: conversationId, userId });
+    await Message.deleteMany({ conversationId });
+
+    return res.status(200).json({
+      status: 1,
+      message: 'Xóa cuộc trò chuyện và tin nhắn thành công!',
+      data: { conversationId: conversationId }
+    });
+
+  } catch (error: any) {
+    return res.status(500).json({
+      status: 0,
+      message: 'Lỗi khi xóa cuộc trò chuyện.',
       error: error.message || 'Lỗi không xác định',
     });
   }

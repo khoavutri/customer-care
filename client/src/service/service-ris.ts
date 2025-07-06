@@ -40,6 +40,12 @@ class ServiceRIS extends ServiceBase {
     const response = await this.service.get(url);
     return response;
   };
+
+  deleteConversation = async (id: string) => {
+    const url = `/user/delete-conversation/${id}`;
+    const response = await this.service.delete(url);
+    return response;
+  };
 }
 
 export { ServiceRIS };

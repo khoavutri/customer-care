@@ -11,6 +11,7 @@ import { servicesManager } from "@/service/service-manager";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { scrollBar } from "@/constant/constant";
 
 interface Message {
   id: string;
@@ -122,6 +123,24 @@ const Chat = () => {
     }
   };
 
+  const handleDeleteHistory = async (id: string) => {
+    if (!id) {
+      console.log("Không tồn tại lịch sử chat này");
+      return;
+    }
+    const action = await servicesManager.RISService.deleteConversation(id);
+    if (action && action.status === 1) {
+      toast("Xóa đoạn chat thành công!")
+      if (action.data.conversationId === params?.id) {
+        navigate(`/chat`);
+      } else {
+        fetchHistoryList();
+      }
+    } else {
+      toast("Xóa không thành công!")
+    }
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -139,6 +158,7 @@ const Chat = () => {
           onClose={() => setSidebarCollapsed(false)}
           handleLogout={handleLogout}
           list={history}
+          handleDelete={handleDeleteHistory}
         />
       ) : (
         <ChatSidebar
@@ -146,6 +166,7 @@ const Chat = () => {
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
           handleLogout={handleLogout}
           list={history}
+          handleDelete={handleDeleteHistory}
         />
       )}
       <div className="flex flex-col flex-1">
@@ -171,17 +192,7 @@ const Chat = () => {
         </header>
         {/* Messages */}
         <div
-          className="flex-1 overflow-y-auto p-4 space-y-4
-            [&::-webkit-scrollbar]:w-[6px] 
-            [&::-webkit-scrollbar-track]:bg-slate-100 
-            dark:[&::-webkit-scrollbar-track]:bg-slate-800
-             [&::-webkit-scrollbar-thumb]:bg-slate-400 
-             dark:[&::-webkit-scrollbar-thumb]:bg-slate-600 
-             [&::-webkit-scrollbar-thumb]:rounded-full 
-             [&::-webkit-scrollbar-track]:rounded-full 
-             [&::-webkit-scrollbar-thumb]:hover:bg-slate-500 
-             dark:[&::-webkit-scrollbar-thumb]:hover:bg-slate-500 
-             scrollbar-hide hover:scrollbar-default"
+          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar}`}
           style={{ backgroundColor: "222.2 84% 4.9%" }}
         >
           {messages.map((message) => (

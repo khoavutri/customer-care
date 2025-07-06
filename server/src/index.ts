@@ -2,9 +2,10 @@ import express from "express";
 import http from "http";
 import authRouter from "./routers/auth-router";
 import userRouter from "./routers/user-router";
+import adminRouter from "./routers/admin-router";
 import cors from "cors";
 import connectDB from "./config/database";
-import { authenticateJWT } from "./config/auth";
+import { authenticateJWT, isAdmin } from "./config/auth";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -18,6 +19,7 @@ connectDB();
 
 app.use("/auth", authRouter);
 app.use("/user", authenticateJWT, userRouter);
+app.use("/admin", authenticateJWT, isAdmin, adminRouter);
 
 // Endpoint kiểm tra
 app.get("/", (req, res) => {
