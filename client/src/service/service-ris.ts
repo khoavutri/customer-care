@@ -5,6 +5,12 @@ class ServiceRIS extends ServiceBase {
     super(baseURL);
   }
 
+  test = async (prompt: string) => {
+    const url = "/user/query";
+    const response = await this.service.post(url, { prompt });
+    return response;
+  };
+
   login = async (data: { username: string; password: string }) => {
     const url = "/auth/login";
     const response = await this.service.post(url, data);
@@ -44,6 +50,20 @@ class ServiceRIS extends ServiceBase {
   deleteConversation = async (id: string) => {
     const url = `/user/delete-conversation/${id}`;
     const response = await this.service.delete(url);
+    return response;
+  };
+
+  uploadJson = async (file: File) => {
+    const url = "/admin/upload-json";
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await this.service.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
     return response;
   };
 }

@@ -1,0 +1,266 @@
+[
+  {
+    "id": "halong-bay-001",
+    "type": "destination",
+    "name": "Vịnh Hạ Long",
+    "location": {
+      "city": "Quảng Ninh",
+      "region": "Miền Bắc",
+      "coordinates": {
+        "latitude": 20.9101,
+        "longitude": 107.1839
+      }
+    },
+    "description": "Vịnh Hạ Long, di sản UNESCO, nổi tiếng với hơn 1.600 đảo đá vôi, hang động kỳ vĩ và nước biển xanh ngọc.",
+    "tags": [
+      "biển",
+      "di sản",
+      "thuyền",
+      "hang động"
+    ],
+    "pricing": {
+      "low": 200000,
+      "high": 2000000,
+      "details": "Vé thuyền từ 200.000 VNĐ, tour cao cấp 1-2 triệu VNĐ."
+    },
+    "bestTime": {
+      "months": [
+        "Tháng 4",
+        "Tháng 5",
+        "Tháng 10"
+      ],
+      "weather": "Mát mẻ, ít mưa"
+    },
+    "activities": [
+      "Chèo thuyền kayak",
+      "Khám phá hang Sửng Sốt",
+      "Ngắm cảnh từ tàu du lịch"
+    ],
+    "images": [
+      "https://example.com/halong1.jpg"
+    ],
+    "reviews": {
+      "rating": 4.8,
+      "comments": [
+        "Cảnh đẹp tuyệt vời!",
+        "Dịch vụ tàu cần cải thiện."
+      ]
+    },
+    "metadata": {
+      "createdAt": "2025-07-06T18:56:00Z",
+      "updatedAt": "2025-07-06T18:56:00Z",
+      "source": "Vietnam Travel"
+    }
+  },
+  {
+    "id": "phu-quoc-001",
+    "type": "destination",
+    "name": "Phú Quốc",
+    "location": {
+      "city": "Kiên Giang",
+      "region": "Miền Nam",
+      "coordinates": {
+        "latitude": 10.2249,
+        "longitude": 103.9653
+      }
+    },
+    "description": "Phú Quốc là đảo ngọc với bãi biển cát trắng, nước trong xanh và hải sản tươi ngon.",
+    "tags": [
+      "biển",
+      "đảo",
+      "nghỉ dưỡng",
+      "hải sản"
+    ],
+    "pricing": {
+      "low": 500000,
+      "high": 5000000,
+      "details": "Tour 3 ngày từ 2 triệu VNĐ, khách sạn 5 sao từ 1 triệu VNĐ/đêm."
+    },
+    "bestTime": {
+      "months": [
+        "Tháng 11",
+        "Tháng 12",
+        "Tháng 1"
+      ],
+      "weather": "Khô ráo, nắng đẹp"
+    },
+    "activities": [
+      "Tắm biển Bãi Sao",
+      "Lặn ngắm san hô",
+      "Tham quan làng chài"
+    ],
+    "images": [
+      "https://example.com/phuquoc1.jpg"
+    ],
+    "reviews": {
+      "rating": 4.5,
+      "comments": [
+        "Biển đẹp, đồ ăn ngon!",
+        "Đường hơi khó đi."
+      ]
+    },
+    "metadata": {
+      "createdAt": "2025-07-06T18:56:00Z",
+      "updatedAt": "2025-07-06T18:56:00Z",
+      "source": "Traveloka"
+    }
+  },
+  {
+    "id": "da-nang-001",
+    "type": "destination",
+    "name": "Đà Nẵng",
+    "location": {
+      "city": "Đà Nẵng",
+      "region": "Miền Trung",
+      "coordinates": {
+        "latitude": 16.0544,
+        "longitude": 108.2022
+      }
+    },
+    "description": "Đà Nẵng là thành phố biển với cầu Rồng nổi tiếng, bãi biển Mỹ Khê và khu du lịch Bà Nà Hills.",
+    "tags": [
+      "biển",
+      "thành phố",
+      "cầu Rồng",
+      "nghỉ dưỡng"
+    ],
+    "pricing": {
+      "low": 300000,
+      "high": 3000000,
+      "details": "Vé Bà Nà Hills 900.000 VNĐ, khách sạn từ 500.000 VNĐ/đêm."
+    },
+    "bestTime": {
+      "months": [
+        "Tháng 3",
+        "Tháng 4",
+        "Tháng 5"
+      ],
+      "weather": "Nắng ấm, ít mưa"
+    },
+    "activities": [
+      "Tắm biển Mỹ Khê",
+      "Tham quan cầu Rồng",
+      "Khám phá Bà Nà Hills"
+    ],
+    "images": [
+      "https://example.com/danang1.jpg"
+    ],
+    "reviews": {
+      "rating": 4.7,
+      "comments": [
+        "Thành phố sạch, nhiều hoạt động!",
+        "Giá vé Bà Nà hơi cao."
+      ]
+    },
+    "metadata": {
+      "createdAt": "2025-07-06T18:56:00Z",
+      "updatedAt": "2025-07-06T18:56:00Z",
+      "source": "Vietnam Travel"
+    }
+  },
+  {
+    "id": "hanoi-001",
+    "type": "destination",
+    "name": "Hà Nội",
+    "location": {
+      "city": "Hà Nội",
+      "region": "Miền Bắc",
+      "coordinates": {
+        "latitude": 21.0285,
+        "longitude": 105.8542
+      }
+    },
+    "description": "Hà Nội là thủ đô với Hồ Gươm, Văn Miếu và văn hóa truyền thống phong phú.",
+    "tags": [
+      "thủ đô",
+      "văn hóa",
+      "hồ Gươm",
+      "lịch sử"
+    ],
+    "pricing": {
+      "low": 100000,
+      "high": 1000000,
+      "details": "Vé Văn Miếu 30.000 VNĐ, tour phố cổ từ 200.000 VNĐ."
+    },
+    "bestTime": {
+      "months": [
+        "Tháng 9",
+        "Tháng 10",
+        "Tháng 11"
+      ],
+      "weather": "Mát mẻ, khô ráo"
+    },
+    "activities": [
+      "Tham quan Hồ Gươm",
+      "Ăn phở bò",
+      "Dạo phố cổ"
+    ],
+    "images": [
+      "https://example.com/hanoi1.jpg"
+    ],
+    "reviews": {
+      "rating": 4.6,
+      "comments": [
+        "Phố cổ rất thú vị!",
+        "Giao thông hơi đông."
+      ]
+    },
+    "metadata": {
+      "createdAt": "2025-07-06T18:56:00Z",
+      "updatedAt": "2025-07-06T18:56:00Z",
+      "source": "Vietnam Travel"
+    }
+  },
+  {
+    "id": "hoi-an-001",
+    "type": "destination",
+    "name": "Hội An",
+    "location": {
+      "city": "Quảng Nam",
+      "region": "Miền Trung",
+      "coordinates": {
+        "latitude": 15.8801,
+        "longitude": 108.3380
+      }
+    },
+    "description": "Hội An là phố cổ với đèn lồng rực rỡ, kiến trúc cổ kính và văn hóa độc đáo.",
+    "tags": [
+      "phố cổ",
+      "đèn lồng",
+      "văn hóa"
+    ],
+    "pricing": {
+      "low": 120000,
+      "high": 1000000,
+      "details": "Vé tham quan phố cổ 120.000 VNĐ, tour ẩm thực từ 300.000 VNĐ."
+    },
+    "bestTime": {
+      "months": [
+        "Tháng 2",
+        "Tháng 3",
+        "Tháng 4"
+      ],
+      "weather": "Mát mẻ, khô ráo"
+    },
+    "activities": [
+      "Dạo phố cổ",
+      "Thả đèn hoa đăng",
+      "Tham quan làng gốm Thanh Hà"
+    ],
+    "images": [
+      "https://example.com/hoian1.jpg"
+    ],
+    "reviews": {
+      "rating": 4.9,
+      "comments": [
+        "Đèn lồng đẹp lung linh!",
+        "Buổi tối rất đông vui."
+      ]
+    },
+    "metadata": {
+      "createdAt": "2025-07-06T18:56:00Z",
+      "updatedAt": "2025-07-06T18:56:00Z",
+      "source": "Vietnam Travel"
+    }
+  }
+]

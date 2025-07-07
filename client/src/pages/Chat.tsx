@@ -56,6 +56,8 @@ const Chat = () => {
       sender: "user",
       timestamp: new Date(),
     };
+    const action1 = await servicesManager.RISService.test(inputMessage)
+    console.log(action1);
 
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");

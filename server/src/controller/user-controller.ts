@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import { Request, Response } from "express";
 import axios from "axios";
 import { generateTitle } from "../util/generate-title";
+import { hybridSearch, searchVector } from "../util/vector-handler";
+import { loadVectorsFromFolder } from "../util/load-vectors";
 
 dotenv.config();
 
@@ -26,6 +28,16 @@ export const onChat = async (req: Request, res: Response) => {
         message: 'Không tìm thấy thông tin người dùng từ token.',
       });
     }
+    const vectors = await loadVectorsFromFolder("data/vectors")
+    const results = await hybridSearch(prompt, vectors, 3);
+    const searchContext =
+      results.map((item, i) =>
+        `${i + 1}. ${item.original.name}: ${item.original.description || ''}`
+      ).join('\n')
+    const systemPrompt = `Bạn là trợ lý du lịch Việt Nam. Dựa trên các gợi ý này (nếu phù hợp), hãy tư vấn chi tiết cho người dùng:
+${searchContext}
+---
+Nói tiếng Việt, trả lời tự nhiên. Nếu trong dữ liệu này không có data gì thì hãy khuyên họ đi theo data`;
 
     let finalConversationId = conversationId;
     let conversationChose = null
@@ -77,10 +89,7 @@ export const onChat = async (req: Request, res: Response) => {
       {
         model: 'sonar-pro',
         messages: [
-          {
-            role: 'system',
-            content: 'Nói tiếng Việt, trả lời tự nhiên.',
-          },
+          { role: 'system', content: systemPrompt },
           { role: 'user', content: prompt.trim() },
         ],
         search_mode: 'web',
@@ -324,5 +333,24 @@ export const deleteConversation = async (req: Request, res: Response) => {
       message: 'Lỗi khi xóa cuộc trò chuyện.',
       error: error.message || 'Lỗi không xác định',
     });
+  }
+};
+
+export const query = async (req: Request, res: Response) => {
+  try {
+    const { prompt } = req.body;
+    if (!prompt) {
+      return res.status(400).json({ status: 0, message: 'fileId và prompt là bắt buộc' });
+    }
+    const vectors = await loadVectorsFromFolder("data/vectors")
+    const results = await hybridSearch(prompt, vectors, 15);
+
+    return res.status(200).json({
+      status: 1,
+      message: 'Xóa cuộc trò chuyện và tin nhắn thành công!',
+      data: results,
+    });
+  } catch (error: any) {
+    res.status(500).json({ status: 0, message: error.message });
   }
 };

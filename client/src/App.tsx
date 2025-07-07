@@ -12,6 +12,7 @@ import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
 import PrivateRouter from "./router/PrivateRouter";
 import PublicRouter from "./router/PublicRouter";
+import Test from "./pages/Test";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,12 @@ const App = () => (
                 <PublicRouter>
                   <Login />
                 </PublicRouter>
+              }
+            />
+            <Route
+              path="/test"
+              element={
+                <Test />
               }
             />
             <Route
