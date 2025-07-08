@@ -35,7 +35,7 @@ export const onChat = async (req: Request, res: Response) => {
     );
     const systemPrompt = `Bạn là trợ lý du lịch Việt Nam. Hãy tư vấn chi tiết cho người dùng, Nói tiếng Việt, trả lời tự nhiên.`;
     const userPrompt = `${prompt.trim()},
-    nếu không có cái nào trong này phù hợp thì trả lời không có dữ liệu và khuyên họ đi các điểm trong danh sách,
+    nếu không có cái nào trong này phù hợp thì trả lời:"Tôi không có dữ liệu về vấn đề này",
     không được trả lời dữ liệu ngoài về các điểm trong này,
     Đây là dữ liệu tôi cung cấp:${searchContext}`;
     let finalConversationId = conversationId;
@@ -80,7 +80,7 @@ export const onChat = async (req: Request, res: Response) => {
       content: prompt.trim(),
       model: 'Perplexity',
       timestamp: userMessageTimestamp,
-      realExchange: prompt.trim()
+      realExchange: userPrompt
     });
     userMessage.save();
     const response = await axios.post(

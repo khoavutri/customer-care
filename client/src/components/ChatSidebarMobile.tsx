@@ -4,6 +4,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus, Settings, LogOut, X, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "@/util/format-date";
+import SettingsModal from "./SettingsModal";
 
 interface ChatSidebarMobileProps {
   isOpen: boolean;
@@ -21,13 +22,13 @@ const ChatSidebarMobile = ({
   handleDelete,
 }: ChatSidebarMobileProps) => {
   const navigate = useNavigate();
-
+  const [open, setOpen] = useState(false)
   return (
     <div
-      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${
-        isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-      }`}
+      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+        }`}
     >
+      <SettingsModal isOpen={open} onClose={() => setOpen(false)} />
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border flex justify-between items-center shrink-0">
         <h2 className="text-lg font-semibold text-sidebar-foreground">
@@ -114,6 +115,10 @@ const ChatSidebarMobile = ({
           variant="ghost"
           className="w-full h-12 justify-start text-sidebar-foreground hover:bg-sidebar-accent text-base"
           aria-label="Mở cài đặt"
+          onClick={() => {
+            setOpen(true)
+            onClose()
+          }}
         >
           <Settings className="h-5 w-5 mr-2" />
           Cài đặt
