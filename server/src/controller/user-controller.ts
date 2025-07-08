@@ -30,15 +30,14 @@ export const onChat = async (req: Request, res: Response) => {
     }
     const vectors = await loadVectorsFromFolder("data/vectors")
     const results = await hybridSearch(prompt, vectors, 3);
-    const searchContext =
-      results.map((item, i) =>
-        `${i + 1}. ${item.original.name}: ${item.original.description || ''}`
-      ).join('\n')
-    const systemPrompt = `Bạn là trợ lý du lịch Việt Nam. Dựa trên các gợi ý này (nếu phù hợp), hãy tư vấn chi tiết cho người dùng:
-${searchContext}
----
-Nói tiếng Việt, trả lời tự nhiên. Nếu trong dữ liệu này không có data gì thì hãy khuyên họ đi theo data`;
-
+    const searchContext = JSON.stringify(
+      results.map(({ embedding, text, ...item }) => item)
+    );
+    const systemPrompt = `Bạn là trợ lý du lịch Việt Nam. Hãy tư vấn chi tiết cho người dùng, Nói tiếng Việt, trả lời tự nhiên.`;
+    const userPrompt = `${prompt.trim()},
+    nếu không có cái nào trong này phù hợp thì trả lời không có dữ liệu và khuyên họ đi các điểm trong danh sách,
+    không được trả lời dữ liệu ngoài về các điểm trong này,
+    Đây là dữ liệu tôi cung cấp:${searchContext}`;
     let finalConversationId = conversationId;
     let conversationChose = null
     if (conversationId) {
@@ -90,7 +89,7 @@ Nói tiếng Việt, trả lời tự nhiên. Nếu trong dữ liệu này khôn
         model: 'sonar-pro',
         messages: [
           { role: 'system', content: systemPrompt },
-          { role: 'user', content: prompt.trim() },
+          { role: 'user', content: userPrompt },
         ],
         search_mode: 'web',
         reasoning_effort: 'medium',

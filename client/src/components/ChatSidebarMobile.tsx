@@ -10,7 +10,7 @@ interface ChatSidebarMobileProps {
   onClose: () => void;
   handleLogout: () => void;
   list: Array<any>;
-  handleDelete: (id: string) => void
+  handleDelete: (id: string) => void;
 }
 
 const ChatSidebarMobile = ({
@@ -18,14 +18,15 @@ const ChatSidebarMobile = ({
   onClose,
   handleLogout,
   list,
-  handleDelete
+  handleDelete,
 }: ChatSidebarMobileProps) => {
   const navigate = useNavigate();
 
   return (
     <div
-      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
-        }`}
+      className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${
+        isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+      }`}
     >
       {/* Header */}
       <div className="p-4 border-b border-sidebar-border flex justify-between items-center shrink-0">
@@ -77,17 +78,19 @@ const ChatSidebarMobile = ({
                   tabIndex={0}
                   aria-label={`Mở cuộc trò chuyện ${chat?.title}`}
                 >
-                  <h4 className="flex items-center justify-between text-sm font-medium text-sidebar-foreground">
-                    <span className="truncate">{chat?.title || 'Không tên'}</span>
+                  <h4 className="flex justify-between text-sm font-medium text-sidebar-foreground">
+                    <span className="truncate">
+                      {chat?.title || "Không tên"}
+                    </span>
                     <Button
                       variant="ghost"
                       size="icon"
                       className="ml-2 p-2 h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/50 
                                rounded-full transition-colors duration-150 group"
-                      title='Xóa cuộc trò chuyện'
+                      title="Xóa cuộc trò chuyện"
                       onClick={(e) => {
-                        e.stopPropagation()
-                        handleDelete(chat?.conversationId)
+                        e.stopPropagation();
+                        handleDelete(chat?.conversationId);
                       }}
                     >
                       <Trash className="w-4 h-4 group-hover:scale-110 transition-transform duration-150" />

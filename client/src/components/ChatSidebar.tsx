@@ -1,9 +1,16 @@
-import React, { useRef, useLayoutEffect, useState } from 'react';
-import * as ScrollArea from '@radix-ui/react-scroll-area';
-import { useNavigate } from 'react-router-dom';
-import { MessageSquare, Plus, Settings, LogOut, MoreVertical, Trash } from 'lucide-react';
-import { Button } from './ui/button';
-import * as Tooltip from '@radix-ui/react-tooltip';
+import React, { useRef, useLayoutEffect, useState } from "react";
+import * as ScrollArea from "@radix-ui/react-scroll-area";
+import { useNavigate } from "react-router-dom";
+import {
+  MessageSquare,
+  Plus,
+  Settings,
+  LogOut,
+  MoreVertical,
+  Trash,
+} from "lucide-react";
+import { Button } from "./ui/button";
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 interface Chat {
   conversationId?: string;
@@ -18,13 +25,26 @@ interface ChatSidebarProps {
   onToggle: () => void;
   handleLogout: () => void;
   list: Chat[];
-  handleDelete: (id: string) => void
+  handleDelete: (id: string) => void;
 }
 
 const formatDate = (time?: string) =>
-  time ? new Date(time).toLocaleDateString('vi-VN', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : 'Không rõ';
+  time
+    ? new Date(time).toLocaleDateString("vi-VN", {
+        day: "numeric",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : "Không rõ";
 
-const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handleLogout, list, handleDelete }) => {
+const ChatSidebar: React.FC<ChatSidebarProps> = ({
+  isCollapsed,
+  onToggle,
+  handleLogout,
+  list,
+  handleDelete,
+}) => {
   const navigate = useNavigate();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
@@ -34,13 +54,19 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handle
 
   useLayoutEffect(() => {
     const calculateHeight = () => {
-      if (sidebarRef.current && headerRef.current && newChatRef.current && bottomRef.current) {
+      if (
+        sidebarRef.current &&
+        headerRef.current &&
+        newChatRef.current &&
+        bottomRef.current
+      ) {
         const sidebarHeight = sidebarRef.current.offsetHeight;
         const headerHeight = headerRef.current.offsetHeight;
         const newChatHeight = newChatRef.current.offsetHeight;
         const bottomHeight = bottomRef.current.offsetHeight;
         const padding = 32; // px-4 = 16px trên/dưới
-        const availableHeight = sidebarHeight - headerHeight - newChatHeight - bottomHeight - padding;
+        const availableHeight =
+          sidebarHeight - headerHeight - newChatHeight - bottomHeight - padding;
         setScrollAreaHeight(Math.max(availableHeight, 100));
       }
     };
@@ -54,7 +80,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handle
   return (
     <div
       ref={sidebarRef}
-      className={`${isCollapsed ? 'w-16' : 'w-80'} bg-sidebar border-r border-sidebar-border h-full flex flex-col transition-all duration-300`}
+      className={`${
+        isCollapsed ? "w-16" : "w-80"
+      } bg-sidebar border-r border-sidebar-border h-full flex flex-col transition-all duration-300`}
     >
       {/* Header */}
       <div ref={headerRef} className="p-4 border-b border-sidebar-border">
@@ -78,8 +106,10 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handle
       {/* New Chat Button */}
       <div ref={newChatRef} className="p-4">
         <Button
-          className={`${isCollapsed ? 'w-8 h-8 p-0' : 'w-full'} bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white transition-all duration-200`}
-          onClick={() => navigate('/chat')}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full"
+          } bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white transition-all duration-200`}
+          onClick={() => navigate("/chat")}
         >
           <Plus className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Cuộc trò chuyện mới</span>}
@@ -93,20 +123,18 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handle
               Lịch sử trò chuyện
             </h3>
             <ScrollArea.Root
-              className='px-2'
+              className="px-2"
               style={{
-                width: '100%',
-                borderRadius: '0.5rem',
-                backgroundColor: 'inherit',
+                width: "100%",
+                borderRadius: "0.5rem",
+                backgroundColor: "inherit",
                 height: scrollAreaHeight,
-                overflow: 'hidden',
+                overflow: "hidden",
               }}
               type="hover"
               scrollHideDelay={400}
             >
-              <ScrollArea.Viewport
-                style={{ width: '100%', height: '100%' }}
-              >
+              <ScrollArea.Viewport style={{ width: "100%", height: "100%" }}>
                 <div className="space-y-2 p-2">
                   {list.map((chat, index) => (
                     <div
@@ -116,28 +144,35 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handle
                       onClick={() => navigate(`/chat/${chat?.conversationId}`)}
                       role="button"
                       tabIndex={0}
-                      onKeyDown={(e) => e.key === 'Enter' && navigate(`/chat/${chat?.conversationId}`)}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" &&
+                        navigate(`/chat/${chat?.conversationId}`)
+                      }
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1 min-w-0">
-                          <h4 className="flex items-center justify-between text-sm font-medium text-sidebar-foreground">
-                            <span className="truncate">{chat?.title || 'Không tên'}</span>
+                          <h4 className="flex justify-between text-sm font-medium text-sidebar-foreground">
+                            <span className="truncate">
+                              {chat?.title || "Không tên"}
+                            </span>
                             <Button
                               variant="ghost"
                               size="icon"
                               className="ml-2 p-2 h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/50 
                                rounded-full transition-colors duration-150 group"
-                              title='Xóa cuộc trò chuyện'
+                              title="Xóa cuộc trò chuyện"
                               onClick={(e) => {
-                                e.stopPropagation()
-                                handleDelete(chat?.conversationId)
+                                e.stopPropagation();
+                                handleDelete(chat?.conversationId);
                               }}
                             >
                               <Trash className="w-4 h-4 group-hover:scale-110 transition-transform duration-150" />
                             </Button>
                           </h4>
                           <p className="text-xs text-sidebar-foreground/50 mt-2">
-                            {formatDate(chat?.latestTimestamp || chat?.updatedAt)}
+                            {formatDate(
+                              chat?.latestTimestamp || chat?.updatedAt
+                            )}
                           </p>
                         </div>
                       </div>
@@ -147,39 +182,50 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handle
               </ScrollArea.Viewport>
               <ScrollArea.Scrollbar
                 style={{
-                  width: '0.625rem',
-                  padding: '2px',
-                  background: 'rgba(0, 0, 0, 0.05)',
-                  transition: 'background 0.16s',
+                  width: "0.625rem",
+                  padding: "2px",
+                  background: "rgba(0, 0, 0, 0.05)",
+                  transition: "background 0.16s",
                 }}
                 orientation="vertical"
-                onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(0, 0, 0, 0.1)')}
-                onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(0, 0, 0, 0.05)')}
+                onMouseOver={(e) =>
+                  (e.currentTarget.style.background = "rgba(0, 0, 0, 0.1)")
+                }
+                onMouseOut={(e) =>
+                  (e.currentTarget.style.background = "rgba(0, 0, 0, 0.05)")
+                }
               >
                 <ScrollArea.Thumb
                   style={{
                     flex: 1,
-                    background: 'rgba(0, 0, 0, 0.3)',
-                    borderRadius: '10px',
-                    transition: 'background 0.16s',
+                    background: "rgba(0, 0, 0, 0.3)",
+                    borderRadius: "10px",
+                    transition: "background 0.16s",
                   }}
-                  onMouseOver={(e) => (e.currentTarget.style.background = 'rgba(0, 0, 0, 0.5)')}
-                  onMouseOut={(e) => (e.currentTarget.style.background = 'rgba(0, 0, 0, 0.3)')}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.background = "rgba(0, 0, 0, 0.5)")
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.background = "rgba(0, 0, 0, 0.3)")
+                  }
                 />
               </ScrollArea.Scrollbar>
-              <ScrollArea.Corner
-                style={{ background: 'rgba(0, 0, 0, 0.1)' }}
-              />
+              <ScrollArea.Corner style={{ background: "rgba(0, 0, 0, 0.1)" }} />
             </ScrollArea.Root>
           </div>
         </div>
       )}
 
       {/* Bottom Actions */}
-      <div ref={bottomRef} className="p-4 border-t border-sidebar-border space-y-2">
+      <div
+        ref={bottomRef}
+        className="p-4 border-t border-sidebar-border space-y-2"
+      >
         <Button
           variant="ghost"
-          className={`${isCollapsed ? 'w-8 h-8 p-0' : 'w-full justify-start'} text-sidebar-foreground hover:bg-sidebar-accent`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
+          } text-sidebar-foreground hover:bg-sidebar-accent`}
         >
           <Settings className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Cài đặt</span>}
@@ -187,7 +233,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({ isCollapsed, onToggle, handle
         <Button
           variant="ghost"
           onClick={handleLogout}
-          className={`${isCollapsed ? 'w-8 h-8 p-0' : 'w-full justify-start'} text-sidebar-foreground hover:bg-sidebar-accent hover:text-red-500`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
+          } text-sidebar-foreground hover:bg-sidebar-accent hover:text-red-500`}
         >
           <LogOut className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Đăng xuất</span>}

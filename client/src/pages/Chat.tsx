@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { Send, Bot, User, LogOut, Settings } from "lucide-react";
+import { Send, Bot, User } from "lucide-react";
 import ChatSidebar from "@/components/ChatSidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
 import ChatSidebarMobile from "@/components/ChatSidebarMobile";
@@ -10,7 +10,6 @@ import { setToken } from "@/manager/store-manager";
 import { servicesManager } from "@/service/service-manager";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { scrollBar } from "@/constant/constant";
 
 interface Message {
@@ -44,7 +43,7 @@ const Chat = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "auto",
-      block: "end"
+      block: "end",
     });
   };
 
@@ -56,8 +55,6 @@ const Chat = () => {
       sender: "user",
       timestamp: new Date(),
     };
-    const action1 = await servicesManager.RISService.test(inputMessage)
-    console.log(action1);
 
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
@@ -127,19 +124,18 @@ const Chat = () => {
 
   const handleDeleteHistory = async (id: string) => {
     if (!id) {
-      console.log("Không tồn tại lịch sử chat này");
       return;
     }
     const action = await servicesManager.RISService.deleteConversation(id);
     if (action && action.status === 1) {
-      toast("Xóa đoạn chat thành công!")
+      toast("Xóa đoạn chat thành công!");
       if (action.data.conversationId === params?.id) {
         navigate(`/chat`);
       } else {
         fetchHistoryList();
       }
     } else {
-      toast("Xóa không thành công!")
+      toast("Xóa không thành công!");
     }
   };
 
@@ -153,7 +149,7 @@ const Chat = () => {
   }, [params]);
 
   return (
-    <div className="flex bg-background" style={{ height: '100vh' }}>
+    <div className="flex bg-background" style={{ height: "100vh" }}>
       {mobile ? (
         <ChatSidebarMobile
           isOpen={sidebarCollapsed}
@@ -200,14 +196,16 @@ const Chat = () => {
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
-                ? "flex-row-reverse space-x-reverse"
-                : ""
-                }`}
+              className={`flex items-start space-x-3 animate-fade-in ${
+                message.sender === "user"
+                  ? "flex-row-reverse space-x-reverse"
+                  : ""
+              }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                  }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -217,17 +215,19 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${message.sender === "user"
-                  ? "chat-bubble-user"
-                  : "chat-bubble-assistant"
-                  }`}
+                className={`chat-bubble ${
+                  message.sender === "user"
+                    ? "chat-bubble-user"
+                    : "chat-bubble-assistant"
+                }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
-                    ? "text-white/70"
-                    : "text-muted-foreground"
-                    }`}
+                  className={`text-xs mt-1 opacity-70 ${
+                    message.sender === "user"
+                      ? "text-white/70"
+                      : "text-muted-foreground"
+                  }`}
                 >
                   {new Date(message.timestamp).toLocaleTimeString("vi-VN", {
                     hour: "2-digit",
@@ -284,7 +284,7 @@ const Chat = () => {
           </p>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
