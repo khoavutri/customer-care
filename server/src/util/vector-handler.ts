@@ -4,6 +4,8 @@ import path from 'path';
 import { cosineSimilarity } from './cosine';
 import { convertToArray } from './convert-array';
 
+const modelEmbed = "Xenova/all-MiniLM-L6-v2"
+//'Xenova/bert-base-multilingual-cased'
 export function mixDataToTextVi(item: any): string {
     return [
         `Tên địa điểm: ${item.name}. Loại: ${item.type}.`,
@@ -23,7 +25,7 @@ export function mixDataToTextVi(item: any): string {
 export async function generateVectorsFromJson(jsonPath: string, outPath: string) {
     const content = await fs.readFile(jsonPath, 'utf8');
     const data = JSON.parse(content);
-    const embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+    const embedder = await pipeline('feature-extraction', modelEmbed);
     const allVectors = [];
 
     for (const item of data) {
@@ -44,7 +46,7 @@ export async function generateVectorsFromJson(jsonPath: string, outPath: string)
 }
 
 export async function searchVector(query: string, vectors: any, topK = 3) {
-    const embedder: any = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+    const embedder: any = await pipeline('feature-extraction', modelEmbed);
     const queryEmbedding = (await embedder(query))[0][0];
     const scored = vectors.map((item: any) => ({
         ...item,
@@ -117,9 +119,6 @@ function keywordSearch(query: string, vectors: any[], topK: number = 10): any[] 
         .slice(0, topK);
 }
 
-/**
- * Chuẩn hóa điểm số về thang 0-1
- */
 function normalizeScores(items: any[], scoreField: string): any[] {
     const scores = items.map(item => item[scoreField]);
     const maxScore = Math.max(...scores);
@@ -134,7 +133,6 @@ function normalizeScores(items: any[], scoreField: string): any[] {
     }));
 }
 
-
 export async function hybridSearch(
     query: string,
     vectors: any,
@@ -142,25 +140,19 @@ export async function hybridSearch(
     semanticWeight: number = 0.7,
     keywordWeight: number = 0.3
 ): Promise<any[]> {
-    // Validate weights
     if (Math.abs(semanticWeight + keywordWeight - 1.0) > 0.001) {
         throw new Error('semanticWeight + keywordWeight phải bằng 1.0');
     }
-    // 1. Semantic Search
     const semanticResults = await searchVector(query, vectors, Math.min(topK * 3, vectors.length));
 
-    // 2. Keyword Search
     const keywordResults = keywordSearch(query, vectors, Math.min(topK * 3, vectors.length));
 
-    // 3. Chuẩn hóa điểm số
     const normalizedSemantic = normalizeScores(semanticResults, 'score');
     const normalizedKeyword = normalizeScores(keywordResults, 'keywordScore');
 
-    // 4. Tạo map để dễ lookup
     const semanticMap = new Map(normalizedSemantic.map(item => [item.id, item.score]));
     const keywordMap = new Map(normalizedKeyword.map(item => [item.id, item.keywordScore]));
 
-    // 5. Combine results
     const allIds = new Set([...semanticMap.keys(), ...keywordMap.keys()]);
     const combinedResults = Array.from(allIds).map(id => {
         const semanticScore = semanticMap.get(id) || 0;
@@ -209,7 +201,6 @@ export async function compareSearchMethods(
     const semanticResults = await searchVector(query, vectorFile, topK);
     const hybridResults = await hybridSearch(query, vectorFile, topK);
 
-    // Tính toán overlap
     const semanticIds = new Set(semanticResults.map((r: any) => r.id));
     const hybridIds = new Set(hybridResults.map(r => r.id));
     const intersection = new Set([...semanticIds].filter(id => hybridIds.has(id)));

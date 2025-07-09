@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { servicesManager } from "@/service/service-manager";
+import { useStore } from "@/contexts/StoreContext";
 
 export const hasAnyAuthority = (
   authorities: Array<string>,
@@ -31,15 +32,13 @@ const PrivateRouter = ({
   ...rest
 }: IOwnProps) => {
   const location = useLocation();
-
   if (!children) {
     throw new Error(
-      `A component needs to be specified for private route for path ${
-        (rest as any).path
+      `A component needs to be specified for private route for path ${(rest as any).path
       }`
     );
   }
-
+  const { setStore } = useStore()
   const [auth, setAuth] = useState(true);
   useEffect(() => {
     checkAuth();
@@ -50,11 +49,14 @@ const PrivateRouter = ({
       const action = await servicesManager.RISService.checkAuth();
       if (action && action.status === 1) {
         setAuth(true);
+        setStore({ user: action.data?.user })
         return;
       }
+      setStore({ user: undefined })
       setAuth(false);
     } catch (error) {
       console.error("Lỗi xác thực:", error);
+      setStore({ user: undefined })
       setAuth(false);
     }
   };

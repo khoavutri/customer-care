@@ -16,25 +16,26 @@ import { servicesManager } from "@/service/service-manager";
 import { toast } from "sonner";
 import { setToken } from "@/manager/store-manager";
 import { scrollBar } from "@/constant/constant";
+import { useLoading } from "@/contexts/LoadingContext";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const { setLoading } = useLoading()
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const action = await servicesManager.RISService.login({
       username: email,
       password: password,
     });
+
     if (action && action.status === 1) {
       setToken(action.data.token);
       toast("Đăng nhập thành công!");
       window.location.href = "/chat";
       return;
     }
-
     toast("Đăng nhập không thành công!");
   };
 

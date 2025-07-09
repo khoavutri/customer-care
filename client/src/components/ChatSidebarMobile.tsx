@@ -5,6 +5,7 @@ import { Plus, Settings, LogOut, X, Trash } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "@/util/format-date";
 import SettingsModal from "./SettingsModal";
+import { useStore } from "@/contexts/StoreContext";
 
 interface ChatSidebarMobileProps {
   isOpen: boolean;
@@ -23,6 +24,8 @@ const ChatSidebarMobile = ({
 }: ChatSidebarMobileProps) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false)
+  const { store } = useStore()
+
   return (
     <div
       className={`fixed inset-0 bg-sidebar z-50 flex flex-col max-h-[100dvh] w-[90vw] max-w-[320px] transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
@@ -119,9 +122,10 @@ const ChatSidebarMobile = ({
             setOpen(true)
             onClose()
           }}
+          disabled={store?.user?.role !== "admin"}
         >
           <Settings className="h-5 w-5 mr-2" />
-          Cài đặt
+          Quản trị
         </Button>
         <Button
           variant="ghost"
