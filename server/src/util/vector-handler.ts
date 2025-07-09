@@ -3,7 +3,6 @@ import fs from 'fs/promises';
 import path from 'path';
 import { cosineSimilarity } from './cosine';
 import { convertToArray } from './convert-array';
-import { loadVectorsFromFolder } from './load-vectors';
 
 export function mixDataToTextVi(item: any): string {
     return [

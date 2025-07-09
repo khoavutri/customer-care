@@ -1,0 +1,50 @@
+ [{
+      "id": "halong-bay-001",
+      "type": "destination",
+      "name": "Vịnh Hạ Long",
+      "location": {
+        "city": "Quảng Ninh",
+        "region": "Miền Bắc",
+        "coordinates": {
+          "latitude": 20.9101,
+          "longitude": 107.1839
+        }
+      },
+      "description": "Vịnh Hạ Long, di sản UNESCO, nổi tiếng với hơn 1.600 đảo đá vôi, hang động kỳ vĩ và nước biển xanh ngọc.",
+      "tags": [
+        "biển",
+        "di sản",
+        "thuyền",
+        "hang động"
+      ],
+      "pricing": {
+        "low": 200000,
+        "high": 2000000,
+        "details": "Vé thuyền từ 200.000 VNĐ, tour cao cấp 1-2 triệu VNĐ."
+      },
+      "bestTime": {
+        "months": [
+          "Tháng 4",
+          "Tháng 5",
+          "Tháng 10"
+        ],
+        "weather": "Mát mẻ, ít mưa"
+      },
+      "activities": [
+        "Chèo thuyền kayak",
+        "Khám phá hang Sửng Sốt",
+        "Ngắm cảnh từ tàu du lịch"
+      ],
+      "reviews": {
+        "rating": 4.8,
+        "comments": [
+          "Cảnh đẹp tuyệt vời!",
+          "Dịch vụ tàu cần cải thiện."
+        ]
+      },
+      "metadata": {
+        "createdAt": "2025-07-06T18:56:00Z",
+        "updatedAt": "2025-07-06T18:56:00Z",
+        "source": "Vietnam Travel"
+      }
+    }]

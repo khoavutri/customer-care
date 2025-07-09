@@ -53,6 +53,24 @@ class ServiceRIS extends ServiceBase {
     return response;
   };
 
+  grantAdmin = async (id: string) => {
+    const url = `/admin/grant-admin`;
+    const response = await this.service.put(url, { userId: id });
+    return response;
+  };
+
+  deleteUser = async (id: string) => {
+    const url = `/admin/delete-user/${id}`;
+    const response = await this.service.delete(url);
+    return response;
+  };
+
+  cleanUp = async () => {
+    const url = `/admin/clean-up`;
+    const response = await this.service.delete(url);
+    return response;
+  };
+
   uploadJson = async (file: File) => {
     const url = "/admin/upload-json";
     const formData = new FormData();
@@ -65,6 +83,24 @@ class ServiceRIS extends ServiceBase {
     });
 
     return response;
+  };
+
+  getUserList = async (params: {
+    page?: number,
+    pageSize?: number,
+    name?: string,
+    email: string,
+  }) => {
+    const url = "/admin/user-list";
+    const { page = 1, pageSize = 3, name = "", email } = params;
+    const response = await this.service.post(url, {
+      page: page,
+      pageSize: pageSize,
+      name: name,
+      email,
+    });
+    return response;
+
   };
 }
 

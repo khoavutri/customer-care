@@ -31,13 +31,15 @@ export const onChat = async (req: Request, res: Response) => {
     const vectors = await loadVectorsFromFolder("data/vectors")
     const results = await hybridSearch(prompt, vectors, 3);
     const searchContext = JSON.stringify(
-      results.map(({ embedding, text, ...item }) => item)
+      results.map((item) => item.original)
     );
+
     const systemPrompt = `Bạn là trợ lý du lịch Việt Nam. Hãy tư vấn chi tiết cho người dùng, Nói tiếng Việt, trả lời tự nhiên.`;
     const userPrompt = `${prompt.trim()},
-    nếu không có cái nào trong này phù hợp thì trả lời:"Tôi không có dữ liệu về vấn đề này",
-    không được trả lời dữ liệu ngoài về các điểm trong này,
-    Đây là dữ liệu tôi cung cấp:${searchContext}`;
+    Đây là dữ liệu tôi cung cấp:${searchContext},
+    Nếu không có cái nào trong này phù hợp thì trả lời:"Tôi không có dữ liệu về vấn đề này",
+    không được trả lời dữ liệu ngoài về các điểm trong này.`;
+
     let finalConversationId = conversationId;
     let conversationChose = null
     if (conversationId) {
@@ -83,6 +85,7 @@ export const onChat = async (req: Request, res: Response) => {
       realExchange: userPrompt
     });
     userMessage.save();
+
     const response = await axios.post(
       'https://api.perplexity.ai/chat/completions',
       {
@@ -353,3 +356,4 @@ export const query = async (req: Request, res: Response) => {
     res.status(500).json({ status: 0, message: error.message });
   }
 };
+
