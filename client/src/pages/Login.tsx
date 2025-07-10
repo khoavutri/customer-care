@@ -116,14 +116,14 @@ const Login = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-sm">
+              {/* <div className="flex items-center justify-between text-sm">
                 <Link
                   to="/forgot-password"
                   className="text-primary hover:text-primary/80 transition-colors font-medium"
                 >
                   Quên mật khẩu?
                 </Link>
-              </div>
+              </div> */}
 
               <Button
                 type="submit"

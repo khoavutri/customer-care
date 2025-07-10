@@ -49,7 +49,7 @@ const App = () => (
                     </PublicRouter>
                   }
                 />
-                <Route path="/test" element={<Test />} />
+                {/* <Route path="/test" element={<Test />} /> */}
                 <Route
                   path="/register"
                   element={
@@ -58,14 +58,14 @@ const App = () => (
                     </PublicRouter>
                   }
                 />
-                <Route
+                {/* <Route
                   path="/forgot-password"
                   element={
                     <PublicRouter>
                       <ForgotPassword />
                     </PublicRouter>
                   }
-                />
+                /> */}
                 <Route
                   path="/chat/:id?"
                   element={

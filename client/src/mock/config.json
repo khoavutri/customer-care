@@ -1,5 +1,5 @@
 {
   "serverConfig": {
-    "RIS_SERVER": "http://localhost:8080"
+    "RIS_SERVER": "http://3.25.197.19:8080"
   }
 }
