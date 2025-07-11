@@ -193,7 +193,9 @@ const Chat = () => {
         </header>
         {/* Messages */}
         <div
-          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar}`}
+          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar} ${
+            mobile ? "mb-[80px]" : ""
+          }`}
           style={{ backgroundColor: "222.2 84% 4.9%" }}
         >
           {messages.map((message) => (
@@ -270,29 +272,54 @@ const Chat = () => {
           <div ref={messagesEndRef} />
         </div>
         {/* Input */}
-        <div className="border-t bg-card/50 backdrop-blur-sm p-4">
-          <div className="flex space-x-3">
-            <Input
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Nhập tin nhắn của bạn..."
-              className="flex-1 h-12 rounded-xl"
-              disabled={isTyping}
-            />
-            <Button
-              onClick={handleSendMessage}
-              disabled={!inputMessage.trim() || isTyping}
-              className="h-12 w-12 rounded-xl bg-chat-gradient hover:opacity-90 transition-opacity p-0"
-            >
-              <Send className="w-4 h-4 text-white" />
-            </Button>
+        {mobile ? (
+          <div className="fixed bottom-0 left-0 right-0 p-4 z-10 h-[90px] bg-background">
+            <div className="flex space-x-3 max-w-screen-md mx-auto">
+              <Input
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Nhập tin nhắn của bạn..."
+                className="flex-1 h-10 rounded-xl"
+                disabled={isTyping}
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={!inputMessage.trim() || isTyping}
+                className="h-10 w-10 rounded-xl bg-chat-gradient hover:opacity-90 transition-opacity p-0"
+              >
+                <Send className="w-4 h-4 text-white" />
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2 text-center mb-[10px]">
+              AI có thể mắc lỗi. Vui lòng kiểm tra thông tin quan trọng.
+            </p>
           </div>
+        ) : (
+          <div className="border-t bg-card/50 backdrop-blur-sm p-4">
+            <div className="flex space-x-3">
+              <Input
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Nhập tin nhắn của bạn..."
+                className="flex-1 h-12 rounded-xl"
+                disabled={isTyping}
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={!inputMessage.trim() || isTyping}
+                className="h-12 w-12 rounded-xl bg-chat-gradient hover:opacity-90 transition-opacity p-0"
+              >
+                <Send className="w-4 h-4 text-white" />
+              </Button>
+            </div>
 
-          <p className="text-xs text-muted-foreground mt-2 text-center">
-            AI có thể mắc lỗi. Vui lòng kiểm tra thông tin quan trọng.
-          </p>
-        </div>
+            <p className="text-xs text-muted-foreground mt-2 text-center">
+              AI có thể mắc lỗi. Vui lòng kiểm tra thông tin quan trọng.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
