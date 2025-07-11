@@ -105,7 +105,7 @@ export const onChat = async (req: Request, res: Response) => {
         presence_penalty: 0,
         frequency_penalty: 0,
         web_search_options: { search_context_size: 'low' },
-        max_tokens: 250,
+        // max_tokens: 250,
         return_citations: false,
       },
       {
