@@ -3,6 +3,7 @@ import cors from "cors";
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
+import http from "http";
 import authRouter from "./routers/auth-router";
 import userRouter from "./routers/user-router";
 import adminRouter from "./routers/admin-router";
@@ -33,7 +34,7 @@ const ca = fs.readFileSync(path.join(__dirname, '../ssl/ca-chain.crt'), 'utf8');
 
 const credentials = { key, cert, ca };
 
-https.createServer(credentials, app).listen(PORT, () => {
+http.createServer(app).listen(PORT, () => {
   console.log(`HTTPS server running on port ${PORT}`);
 });
 

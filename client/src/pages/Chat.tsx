@@ -15,12 +15,20 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Markdown from "@/components/markdown";
 import { cleanCitations } from "@/util/clean-result";
+import { motion, AnimatePresence } from "framer-motion";
+
 interface Message {
   id: string;
   content: string;
   sender: "user" | "assistant";
   timestamp: Date;
 }
+
+const defaultSuggestions = [
+  "Hôm nay đi đâu?",
+  "Biển nào đẹp?",
+  "Gợi ý khu du lịch sinh thái",
+];
 
 const preMessage: Array<Message> = [
   {
@@ -33,21 +41,32 @@ const preMessage: Array<Message> = [
 ];
 
 const Chat = () => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const mobile = useIsMobile();
+  const lastContainerRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [lastContainerSize, setLastContainerSize] = useState({
+    height: 0,
+    width: 0,
+  });
   const [messages, setMessages] = useState<Message[]>([]);
   const [history, setHistory] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const navigate = useNavigate();
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const params = useParams();
+  const [suggestions, setSuggestions] = useState([]);
 
-  const mobile = useIsMobile();
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "auto",
       block: "end",
     });
+  };
+
+  const chooseSuggestion = (text: string) => {
+    console.log(text);
+    setSuggestions([]);
   };
 
   const handleSendMessage = async () => {
@@ -149,8 +168,36 @@ const Chat = () => {
   useEffect(() => {
     fetchHistoryList();
     getMessageList(params?.id);
+    setSuggestions(defaultSuggestions);
   }, [params]);
 
+  useEffect(() => {
+    const updateSize = () => {
+      if (lastContainerRef.current) {
+        const { width, height } =
+          lastContainerRef.current.getBoundingClientRect();
+        setLastContainerSize({ width, height });
+      }
+    };
+    const container = lastContainerRef.current;
+    if (!container) return;
+
+    updateSize();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateSize();
+    });
+    resizeObserver.observe(container);
+
+    window.addEventListener("resize", updateSize);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateSize);
+    };
+  }, []);
+
+  const num = Math.floor(lastContainerSize.width / 180);
   return (
     <div className="flex bg-background" style={{ height: "100vh" }}>
       {mobile ? (
@@ -271,9 +318,49 @@ const Chat = () => {
           )}
           <div ref={messagesEndRef} />
         </div>
+        {suggestions.length > 0 && (
+          <AnimatePresence>
+            <motion.div
+              className="flex flex-wrap gap-2 w-full overflow-hidden pb-2 justify-center"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                width: lastContainerSize.width,
+                backgroundColor: "transparent",
+                position: "absolute",
+                bottom: lastContainerSize.height,
+              }}
+            >
+              {suggestions.slice(0, num).map((suggestion, index) => (
+                <Button
+                  style={{
+                    display: "inline-block",
+                    maxWidth: 180,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  key={index}
+                  variant="outline"
+                  className="flex-shrink-0 text-sm py-1 px-4 hover:bg-chat-primary hover:text-white transition-transform hover:scale-105"
+                  disabled={isTyping}
+                  onClick={() => chooseSuggestion(suggestion)}
+                >
+                  {suggestion}
+                </Button>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        )}
+
         {/* Input */}
         {mobile ? (
-          <div className="fixed bottom-0 left-0 right-0 p-4 z-10 h-[90px] bg-background">
+          <div
+            className="fixed bottom-0 left-0 right-0 p-4 z-10 h-[90px] bg-background"
+            ref={lastContainerRef}
+          >
             <div className="flex space-x-3 max-w-screen-md mx-auto">
               <Input
                 value={inputMessage}
@@ -296,7 +383,10 @@ const Chat = () => {
             </p>
           </div>
         ) : (
-          <div className="border-t bg-card/50 backdrop-blur-sm p-4">
+          <div
+            className="border-t bg-card/50 backdrop-blur-sm p-4"
+            ref={lastContainerRef}
+          >
             <div className="flex space-x-3">
               <Input
                 value={inputMessage}
