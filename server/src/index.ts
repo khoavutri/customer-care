@@ -1,6 +1,8 @@
 import express from "express";
-import http from "http";
 import cors from "cors";
+import https from 'https';
+import fs from 'fs';
+import path from 'path';
 import authRouter from "./routers/auth-router";
 import userRouter from "./routers/user-router";
 import adminRouter from "./routers/admin-router";
@@ -10,7 +12,6 @@ import { authenticateJWT, isAdmin } from "./config/auth";
 const app = express();
 const PORT = process.env.PORT || 8080;
 // Tạo HTTP server từ Express
-const server = http.createServer(app);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -26,7 +27,13 @@ app.get("/", (req, res) => {
   res.send("WebSocket server is running!");
 });
 
-// Khởi chạy server
-server.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+const key = fs.readFileSync(path.join(__dirname, '../ssl/private.key'), 'utf8');
+const cert = fs.readFileSync(path.join(__dirname, '../ssl/certificate.crt'), 'utf8');
+const ca = fs.readFileSync(path.join(__dirname, '../ssl/ca-chain.crt'), 'utf8');
+
+const credentials = { key, cert, ca };
+
+https.createServer(credentials, app).listen(PORT, () => {
+  console.log(`HTTPS server running on port ${PORT}`);
 });
+
