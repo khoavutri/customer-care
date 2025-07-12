@@ -4,12 +4,13 @@ import dotenv from "dotenv";
 import { Request, Response } from "express";
 import axios from "axios";
 import { generateTitle } from "../util/generate-title";
-import { hybridSearch, searchVector } from "../util/vector-handler";
+import { dataLabeling, hybridSearch, searchVector } from "../util/vector-handler";
 import { loadVectorsFromFolder } from "../util/load-vectors";
 
 dotenv.config();
 
 export const checkAuth = (req: Request, res: Response) => {
+
   res.status(200).json({
     status: 1,
     message: "Authenticated successfully",
@@ -21,7 +22,8 @@ export const onChat = async (req: Request, res: Response) => {
   try {
     const { prompt, conversationId, date } = req.body;
     const userId = (req as any).user?.id;
-
+    const uudata = await dataLabeling(prompt);
+    console.log(uudata);
     if (!userId) {
       return res.status(200).json({
         status: 0,
@@ -34,11 +36,27 @@ export const onChat = async (req: Request, res: Response) => {
       results.map((item) => item.original)
     );
 
-    const systemPrompt = `Bạn là trợ lý du lịch Việt Nam. Hãy tư vấn chi tiết cho người dùng, Nói tiếng Việt, trả lời tự nhiên.`;
-    const userPrompt = `${prompt.trim()},
-    Đây là dữ liệu tôi cung cấp:${searchContext},
-    Nếu không có cái nào trong này phù hợp thì trả lời:"Tôi không có dữ liệu về vấn đề này",
-    không được trả lời dữ liệu ngoài về các điểm trong này.`;
+    const systemPrompt = `Bạn là chuyên gia tư vấn du lịch Việt Nam với khả năng:
+- Tư vấn chi tiết các điểm du lịch, lịch trình, ẩm thực, văn hóa Việt Nam
+- Trả lời bằng tiếng Việt tự nhiên, thân thiện
+- Chỉ sử dụng dữ liệu được cung cấp để đưa ra lời khuyên chính xác
+- Xử lý thông minh các câu hỏi ngoài phạm vi du lịch`;
+
+    const userPrompt = `Câu hỏi: "${prompt.trim()}"
+
+Dữ liệu tham khảo: ${searchContext}
+
+Hướng dẫn trả lời:
+1. Nếu câu hỏi LIÊN QUAN đến du lịch Việt Nam:
+   - Tư vấn chi tiết dựa trên dữ liệu được cung cấp
+   - Nếu không có dữ liệu phù hợp: "Tôi không có dữ liệu về vấn đề này"
+   
+2. Nếu câu hỏi KHÔNG LIÊN QUAN đến du lịch:
+   - Nhận diện và trả lời lịch sự
+   - Chuyển hướng về chủ đề du lịch Việt Nam
+   - Ví dụ: "Xin chào! Tôi là chuyên gia tư vấn du lịch Việt Nam. Bạn có muốn khám phá những điểm đến tuyệt vời nào ở Việt Nam không?"
+
+Lưu ý: Chỉ sử dụng thông tin từ dữ liệu được cung cấp, không bổ sung thông tin bên ngoài.`;
 
     let finalConversationId = conversationId;
     let conversationChose = null
@@ -105,7 +123,7 @@ export const onChat = async (req: Request, res: Response) => {
         presence_penalty: 0,
         frequency_penalty: 0,
         web_search_options: { search_context_size: 'low' },
-        // max_tokens: 250,
+        max_tokens: 50,
         return_citations: false,
       },
       {

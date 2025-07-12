@@ -220,3 +220,10 @@ export async function compareSearchMethods(
         analysis
     };
 }
+
+export const dataLabeling = async (text: string) => {
+    const classifier = await pipeline('zero-shot-classification', 'mdeberta-v3-base-mnli-xnli');
+    const candidateLabels = ['biển', 'núi', 'ẩm thực', 'văn hóa'];
+    const result = await classifier(text, candidateLabels);
+    return result;
+}
