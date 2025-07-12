@@ -3,6 +3,7 @@
     "id": 1,
     "type": "Điểm đến",
     "name": "Vịnh Hạ Long",
+    "handbook": "",
     "location": {
       "city": "Quảng Ninh",
       "region": "Miền Bắc",
