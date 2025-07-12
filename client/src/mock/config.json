@@ -1,6 +1,6 @@
 {
   "serverConfig": {
     "RIS_SERVER": "http://localhost:8080",
-    "save": "https://khoadev.click:8080"
+    "HTTPS_RIS_SERVER": "https://khoadev.click:8080"
   }
 }

@@ -4,6 +4,8 @@ interface IServicesManager {
   RISService: ServiceRIS;
 }
 
+const isHttps = window.location.protocol === "https:";
+
 export const servicesManager: IServicesManager = {
-  RISService: new ServiceRIS(config.serverConfig.RIS_SERVER),
+  RISService: new ServiceRIS(isHttps ? config.serverConfig.HTTPS_RIS_SERVER : config.serverConfig.RIS_SERVER),
 };

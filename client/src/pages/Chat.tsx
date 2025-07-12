@@ -11,6 +11,11 @@ import { servicesManager } from "@/service/service-manager";
 import { toast } from "sonner";
 import { useNavigate, useParams } from "react-router-dom";
 import { scrollBar } from "@/constant/constant";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import Markdown from "@/components/markdown";
+import { cleanCitations } from "@/util/clean-result";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Message {
   id: string;
@@ -18,6 +23,12 @@ interface Message {
   sender: "user" | "assistant";
   timestamp: Date;
 }
+
+const defaultSuggestions = [
+  "Hôm nay đi đâu?",
+  "Biển nào đẹp?",
+  "Gợi ý khu du lịch sinh thái",
+];
 
 const preMessage: Array<Message> = [
   {
@@ -30,21 +41,32 @@ const preMessage: Array<Message> = [
 ];
 
 const Chat = () => {
+  const navigate = useNavigate();
+  const params = useParams();
+  const mobile = useIsMobile();
+  const lastContainerRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [lastContainerSize, setLastContainerSize] = useState({
+    height: 0,
+    width: 0,
+  });
   const [messages, setMessages] = useState<Message[]>([]);
   const [history, setHistory] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const navigate = useNavigate();
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-  const params = useParams();
+  const [suggestions, setSuggestions] = useState([]);
 
-  const mobile = useIsMobile();
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({
       behavior: "auto",
       block: "end",
     });
+  };
+
+  const chooseSuggestion = (text: string) => {
+    console.log(text);
+    setSuggestions([]);
   };
 
   const handleSendMessage = async () => {
@@ -146,8 +168,36 @@ const Chat = () => {
   useEffect(() => {
     fetchHistoryList();
     getMessageList(params?.id);
+    setSuggestions(defaultSuggestions);
   }, [params]);
 
+  useEffect(() => {
+    const updateSize = () => {
+      if (lastContainerRef.current) {
+        const { width, height } =
+          lastContainerRef.current.getBoundingClientRect();
+        setLastContainerSize({ width, height });
+      }
+    };
+    const container = lastContainerRef.current;
+    if (!container) return;
+
+    updateSize();
+
+    const resizeObserver = new ResizeObserver(() => {
+      updateSize();
+    });
+    resizeObserver.observe(container);
+
+    window.addEventListener("resize", updateSize);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateSize);
+    };
+  }, []);
+
+  const num = Math.floor(lastContainerSize.width / 180);
   return (
     <div className="flex bg-background" style={{ height: "100vh" }}>
       {mobile ? (
@@ -190,20 +240,24 @@ const Chat = () => {
         </header>
         {/* Messages */}
         <div
-          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar}`}
+          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar} ${
+            mobile ? "mb-[80px]" : ""
+          }`}
           style={{ backgroundColor: "222.2 84% 4.9%" }}
         >
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
-                ? "flex-row-reverse space-x-reverse"
-                : ""
-                }`}
+              className={`flex items-start space-x-3 animate-fade-in ${
+                message.sender === "user"
+                  ? "flex-row-reverse space-x-reverse"
+                  : ""
+              }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                  }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -213,17 +267,26 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${message.sender === "user"
-                  ? "chat-bubble-user"
-                  : "chat-bubble-assistant"
-                  }`}
+                className={`chat-bubble ${
+                  message.sender === "user"
+                    ? "chat-bubble-user"
+                    : "chat-bubble-assistant"
+                }`}
               >
-                <p className="text-sm leading-relaxed">{message.content}</p>
+                <div className="text-sm leading-relaxed">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={Markdown}
+                  >
+                    {cleanCitations(message.content || "")}
+                  </ReactMarkdown>
+                </div>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
-                    ? "text-white/70"
-                    : "text-muted-foreground"
-                    }`}
+                  className={`text-xs mt-1 opacity-70 ${
+                    message.sender === "user"
+                      ? "text-white/70"
+                      : "text-muted-foreground"
+                  }`}
                 >
                   {new Date(message.timestamp).toLocaleTimeString("vi-VN", {
                     hour: "2-digit",
@@ -255,30 +318,98 @@ const Chat = () => {
           )}
           <div ref={messagesEndRef} />
         </div>
-        {/* Input */}
-        <div className="border-t bg-card/50 backdrop-blur-sm p-4">
-          <div className="flex space-x-3">
-            <Input
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Nhập tin nhắn của bạn..."
-              className="flex-1 h-12 rounded-xl"
-              disabled={isTyping}
-            />
-            <Button
-              onClick={handleSendMessage}
-              disabled={!inputMessage.trim() || isTyping}
-              className="h-12 w-12 rounded-xl bg-chat-gradient hover:opacity-90 transition-opacity p-0"
+        {suggestions.length > 0 && (
+          <AnimatePresence>
+            <motion.div
+              className="flex flex-wrap gap-2 w-full overflow-hidden pb-2 justify-center"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                width: lastContainerSize.width,
+                backgroundColor: "transparent",
+                position: "absolute",
+                bottom: lastContainerSize.height,
+              }}
             >
-              <Send className="w-4 h-4 text-white" />
-            </Button>
-          </div>
+              {suggestions.slice(0, num).map((suggestion, index) => (
+                <Button
+                  style={{
+                    display: "inline-block",
+                    maxWidth: 180,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                  key={index}
+                  variant="outline"
+                  className="flex-shrink-0 text-sm py-1 px-4 hover:bg-chat-primary hover:text-white transition-transform hover:scale-105"
+                  disabled={isTyping}
+                  onClick={() => chooseSuggestion(suggestion)}
+                >
+                  {suggestion}
+                </Button>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        )}
 
-          <p className="text-xs text-muted-foreground mt-2 text-center">
-            AI có thể mắc lỗi. Vui lòng kiểm tra thông tin quan trọng.
-          </p>
-        </div>
+        {/* Input */}
+        {mobile ? (
+          <div
+            className="fixed bottom-0 left-0 right-0 p-4 z-10 h-[90px] bg-background"
+            ref={lastContainerRef}
+          >
+            <div className="flex space-x-3 max-w-screen-md mx-auto">
+              <Input
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Nhập tin nhắn của bạn..."
+                className="flex-1 h-10 rounded-xl"
+                disabled={isTyping}
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={!inputMessage.trim() || isTyping}
+                className="h-10 w-10 rounded-xl bg-chat-gradient hover:opacity-90 transition-opacity p-0"
+              >
+                <Send className="w-4 h-4 text-white" />
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2 text-center mb-[10px]">
+              AI có thể mắc lỗi. Vui lòng kiểm tra thông tin quan trọng.
+            </p>
+          </div>
+        ) : (
+          <div
+            className="border-t bg-card/50 backdrop-blur-sm p-4"
+            ref={lastContainerRef}
+          >
+            <div className="flex space-x-3">
+              <Input
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Nhập tin nhắn của bạn..."
+                className="flex-1 h-12 rounded-xl"
+                disabled={isTyping}
+              />
+              <Button
+                onClick={handleSendMessage}
+                disabled={!inputMessage.trim() || isTyping}
+                className="h-12 w-12 rounded-xl bg-chat-gradient hover:opacity-90 transition-opacity p-0"
+              >
+                <Send className="w-4 h-4 text-white" />
+              </Button>
+            </div>
+
+            <p className="text-xs text-muted-foreground mt-2 text-center">
+              AI có thể mắc lỗi. Vui lòng kiểm tra thông tin quan trọng.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
