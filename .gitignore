@@ -9,3 +9,4 @@
 Thumbs.db
 # Env
 **/.env
+**/ssl/

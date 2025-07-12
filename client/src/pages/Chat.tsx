@@ -64,16 +64,13 @@ const Chat = () => {
     });
   };
 
-  const chooseSuggestion = (text: string) => {
-    console.log(text);
+  const handleSendMessage = async (text?: string) => {
+    if (!inputMessage.trim() && !text) return;
+    const handlerText = text || inputMessage.trim();
     setSuggestions([]);
-  };
-
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return;
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: inputMessage,
+      content: handlerText,
       sender: "user",
       timestamp: new Date(),
     };
@@ -81,8 +78,9 @@ const Chat = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsTyping(true);
+
     const action = await servicesManager.RISService.chat(
-      inputMessage,
+      handlerText,
       params?.id || undefined
     );
     if (action && action.status === 1) {
@@ -240,24 +238,21 @@ const Chat = () => {
         </header>
         {/* Messages */}
         <div
-          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar} ${
-            mobile ? "mb-[80px]" : ""
-          }`}
+          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar} ${mobile ? "mb-[80px]" : ""
+            }`}
           style={{ backgroundColor: "222.2 84% 4.9%" }}
         >
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${
-                message.sender === "user"
-                  ? "flex-row-reverse space-x-reverse"
-                  : ""
-              }`}
+              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
+                ? "flex-row-reverse space-x-reverse"
+                : ""
+                }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                  }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -267,11 +262,10 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${
-                  message.sender === "user"
-                    ? "chat-bubble-user"
-                    : "chat-bubble-assistant"
-                }`}
+                className={`chat-bubble ${message.sender === "user"
+                  ? "chat-bubble-user"
+                  : "chat-bubble-assistant"
+                  }`}
               >
                 <div className="text-sm leading-relaxed">
                   <ReactMarkdown
@@ -282,11 +276,10 @@ const Chat = () => {
                   </ReactMarkdown>
                 </div>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${
-                    message.sender === "user"
-                      ? "text-white/70"
-                      : "text-muted-foreground"
-                  }`}
+                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
+                    ? "text-white/70"
+                    : "text-muted-foreground"
+                    }`}
                 >
                   {new Date(message.timestamp).toLocaleTimeString("vi-VN", {
                     hour: "2-digit",
@@ -318,7 +311,7 @@ const Chat = () => {
           )}
           <div ref={messagesEndRef} />
         </div>
-        {suggestions.length > 0 && (
+        {suggestions.length > 0 && !inputMessage && (
           <AnimatePresence>
             <motion.div
               className="flex flex-wrap gap-2 w-full overflow-hidden pb-2 justify-center"
@@ -346,7 +339,9 @@ const Chat = () => {
                   variant="outline"
                   className="flex-shrink-0 text-sm py-1 px-4 hover:bg-chat-primary hover:text-white transition-transform hover:scale-105"
                   disabled={isTyping}
-                  onClick={() => chooseSuggestion(suggestion)}
+                  onClick={() => {
+                    handleSendMessage(suggestion)
+                  }}
                 >
                   {suggestion}
                 </Button>
@@ -371,7 +366,7 @@ const Chat = () => {
                 disabled={isTyping}
               />
               <Button
-                onClick={handleSendMessage}
+                onClick={() => handleSendMessage()}
                 disabled={!inputMessage.trim() || isTyping}
                 className="h-10 w-10 rounded-xl bg-chat-gradient hover:opacity-90 transition-opacity p-0"
               >
@@ -397,7 +392,7 @@ const Chat = () => {
                 disabled={isTyping}
               />
               <Button
-                onClick={handleSendMessage}
+                onClick={() => handleSendMessage()}
                 disabled={!inputMessage.trim() || isTyping}
                 className="h-12 w-12 rounded-xl bg-chat-gradient hover:opacity-90 transition-opacity p-0"
               >
