@@ -73,7 +73,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
       if (selectedFile.type === "application/json") {
         setFile(selectedFile);
       } else {
-        alert("Vui lòng chọn file JSON");
+        toast.warning("Vui lòng chọn file JSON");
         setFile(null);
         if (fileInputRef.current) fileInputRef.current.value = "";
       }
@@ -95,18 +95,18 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
           setFile(null);
           setLoading(false);
           if (fileInputRef.current) fileInputRef.current.value = "";
-          toast("Thêm dữ liệu thành công!");
+          toast.success("Thêm dữ liệu thành công!");
         } else {
           setLoading(false);
-          toast("Thêm dữ liệu không thành công!");
+          toast.warning("Thêm dữ liệu không thành công!");
         }
         break;
       case "cleanup":
         const action = await servicesManager.RISService.cleanUp();
         if (action && action.status === 1) {
-          toast("Xóa dữ liệu thành công!");
+          toast.success("Xóa dữ liệu thành công!");
         } else {
-          toast("Xóa dữ liệu không thành công!");
+          toast.warning("Xóa dữ liệu không thành công!");
         }
         setFile(null);
         if (fileInputRef.current) fileInputRef.current.value = "";
@@ -122,6 +122,32 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
     if (action && action.status === 1) {
       setUsers(action.data.users);
     }
+  };
+
+  const onLabeling = () => {
+    const input: HTMLInputElement = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+    input.onchange = async (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files[0]) {
+        const file = target.files[0];
+        if (file.type === "application/json") {
+          setLoading(true);
+          const result = await servicesManager.RISService.uploadLabel(file);
+          setLoading(false);
+          if (result && result.status === 1) {
+            toast.success("Gán nhãn dữ liệu thành công!");
+          } else {
+            toast.warning("Gán nhãn dữ liệu không thành công!");
+          }
+        } else {
+          toast.warning("Gán nhãn dữ liệu không thành công!");
+        }
+      }
+      input.remove();
+    };
+    input.click();
   };
 
   useEffect(() => {
@@ -331,6 +357,29 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                 </div>
               </div>
             </div>
+            <div>
+              <h3
+                className={`font-medium text-gray-700 dark:text-gray-200 ${
+                  isMobile ? "text-xs" : "text-base"
+                }`}
+              >
+                Gắn nhãn dữ liệu
+              </h3>
+              <div className={`mt-2 space-y-${isMobile ? "2" : "3"}`}>
+                <div
+                  className={`flex gap-2 ${isMobile ? "flex-col" : "flex-row"}`}
+                >
+                  <Button
+                    onClick={() => onLabeling()}
+                    className={`${
+                      isMobile ? "h-10 min-h-[44px]" : "h-9"
+                    } bg-blue-500 text-white hover:bg-blue-600 text-sm flex-1`}
+                  >
+                    Gán nhãn
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className={`mt-${isMobile ? "3" : "6"} flex justify-end`}>
@@ -339,7 +388,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
               onClick={onClose}
               className={`${
                 isMobile ? "h-10 min-h-[44px] px-3" : "h-9 px-4"
-              } text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 text-sm`}
+              } text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 text-sm`}
             >
               Đóng
             </Button>

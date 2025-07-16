@@ -4,8 +4,11 @@ import dotenv from "dotenv";
 import { Request, Response } from "express";
 import axios from "axios";
 import { generateTitle } from "../util/generate-title";
-import { dataLabeling, hybridSearch, searchVector } from "../util/vector-handler";
-import { loadVectorsFromFolder } from "../util/load-vectors";
+import { dataLabeling, hybridSearch } from "../util/vector-handler";
+import { loadVectorsFromFolder, readLabelFileSimple } from "../util/load-vectors";
+import Score from "../models/score.model";
+import mongoose from "mongoose";
+import { calculatePoweredScores } from "../util/calculate";
 
 dotenv.config();
 
@@ -22,14 +25,38 @@ export const onChat = async (req: Request, res: Response) => {
   try {
     const { prompt, conversationId, date } = req.body;
     const userId = (req as any).user?.id;
-    const uudata = await dataLabeling(prompt);
-    console.log(uudata);
+
     if (!userId) {
       return res.status(200).json({
         status: 0,
         message: 'Không tìm thấy thông tin người dùng từ token.',
       });
     }
+
+    let finalConversationId = conversationId;
+    let conversationChose = null
+    if (conversationId) {
+      const conversation = await Conversation.findOne({ _id: conversationId, userId });
+      if (!conversation) {
+        return res.status(200).json({
+          status: 0,
+          message: 'Cuộc trò chuyện không tồn tại hoặc không thuộc về bạn.',
+        });
+      }
+      finalConversationId = conversation._id;
+    } else {
+      const newConversation = new Conversation({
+        userId,
+        title: generateTitle(prompt),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      await newConversation.save();
+      finalConversationId = newConversation._id;
+      conversationChose = newConversation;
+    }
+
+    dataLabeling(prompt, userId, finalConversationId);
     const vectors = await loadVectorsFromFolder("data/vectors")
     const results = await hybridSearch(prompt, vectors, 3);
     const searchContext = JSON.stringify(
@@ -57,29 +84,6 @@ Hướng dẫn trả lời:
    - Ví dụ: "Xin chào! Tôi là chuyên gia tư vấn du lịch Việt Nam. Bạn có muốn khám phá những điểm đến tuyệt vời nào ở Việt Nam không?"
 
 Lưu ý: Chỉ sử dụng thông tin từ dữ liệu được cung cấp, không bổ sung thông tin bên ngoài.`;
-
-    let finalConversationId = conversationId;
-    let conversationChose = null
-    if (conversationId) {
-      const conversation = await Conversation.findOne({ _id: conversationId, userId });
-      if (!conversation) {
-        return res.status(200).json({
-          status: 0,
-          message: 'Cuộc trò chuyện không tồn tại hoặc không thuộc về bạn.',
-        });
-      }
-      finalConversationId = conversation._id;
-    } else {
-      const newConversation = new Conversation({
-        userId,
-        title: generateTitle(prompt),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
-      await newConversation.save();
-      finalConversationId = newConversation._id;
-      conversationChose = newConversation;
-    }
 
     let userMessageTimestamp = new Date();
     if (date) {
@@ -375,3 +379,59 @@ export const query = async (req: Request, res: Response) => {
   }
 };
 
+
+export const getSuggestions = async (req: Request, res: Response) => {
+  try {
+    const { conversationId } = req.params;
+    const user = (req as any).user
+    if (!user) {
+      return res.status(200).json({ status: 0, message: 'userId là bắt buộc' });
+    }
+
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const query: any = {
+      userId: new mongoose.Types.ObjectId(user.id),
+      createdAt: { $gte: sevenDaysAgo }
+    };
+
+    if (conversationId) {
+      query.conversationId = new mongoose.Types.ObjectId(conversationId);
+    }
+
+    const rawResults = await Score.find(query)
+      .sort({ createdAt: -1 })
+      .limit(conversationId ? 10 : 0)
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const results = rawResults.map((item) => {
+      const createdAt = new Date(item.createdAt);
+      createdAt.setHours(0, 0, 0, 0);
+
+      const diffTime = today.getTime() - createdAt.getTime();
+      const dayBefore = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+      return {
+        ...item.toObject(),
+        dayBefore: Math.max(dayBefore, 0),
+      };
+    });
+
+    const labelList = await readLabelFileSimple();
+    const list = calculatePoweredScores(results, labelList)
+
+    return res.status(200).json({
+      status: 1,
+      message: 'Lấy dữ liệu thành công',
+      data: list,
+    });
+  } catch (error: any) {
+    return res.status(500).json({
+      status: 0,
+      message: error.message || 'Lỗi server'
+    });
+  }
+};

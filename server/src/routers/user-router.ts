@@ -4,6 +4,7 @@ import {
   deleteConversation,
   getConversations,
   getMessageById,
+  getSuggestions,
   onChat,
   query,
 } from "../controller/user-controller";
@@ -15,6 +16,8 @@ userRouter.post("/chat", onChat);
 userRouter.get("/history-list", getConversations);
 userRouter.get("/message/:conversationId", getMessageById);
 userRouter.delete("/delete-conversation/:conversationId", deleteConversation);
+userRouter.get("/suggestions/:conversationId?", getSuggestions);
 userRouter.post("/query", query);
+
 
 export default userRouter;

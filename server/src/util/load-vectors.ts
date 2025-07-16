@@ -19,3 +19,14 @@ export async function loadVectorsFromFolder(folderPath: string): Promise<any[]> 
     }
     return allVectors;
 }
+
+export const readLabelFileSimple = async () => {
+    const filePath = path.join('data/label', 'label.json');
+
+    try {
+        const data = await fs.readFile(filePath, 'utf-8');
+        return JSON.parse(data);
+    } catch {
+        return [];
+    }
+};

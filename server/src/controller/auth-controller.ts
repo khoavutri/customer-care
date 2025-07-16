@@ -1,4 +1,4 @@
-import User from "../models/user";
+import User from "../models/user.model";
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import { generateJWT } from "../config/auth";

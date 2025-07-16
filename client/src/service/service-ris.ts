@@ -17,8 +17,15 @@ class ServiceRIS extends ServiceBase {
     return response;
   };
 
+
   signup = async (data: { password: string; email: string; name: string }) => {
     const url = "/auth/signup";
+    const response = await this.service.post(url, data);
+    return response;
+  };
+
+  createLabel = async (data: { password: string; email: string; name: string }) => {
+    const url = "/admin/create-label";
     const response = await this.service.post(url, data);
     return response;
   };
@@ -31,7 +38,12 @@ class ServiceRIS extends ServiceBase {
 
   chat = async (prompt: string, conversationId?: any) => {
     const url = "/user/chat";
-    const response = await this.service.post(url, { prompt: prompt.trim(), conversationId, date: new Date().toISOString() });
+    const response = await this.service.post(url,
+      {
+        prompt: prompt.trim(),
+        conversationId,
+        date: new Date().toISOString()
+      });
     return response;
   };
 
@@ -59,6 +71,15 @@ class ServiceRIS extends ServiceBase {
     return response;
   };
 
+  getSuggestions = async (conversationId?: string) => {
+    const url = conversationId
+      ? `/user/suggestions/${conversationId}`
+      : `/user/suggestions`;
+
+    const response = await this.service.get(url);
+    return response;
+  };
+
   deleteUser = async (id: string) => {
     const url = `/admin/delete-user/${id}`;
     const response = await this.service.delete(url);
@@ -73,6 +94,20 @@ class ServiceRIS extends ServiceBase {
 
   uploadJson = async (file: File) => {
     const url = "/admin/upload-json";
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const response = await this.service.post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    return response;
+  };
+
+  uploadLabel = async (file: File) => {
+    const url = "/admin/upload-label";
     const formData = new FormData();
     formData.append('file', file);
 

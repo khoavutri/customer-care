@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { generateVectorsFromJson } from "../util/vector-handler";
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
-import User from "../models/user";
+import User from "../models/user.model";
 import fs from 'fs/promises';
 
 dotenv.config();
@@ -203,5 +203,62 @@ export const deleteUser = async (req: Request, res: Response) => {
             data: null,
             message: "Internal server error",
         });
+    }
+};
+
+interface LabelRecord {
+    label: string;
+    question: string;
+}
+
+export const createLabel = async (req: Request, res: Response) => {
+    try {
+        if (!req.file) {
+            return res.status(200).json({ status: 0, message: 'Không có file tải lên' });
+        }
+
+        const outPath = path.join('data/label', 'label.json');
+        await fs.mkdir(path.dirname(outPath), { recursive: true });
+
+        let records: any[];
+        try {
+            records = JSON.parse(req.file.buffer.toString());
+        } catch (parseError) {
+            return res.status(200).json({ status: 0, message: 'File JSON không hợp lệ' });
+        }
+
+        if (!Array.isArray(records)) {
+            return res.status(200).json({ status: 0, message: 'Dữ liệu phải là một mảng' });
+        }
+
+        const isValid = records.every((record): record is LabelRecord =>
+            typeof record === 'object' &&
+            record !== null &&
+            'label' in record &&
+            'question' in record &&
+            typeof record.label === 'string' &&
+            typeof record.question === 'string' &&
+            record.label.trim() !== '' &&
+            record.question.trim() !== ''
+        );
+
+        if (!isValid) {
+            return res.status(200).json({
+                status: 0,
+                message: 'Dữ liệu không đúng định dạng. Mỗi bản ghi phải có "label" và "question" là chuỗi không rỗng',
+            });
+        }
+
+        const n = records.length;
+
+        await fs.writeFile(outPath, JSON.stringify(records, null, 2));
+
+        res.status(201).json({
+            status: 1,
+            message: `Đã xử lý ${n} bản ghi`,
+            vectorFile: outPath,
+        });
+    } catch (error: any) {
+        res.status(500).json({ status: 0, message: error.message });
     }
 };

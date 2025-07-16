@@ -25,11 +25,11 @@ interface ChatSidebarProps {
 const formatDate = (time?: string) =>
   time
     ? new Date(time).toLocaleDateString("vi-VN", {
-      day: "numeric",
-      month: "short",
-      hour: "2-digit",
-      minute: "2-digit",
-    })
+        day: "numeric",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+      })
     : "Không rõ";
 
 const ChatSidebar: React.FC<ChatSidebarProps> = ({
@@ -40,7 +40,7 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
   handleDelete,
 }) => {
   const navigate = useNavigate();
-  const { store } = useStore()
+  const { store } = useStore();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const newChatRef = useRef<HTMLDivElement>(null);
@@ -76,8 +76,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
   return (
     <div
       ref={sidebarRef}
-      className={`${isCollapsed ? "w-16" : "w-80"
-        } bg-sidebar border-r border-sidebar-border h-full flex flex-col transition-all duration-300`}
+      className={`${
+        isCollapsed ? "w-16" : "w-80"
+      } bg-sidebar border-r border-sidebar-border h-full flex flex-col transition-all duration-300`}
     >
       <SettingsModal isOpen={open} onClose={() => setOpen(false)} />
       {/* Header */}
@@ -102,8 +103,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
       {/* New Chat Button */}
       <div ref={newChatRef} className="p-4">
         <Button
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full"
-            } bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white transition-all duration-200`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full"
+          } bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white transition-all duration-200`}
           onClick={() => navigate("/chat")}
         >
           <Plus className="h-4 w-4" />
@@ -218,8 +220,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
       >
         <Button
           variant="ghost"
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
-            } text-sidebar-foreground hover:bg-sidebar-accent`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
+          } text-sidebar-foreground hover:bg-sidebar-accent`}
           onClick={() => setOpen(true)}
           disabled={store?.user?.role !== "admin"}
         >
@@ -229,8 +232,9 @@ const ChatSidebar: React.FC<ChatSidebarProps> = ({
         <Button
           variant="ghost"
           onClick={handleLogout}
-          className={`${isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
-            } text-sidebar-foreground hover:bg-sidebar-accent hover:text-red-500`}
+          className={`${
+            isCollapsed ? "w-8 h-8 p-0" : "w-full justify-start"
+          } text-sidebar-foreground hover:bg-sidebar-accent hover:text-red-500`}
         >
           <LogOut className="h-4 w-4" />
           {!isCollapsed && <span className="ml-2">Đăng xuất</span>}

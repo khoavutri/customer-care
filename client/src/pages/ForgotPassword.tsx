@@ -29,7 +29,6 @@ const ForgotPassword = () => {
         <div className="absolute top-4 right-4">
           <ThemeToggle />
         </div>
-
         <Card className="w-full max-w-md shadow-2xl border-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg animate-bounce-in">
           <CardHeader className="space-y-2 text-center pb-8">
             <div className="mx-auto w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-4">

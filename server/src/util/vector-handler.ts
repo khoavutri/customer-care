@@ -3,9 +3,11 @@ import fs from 'fs/promises';
 import path from 'path';
 import { cosineSimilarity } from './cosine';
 import { convertToArray } from './convert-array';
+import { readLabelFileSimple } from './load-vectors';
+import Score from '../models/score.model';
 
 const modelEmbed = "Xenova/all-MiniLM-L6-v2"
-//'Xenova/bert-base-multilingual-cased'
+
 export function mixDataToTextVi(item: any): string {
     return [
         `Tên địa điểm: ${item.name}. Loại: ${item.type}.`,
@@ -221,9 +223,31 @@ export async function compareSearchMethods(
     };
 }
 
-export const dataLabeling = async (text: string) => {
-    const classifier = await pipeline('zero-shot-classification', 'mdeberta-v3-base-mnli-xnli');
-    const candidateLabels = ['biển', 'núi', 'ẩm thực', 'văn hóa'];
-    const result = await classifier(text, candidateLabels);
-    return result;
-}
+export const dataLabeling = async (text: string, userId: any, conversationId: any) => {
+    try {
+        const labels = await readLabelFileSimple();
+
+        const classifier = await pipeline('zero-shot-classification', 'Xenova/mobilebert-uncased-mnli');
+        const candidateLabels = labels.map((label: any) => label.label);
+        const result: any = await classifier(text, candidateLabels);
+        const topIndex = result.scores.indexOf(Math.max(...result.scores));
+
+        const topLabel = {
+            label: result.labels[topIndex],
+            score: result.scores[topIndex],
+        };
+
+        await Score.create({
+            label: topLabel.label,
+            score: topLabel.score,
+            prompt: text,
+            userId,
+            conversationId,
+        });
+
+        return topLabel;
+    } catch (error) {
+        console.error('Lỗi khi gắn nhãn:', error);
+        throw error;
+    }
+};
