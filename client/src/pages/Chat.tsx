@@ -16,6 +16,7 @@ import remarkGfm from "remark-gfm";
 import Markdown from "@/components/markdown";
 import { cleanCitations } from "@/util/clean-result";
 import { motion, AnimatePresence } from "framer-motion";
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 interface Message {
   id: string;
@@ -23,12 +24,6 @@ interface Message {
   sender: "user" | "assistant";
   timestamp: Date;
 }
-
-const defaultSuggestions = [
-  "Hôm nay đi đâu?",
-  "Biển nào đẹp?",
-  "Gợi ý khu du lịch sinh thái",
-];
 
 const preMessage: Array<Message> = [
   {
@@ -339,23 +334,40 @@ const Chat = () => {
               }}
             >
               {suggestions.slice(0, num).map((suggestion, index) => (
-                <Button
-                  style={{
-                    display: "inline-block",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                  }}
-                  key={index}
-                  variant="outline"
-                  className="w-[180px] hover:w-auto flex-shrink-0 text-sm py-1 px-4 hover:bg-chat-primary hover:text-white transition-transform hover:scale-105"
-                  disabled={isTyping}
-                  onClick={() => {
-                    handleSendMessage(suggestion);
-                  }}
-                >
-                  {suggestion}
-                </Button>
+                <Tooltip.Provider delayDuration={200} key={index}>
+                  <Tooltip.Root>
+                    <Tooltip.Trigger asChild>
+                      <Button
+                        style={{
+                          display: "inline-block",
+                          whiteSpace: "nowrap",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                        // hover:w-auto
+                        key={index}
+                        variant="outline"
+                        className="w-[180px] flex-shrink-0 text-sm py-1 px-4 hover:bg-chat-primary hover:text-white transition-transform hover:scale-105"
+                        disabled={isTyping}
+                        onClick={() => {
+                          handleSendMessage(suggestion);
+                        }}
+                      >
+                        {suggestion}
+                      </Button>
+                    </Tooltip.Trigger>
+                    <Tooltip.Portal>
+                      <Tooltip.Content
+                        side="top"
+                        align="center"
+                        className="bg-black text-white text-xs px-3 py-1 rounded shadow-md z-50"
+                      >
+                        {suggestion}
+                        <Tooltip.Arrow className="fill-black" />
+                      </Tooltip.Content>
+                    </Tooltip.Portal>
+                  </Tooltip.Root>
+                </Tooltip.Provider>
               ))}
             </motion.div>
           </AnimatePresence>
