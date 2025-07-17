@@ -5,6 +5,7 @@ import { cosineSimilarity } from './cosine';
 import { convertToArray } from './convert-array';
 import { readLabelFileSimple } from './load-vectors';
 import Score from '../models/score.model';
+import { readExcelDynamic } from './excel-handler';
 
 const modelEmbed = "Xenova/all-MiniLM-L6-v2"
 
@@ -24,8 +25,14 @@ export function mixDataToTextVi(item: any): string {
     ].join(' ');
 }
 
-export async function generateVectorsFromJson(jsonPath: string, outPath: string) {
-    const content = await fs.readFile(jsonPath, 'utf8');
+export async function generateVectors(filePath: string, outPath: string, expand: string) {
+    if (expand === "xlsx") {
+        const excelData = await readExcelDynamic(filePath)
+        return;
+    }
+    console.log(filePath);
+
+    const content = await fs.readFile(`${filePath}`, 'utf8');
     const data = JSON.parse(content);
     const embedder = await pipeline('feature-extraction', modelEmbed);
     const allVectors = [];
@@ -185,9 +192,9 @@ export function explainHybridResults(results: any[]): void {
     console.log('=== HYBRID SEARCH RESULTS ===');
     results.forEach((result, index) => {
         console.log(`\n${index + 1}. ${result.original.name} (ID: ${result.id})`);
-        console.log(`   Final Score: ${result.finalScore.toFixed(3)}`);
-        console.log(`   Semantic: ${result.semanticScore.toFixed(3)}`);
-        console.log(`   Keyword: ${result.keywordScore.toFixed(3)}`);
+        console.log(`   Final Score: ${result.finalScore.toFixed(3)} `);
+        console.log(`   Semantic: ${result.semanticScore.toFixed(3)} `);
+        console.log(`   Keyword: ${result.keywordScore.toFixed(3)} `);
     });
 }
 
