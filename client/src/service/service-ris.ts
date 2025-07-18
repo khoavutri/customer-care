@@ -92,7 +92,7 @@ class ServiceRIS extends ServiceBase {
     return response;
   };
 
-  uploadJson = async (file: File) => {
+  uploadDataTrain = async (file: File) => {
     const url = "/admin/upload-json";
     const formData = new FormData();
     formData.append('file', file);

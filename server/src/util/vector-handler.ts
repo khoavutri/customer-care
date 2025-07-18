@@ -6,34 +6,45 @@ import { convertToArray } from './convert-array';
 import { readLabelFileSimple } from './load-vectors';
 import Score from '../models/score.model';
 import { readExcelDynamic } from './excel-handler';
+import { v4 as uuid } from 'uuid';
 
 const modelEmbed = "Xenova/all-MiniLM-L6-v2"
+export function mixDataToTextVi(data: any): string {
+    function formatValue(value: any): string {
+        if (value === null || value === undefined) return '';
+        if (typeof value === 'string' || typeof value === 'number') return `${value}`;
+        if (Array.isArray(value)) return value.map(formatValue).join(', ');
+        if (typeof value === 'object') {
+            return Object.entries(value)
+                .map(([key, val]) => {
+                    const formatted = formatValue(val);
+                    return formatted ? `${key}: ${formatted}` : '';
+                })
+                .filter(Boolean)
+                .join(', ');
+        }
+        return '';
+    }
 
-export function mixDataToTextVi(item: any): string {
-    return [
-        `Tên địa điểm: ${item.name}. Loại: ${item.type}.`,
-        `Địa chỉ: ${item.location?.city}, ${item.location?.region}, Việt Nam. Tọa độ: vĩ độ ${item.location?.coordinates?.latitude}, kinh độ ${item.location?.coordinates?.longitude}.`,
-        `Mô tả: ${item.description}`,
-        `Thẻ gợi ý: ${(item.tags || []).join(', ')}.`,
-        `Khoảng giá: từ ${item.pricing?.low?.toLocaleString('vi-VN')} VND đến ${item.pricing?.high?.toLocaleString('vi-VN')} VND. Chi tiết: ${item.pricing?.details}`,
-        `Thời điểm lý tưởng để ghé thăm: ${(item.bestTime?.months || []).join(', ')}. Thời tiết: ${item.bestTime?.weather}.`,
-        `Hoạt động gợi ý: ${(item.activities || []).join(', ')}.`,
-        `Hình ảnh tham khảo: ${(item.images || []).join(', ')}`,
-        `Đánh giá của người dùng: ${(item.reviews?.comments || []).map((c: string) => `"${c}"`).join(' ')}`,
-        `Điểm đánh giá: ${item.reviews?.rating}/5.`,
-        `Nguồn tham khảo: ${item.metadata?.source}. Cập nhật lần cuối: ${item.metadata?.updatedAt ? new Date(item.metadata?.updatedAt).toLocaleDateString('vi-VN', { day: '2-digit', month: 'long', year: 'numeric' }) : ''}.`
-    ].join(' ');
+    return Object.entries(data)
+        .map(([key, value]) => {
+            const formatted = formatValue(value);
+            return formatted ? `${key}: ${formatted}` : '';
+        })
+        .filter(Boolean)
+        .join('. ') + '.';
 }
 
 export async function generateVectors(filePath: string, outPath: string, expand: string) {
-    if (expand === "xlsx") {
+    let data: any[] = [];
+    if (expand.includes("xlsx") || expand.includes("xls")) {
         const excelData = await readExcelDynamic(filePath)
-        return;
+        data = [...excelData];
+    } else {
+        const content = await fs.readFile(`${filePath}`, 'utf8');
+        data = JSON.parse(content);
     }
-    console.log(filePath);
 
-    const content = await fs.readFile(`${filePath}`, 'utf8');
-    const data = JSON.parse(content);
     const embedder = await pipeline('feature-extraction', modelEmbed);
     const allVectors = [];
 
@@ -42,7 +53,7 @@ export async function generateVectors(filePath: string, outPath: string, expand:
         const output: any = await embedder(text);
         const vector = output[0][0];
         allVectors.push({
-            id: item.id,
+            id: item.id || uuid(),
             original: item,
             text,
             embedding: vector,
@@ -74,11 +85,9 @@ function calculateBM25Score(query: string, document: string, k1: number = 1.2, b
     let score = 0;
 
     for (const term of queryTerms) {
-        // Tần suất xuất hiện của từ trong document
         const termFreq = docTerms.filter(t => t.includes(term) || term.includes(t)).length;
 
         if (termFreq > 0) {
-            // Công thức BM25 đơn giản
             const idf = Math.log((1 + docLength) / (1 + termFreq));
             const tf = (termFreq * (k1 + 1)) / (termFreq + k1 * (1 - b + b * (docLength / avgDocLength)));
             score += idf * tf;

@@ -70,10 +70,16 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const selectedFile = e.target.files[0];
-      if (selectedFile.type === "application/json") {
+      const allowedTypes = [
+        "application/json",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel",
+      ];
+
+      if (allowedTypes.includes(selectedFile.type)) {
         setFile(selectedFile);
       } else {
-        toast.warning("Vui lòng chọn file JSON");
+        toast.warning("Vui lòng chọn file JSON hoặc định dạng Excel!");
         setFile(null);
         if (fileInputRef.current) fileInputRef.current.value = "";
       }
@@ -90,7 +96,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
       case "add":
         onClose();
         setLoading(true);
-        const result = await servicesManager.RISService.uploadJson(file);
+        const result = await servicesManager.RISService.uploadDataTrain(file);
         if (result && result.status === 1) {
           setFile(null);
           setLoading(false);
@@ -184,38 +190,33 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
           className={`fixed inset-0 bg-black/35 dark:bg-white/15`}
         />
         <Dialog.Content
-          className={`fixed bg-sidebar left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] rounded-lg shadow-lg overflow-y-auto ${
-            isMobile
-              ? "w-full max-w-[95vw] h-[90vh] p-3"
-              : "w-[90vw] max-w-md max-h-[80vh] p-6"
-          }`}
+          className={`fixed bg-sidebar left-[50%] top-[50%] z-50 translate-x-[-50%] translate-y-[-50%] rounded-lg shadow-lg overflow-y-auto ${isMobile
+            ? "w-full max-w-[95vw] h-[90vh] p-3"
+            : "w-[90vw] max-w-md max-h-[80vh] p-6"
+            }`}
         >
           <Dialog.Title
-            className={`font-semibold text-gray-900 dark:text-white ${
-              isMobile ? "text-base" : "text-xl"
-            }`}
+            className={`font-semibold text-gray-900 dark:text-white ${isMobile ? "text-base" : "text-xl"
+              }`}
           >
             Cài đặt Quản trị
           </Dialog.Title>
           <Dialog.Description
-            className={`mt-1 text-gray-500 dark:text-gray-400 ${
-              isMobile ? "text-xs" : "text-sm"
-            }`}
+            className={`mt-1 text-gray-500 dark:text-gray-400 ${isMobile ? "text-xs" : "text-sm"
+              }`}
           >
             Quản lý người dùng và dữ liệu huấn luyện AI.
           </Dialog.Description>
 
           <div
-            className={`mt-${isMobile ? "3" : "6"} space-y-${
-              isMobile ? "4" : "6"
-            }`}
+            className={`mt-${isMobile ? "3" : "6"} space-y-${isMobile ? "4" : "6"
+              }`}
           >
             {/* User Management Section */}
             <div>
               <h3
-                className={`font-medium text-gray-700 dark:text-gray-200 ${
-                  isMobile ? "text-xs" : "text-base"
-                }`}
+                className={`font-medium text-gray-700 dark:text-gray-200 ${isMobile ? "text-xs" : "text-base"
+                  }`}
               >
                 Quản lý Người dùng
               </h3>
@@ -232,30 +233,25 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                       setEmailInput(e.target.value);
                       setSelectedUser(null);
                     }}
-                    className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 ${
-                      selectedUser
-                        ? "bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                        : "bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-                    } ${
-                      isMobile ? "py-1.5 px-2 text-sm" : "py-2.5 px-3 text-sm"
-                    }`}
+                    className={`block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 ${selectedUser
+                      ? "bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      : "bg-gray-100 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
+                      } ${isMobile ? "py-1.5 px-2 text-sm" : "py-2.5 px-3 text-sm"
+                      }`}
                     aria-label="Nhập email để mời hoặc chọn người dùng"
                   />
                   {emailInput && showSuggestions && users.length > 0 && (
                     <ul
-                      className={`absolute z-20 mt-1 w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg overflow-y-auto ${
-                        isMobile ? "max-h-28" : "max-h-40"
-                      }`}
+                      className={`absolute z-20 mt-1 w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-lg overflow-y-auto ${isMobile ? "max-h-28" : "max-h-40"
+                        }`}
                     >
                       {users.map((user, index) => (
                         <li
                           key={index}
                           onClick={() => handleSelectUser(user)}
-                          className={`px-${isMobile ? "2" : "3"} py-${
-                            isMobile ? "1.5" : "2"
-                          } text-sm hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer flex items-center ${
-                            isMobile ? "min-h-[36px]" : "min-h-[40px]"
-                          }`}
+                          className={`px-${isMobile ? "2" : "3"} py-${isMobile ? "1.5" : "2"
+                            } text-sm hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer flex items-center ${isMobile ? "min-h-[36px]" : "min-h-[40px]"
+                            }`}
                         >
                           {user.name} ({user.email}){" "}
                           {user.role === "admin" ? "(Admin)" : ""}
@@ -270,9 +266,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                   <Button
                     onClick={handlePromoteToAdmin}
                     disabled={!selectedUser || selectedUser.role === "admin"}
-                    className={`${
-                      isMobile ? "h-10 min-h-[44px]" : "h-9"
-                    } bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 text-sm flex-1`}
+                    className={`${isMobile ? "h-10 min-h-[44px]" : "h-9"
+                      } bg-green-500 text-white hover:bg-green-600 disabled:bg-gray-300 text-sm flex-1`}
                   >
                     <UserPlus className="h-4 w-4 mr-1.5" />
                     Cấp quyền
@@ -280,9 +275,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                   <Button
                     onClick={handleDeleteUser}
                     disabled={!selectedUser}
-                    className={`${
-                      isMobile ? "h-10 min-h-[44px]" : "h-9"
-                    } bg-red-500 text-white hover:bg-red-600 disabled:bg-gray-300 text-sm flex-1`}
+                    className={`${isMobile ? "h-10 min-h-[44px]" : "h-9"
+                      } bg-red-500 text-white hover:bg-red-600 disabled:bg-gray-300 text-sm flex-1`}
                   >
                     <Trash className="h-4 w-4 mr-1.5" />
                     Xóa
@@ -294,9 +288,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
             {/* Model Training Section */}
             <div>
               <h3
-                className={`font-medium text-gray-700 dark:text-gray-200 ${
-                  isMobile ? "text-xs" : "text-base"
-                }`}
+                className={`font-medium text-gray-700 dark:text-gray-200 ${isMobile ? "text-xs" : "text-base"
+                  }`}
               >
                 Huấn luyện Mô hình AI
               </h3>
@@ -304,24 +297,19 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                 <div className={`flex flex-col gap-${isMobile ? "1.5" : "2"}`}>
                   <input
                     type="file"
-                    accept=".json"
+                    accept=".json, .xlsx, .xls"
                     onChange={handleFileChange}
                     ref={fileInputRef}
-                    className={`block w-full text-${
-                      isMobile ? "xs" : "sm"
-                    } text-gray-500 file:mr-${isMobile ? "2" : "4"} file:py-${
-                      isMobile ? "1.5" : "2.5"
-                    } file:px-${
-                      isMobile ? "2" : "4"
-                    } file:rounded-md file:border-0 file:text-${
-                      isMobile ? "xs" : "sm"
-                    } file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-blue-300 dark:hover:file:bg-gray-600`}
+                    className={`block w-full text-${isMobile ? "xs" : "sm"
+                      } text-gray-500 file:mr-${isMobile ? "2" : "4"} file:py-${isMobile ? "1.5" : "2.5"
+                      } file:px-${isMobile ? "2" : "4"
+                      } file:rounded-md file:border-0 file:text-${isMobile ? "xs" : "sm"
+                      } file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-blue-300 dark:hover:file:bg-gray-600`}
                   />
                   {file && (
                     <span
-                      className={`text-${
-                        isMobile ? "xs" : "sm"
-                      } text-gray-600 dark:text-gray-300 truncate max-w-full`}
+                      className={`text-${isMobile ? "xs" : "sm"
+                        } text-gray-600 dark:text-gray-300 truncate max-w-full`}
                     >
                       {file.name}
                     </span>
@@ -332,9 +320,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                 >
                   <Button
                     onClick={() => handleTrainingAction("add")}
-                    className={`${
-                      isMobile ? "h-10 min-h-[44px]" : "h-9"
-                    } bg-blue-500 text-white hover:bg-blue-600 text-sm flex-1`}
+                    className={`${isMobile ? "h-10 min-h-[44px]" : "h-9"
+                      } bg-blue-500 text-white hover:bg-blue-600 text-sm flex-1`}
                   >
                     Thêm
                   </Button>
@@ -348,9 +335,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                   </Button> */}
                   <Button
                     onClick={() => handleTrainingAction("cleanup")}
-                    className={`${
-                      isMobile ? "h-10 min-h-[44px]" : "h-9"
-                    } bg-orange-500 text-white hover:bg-orange-600 text-sm flex-1`}
+                    className={`${isMobile ? "h-10 min-h-[44px]" : "h-9"
+                      } bg-orange-500 text-white hover:bg-orange-600 text-sm flex-1`}
                   >
                     Dọn dẹp
                   </Button>
@@ -359,9 +345,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h3
-                className={`font-medium text-gray-700 dark:text-gray-200 ${
-                  isMobile ? "text-xs" : "text-base"
-                }`}
+                className={`font-medium text-gray-700 dark:text-gray-200 ${isMobile ? "text-xs" : "text-base"
+                  }`}
               >
                 Gắn nhãn dữ liệu
               </h3>
@@ -371,9 +356,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                 >
                   <Button
                     onClick={() => onLabeling()}
-                    className={`${
-                      isMobile ? "h-10 min-h-[44px]" : "h-9"
-                    } bg-blue-500 text-white hover:bg-blue-600 text-sm flex-1`}
+                    className={`${isMobile ? "h-10 min-h-[44px]" : "h-9"
+                      } bg-blue-500 text-white hover:bg-blue-600 text-sm flex-1`}
                   >
                     Gán nhãn
                   </Button>
@@ -386,9 +370,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
             <Button
               variant="ghost"
               onClick={onClose}
-              className={`${
-                isMobile ? "h-10 min-h-[44px] px-3" : "h-9 px-4"
-              } text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 text-sm`}
+              className={`${isMobile ? "h-10 min-h-[44px] px-3" : "h-9 px-4"
+                } text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 text-sm`}
             >
               Đóng
             </Button>
@@ -396,9 +379,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
           <Dialog.Close asChild>
             <button
-              className={`absolute right-${isMobile ? "2" : "4"} top-${
-                isMobile ? "2" : "4"
-              } rounded-sm p-1.5 opacity-70 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
+              className={`absolute right-${isMobile ? "2" : "4"} top-${isMobile ? "2" : "4"
+                } rounded-sm p-1.5 opacity-70 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
               aria-label="Close"
             >
               <X className="h-5 w-5 text-gray-500 dark:text-gray-400" />

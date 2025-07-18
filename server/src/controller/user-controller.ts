@@ -67,17 +67,17 @@ export const onChat = async (req: Request, res: Response) => {
 - Tư vấn chi tiết các điểm du lịch, lịch trình, ẩm thực, văn hóa Việt Nam
 - Trả lời bằng tiếng Việt tự nhiên, thân thiện
 - Chỉ sử dụng dữ liệu được cung cấp để đưa ra lời khuyên chính xác
-- Xử lý thông minh các câu hỏi ngoài phạm vi du lịch`;
+- Xử lý thông minh các câu hỏi ngoài phạm vi du lịch
+- không được sử dụng thông tin bên ngoài, chỉ dựa vào dữ liệu được cung cấp
+`;
 
-    const userPrompt = `Câu hỏi: "${prompt.trim()}"
-
-Dữ liệu tham khảo: ${searchContext}
+    const userPrompt = `Câu hỏi: "${prompt.trim()}".
+Dữ liệu tham khảo: ${searchContext}.
 
 Hướng dẫn trả lời:
 1. Nếu câu hỏi LIÊN QUAN đến du lịch Việt Nam:
    - Tư vấn chi tiết dựa trên dữ liệu được cung cấp
    - Nếu không có dữ liệu phù hợp: "Tôi không có dữ liệu về vấn đề này"
-   
 2. Nếu câu hỏi KHÔNG LIÊN QUAN đến du lịch:
    - Nhận diện và trả lời lịch sự
    - Chuyển hướng về chủ đề du lịch Việt Nam
@@ -127,7 +127,7 @@ Lưu ý: Chỉ sử dụng thông tin từ dữ liệu được cung cấp, khô
         presence_penalty: 0,
         frequency_penalty: 0,
         web_search_options: { search_context_size: 'low' },
-        max_tokens: 50,
+        max_tokens: 250,
         return_citations: false,
       },
       {
