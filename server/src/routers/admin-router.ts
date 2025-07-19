@@ -3,11 +3,25 @@ import { cleanupVectors, createLabel, deleteUser, getUsers, grantAdmin, uploadDa
 import { Router } from "express";
 import multer, { StorageEngine } from 'multer';
 import path from 'path';
+import fs from 'fs';
+import { v4 as uuid } from 'uuid';
+
+const ensureUploadDir: any = (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void
+): void => {
+    const outPath = path.join('data/files');
+
+    if (!fs.existsSync(outPath)) {
+        fs.mkdirSync(outPath, { recursive: true });
+    }
+
+    cb(null, outPath);
+};
 
 const storage: StorageEngine = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'data/files');
-    },
+    destination: ensureUploadDir,
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname);
         const base = path.basename(file.originalname, ext).replace(/\s+/g, '_');
