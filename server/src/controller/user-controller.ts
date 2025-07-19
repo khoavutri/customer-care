@@ -344,6 +344,7 @@ export const deleteConversation = async (req: Request, res: Response) => {
 
     await Conversation.deleteOne({ _id: conversationId, userId });
     await Message.deleteMany({ conversationId });
+    await Score.deleteMany({ conversationId });
 
     return res.status(200).json({
       status: 1,

@@ -59,7 +59,6 @@ export async function generateVectors(filePath: string, outPath: string, expand:
             embedding: vector,
         });
     }
-    // Save to file
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, JSON.stringify(allVectors, null, 2));
     return allVectors.length;
@@ -80,7 +79,7 @@ function calculateBM25Score(query: string, document: string, k1: number = 1.2, b
     const queryTerms = query.toLowerCase().split(/\s+/);
     const docTerms = document.toLowerCase().split(/\s+/);
     const docLength = docTerms.length;
-    const avgDocLength = 100; // Giả sử độ dài trung bình của document
+    const avgDocLength = 100;
 
     let score = 0;
 
@@ -105,20 +104,16 @@ function keywordSearch(query: string, vectors: any[], topK: number = 10): any[] 
         const textLower = item.text.toLowerCase();
         let keywordScore = 0;
 
-        // Tính điểm BM25
         keywordScore = calculateBM25Score(query, item.text);
 
-        // Bonus cho exact match
         if (textLower.includes(queryLower)) {
             keywordScore += 2;
         }
 
-        // Bonus cho match trong tên
         if (item.original.name && item.original.name.toLowerCase().includes(queryLower)) {
             keywordScore += 3;
         }
 
-        // Bonus cho match trong tags
         if (item.original.tags && item.original.tags.some((tag: string) =>
             tag.toLowerCase().includes(queryLower) || queryLower.includes(tag.toLowerCase())
         )) {

@@ -62,23 +62,14 @@
       }
     },
     "description": "Sa Pa nổi bật với cảnh núi non hùng vĩ, ruộng bậc thang và nền văn hóa dân tộc thiểu số đa dạng.",
-    "tags": [
-      "núi",
-      "ruộng bậc thang",
-      "làng bản",
-      "văn hóa"
-    ],
+    "tags": ["núi", "ruộng bậc thang", "làng bản", "văn hóa"],
     "pricing": {
       "low": 50000,
       "high": 1500000,
       "details": "Vé tham quan bản làng từ 50.000 VNĐ, tour trọn gói từ 1 triệu VNĐ."
     },
     "bestTime": {
-      "months": [
-        "Tháng 9",
-        "Tháng 10",
-        "Tháng 3"
-      ],
+      "months": ["Tháng 9", "Tháng 10", "Tháng 3"],
       "weather": "Mát mẻ, có sương mù và hoa nở"
     },
     "activities": [
@@ -112,23 +103,14 @@
       }
     },
     "description": "Phố cổ Hội An là di sản thế giới UNESCO với kiến trúc cổ kính, đèn lồng và văn hóa giao thoa Đông - Tây.",
-    "tags": [
-      "phố cổ",
-      "di sản",
-      "ẩm thực",
-      "đèn lồng"
-    ],
+    "tags": ["phố cổ", "di sản", "ẩm thực", "đèn lồng"],
     "pricing": {
       "low": 120000,
       "high": 1000000,
       "details": "Vé tham quan phố cổ khoảng 120.000 VNĐ, tour và trải nghiệm thêm tùy chọn."
     },
     "bestTime": {
-      "months": [
-        "Tháng 2",
-        "Tháng 3",
-        "Tháng 8"
-      ],
+      "months": ["Tháng 2", "Tháng 3", "Tháng 8"],
       "weather": "Khô ráo, trời đẹp, thích hợp đi dạo"
     },
     "activities": [
@@ -162,23 +144,14 @@
       }
     },
     "description": "Tràng An nổi tiếng với hệ thống hang động đá vôi, dòng sông trong xanh và cảnh quan tuyệt đẹp.",
-    "tags": [
-      "hang động",
-      "di sản",
-      "sông nước",
-      "thuyền"
-    ],
+    "tags": ["hang động", "di sản", "sông nước", "thuyền"],
     "pricing": {
       "low": 250000,
       "high": 1000000,
       "details": "Vé đò Tràng An khoảng 250.000 VNĐ/lượt, các tour riêng có giá cao hơn."
     },
     "bestTime": {
-      "months": [
-        "Tháng 1",
-        "Tháng 2",
-        "Tháng 11"
-      ],
+      "months": ["Tháng 1", "Tháng 2", "Tháng 11"],
       "weather": "Thời tiết dễ chịu, không quá nóng"
     },
     "activities": [
@@ -199,7 +172,7 @@
       "source": "Vietnam Travel"
     }
   },
-  {
+    {
     "id": 5,
     "type": "Điểm đến",
     "name": "Bà Nà Hills",
@@ -212,23 +185,14 @@
       }
     },
     "description": "Bà Nà Hills nổi tiếng với Cầu Vàng, khí hậu mát mẻ quanh năm và kiến trúc châu Âu độc đáo.",
-    "tags": [
-      "cầu vàng",
-      "núi",
-      "khu du lịch",
-      "châu Âu"
-    ],
+    "tags": ["cầu vàng", "núi", "khu du lịch", "châu Âu"],
     "pricing": {
       "low": 750000,
       "high": 1100000,
       "details": "Vé cáp treo và tham quan từ 750.000 VNĐ đến hơn 1 triệu VNĐ/người."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 12"
-      ],
+      "months": ["Tháng 3", "Tháng 4", "Tháng 12"],
       "weather": "Trời mát, ít mưa, thuận tiện di chuyển"
     },
     "activities": [
@@ -262,23 +226,14 @@
       }
     },
     "description": "Động Phong Nha là một trong những hệ thống hang động đẹp và lớn nhất thế giới, thuộc di sản thiên nhiên thế giới Phong Nha - Kẻ Bàng.",
-    "tags": [
-      "hang động",
-      "di sản",
-      "thám hiểm",
-      "thiên nhiên"
-    ],
+    "tags": ["hang động", "di sản", "thám hiểm", "thiên nhiên"],
     "pricing": {
       "low": 150000,
       "high": 4000000,
       "details": "Vé vào hang cơ bản khoảng 150.000 VNĐ, tour mạo hiểm lên đến vài triệu."
     },
     "bestTime": {
-      "months": [
-        "Tháng 2",
-        "Tháng 3",
-        "Tháng 8"
-      ],
+      "months": ["Tháng 2", "Tháng 3", "Tháng 8"],
       "weather": "Thời tiết khô ráo, mực nước ổn định"
     },
     "activities": [
@@ -312,23 +267,14 @@
       }
     },
     "description": "Thành phố sương mù với khí hậu mát mẻ quanh năm, nổi tiếng với hoa, thác nước và kiến trúc Pháp.",
-    "tags": [
-      "hoa",
-      "thành phố",
-      "lãng mạn",
-      "khí hậu ôn đới"
-    ],
+    "tags": ["hoa", "thành phố", "lãng mạn", "khí hậu ôn đới"],
     "pricing": {
       "low": 0,
       "high": 1000000,
       "details": "Phí tham quan các điểm dao động từ miễn phí đến khoảng 100.000 VNĐ/lượt."
     },
     "bestTime": {
-      "months": [
-        "Tháng 11",
-        "Tháng 12",
-        "Tháng 1"
-      ],
+      "months": ["Tháng 11", "Tháng 12", "Tháng 1"],
       "weather": "Trời se lạnh, hoa dã quỳ và cẩm tú cầu nở rộ"
     },
     "activities": [
@@ -362,23 +308,14 @@
       }
     },
     "description": "Côn Đảo là quần đảo hoang sơ nổi tiếng với bãi biển đẹp và di tích lịch sử về nhà tù Côn Đảo.",
-    "tags": [
-      "đảo",
-      "lịch sử",
-      "biển",
-      "thiên nhiên"
-    ],
+    "tags": ["đảo", "lịch sử", "biển", "thiên nhiên"],
     "pricing": {
       "low": 500000,
       "high": 3000000,
       "details": "Chi phí bay ra đảo khoảng 1-2 triệu VNĐ, tham quan tùy vào điểm đến."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 9"
-      ],
+      "months": ["Tháng 3", "Tháng 4", "Tháng 9"],
       "weather": "Trời trong xanh, biển lặng"
     },
     "activities": [
@@ -412,23 +349,14 @@
       }
     },
     "description": "Chợ nổi Cái Răng là một trong những chợ nổi lớn nhất vùng đồng bằng sông Cửu Long, phản ánh nét văn hóa sông nước độc đáo.",
-    "tags": [
-      "chợ nổi",
-      "sông nước",
-      "văn hóa",
-      "ẩm thực"
-    ],
+    "tags": ["chợ nổi", "sông nước", "văn hóa", "ẩm thực"],
     "pricing": {
       "low": 30000,
       "high": 500000,
       "details": "Đi thuyền khoảng 30.000–50.000 VNĐ, tour trọn gói tùy dịch vụ."
     },
     "bestTime": {
-      "months": [
-        "Tháng 5",
-        "Tháng 6",
-        "Tháng 11"
-      ],
+      "months": ["Tháng 5", "Tháng 6", "Tháng 11"],
       "weather": "Nắng ráo buổi sáng sớm, nước không quá cao"
     },
     "activities": [
@@ -449,7 +377,7 @@
       "source": "Vietnam Travel"
     }
   },
-  {
+    {
     "id": 10,
     "type": "Điểm đến",
     "name": "Địa đạo Củ Chi",
@@ -462,23 +390,14 @@
       }
     },
     "description": "Hệ thống địa đạo dài hơn 200km dưới lòng đất, minh chứng cho cuộc kháng chiến anh dũng của dân tộc Việt Nam.",
-    "tags": [
-      "lịch sử",
-      "di tích",
-      "chiến tranh",
-      "bảo tàng"
-    ],
+    "tags": ["lịch sử", "di tích", "chiến tranh", "bảo tàng"],
     "pricing": {
       "low": 110000,
       "high": 150000,
       "details": "Vé vào cổng khoảng 110.000 VNĐ, có thể thêm chi phí hướng dẫn viên."
     },
     "bestTime": {
-      "months": [
-        "Tháng 12",
-        "Tháng 1",
-        "Tháng 2"
-      ],
+      "months": ["Tháng 12", "Tháng 1", "Tháng 2"],
       "weather": "Mùa khô, thời tiết thuận lợi cho tham quan ngoài trời"
     },
     "activities": [
@@ -512,23 +431,14 @@
       }
     },
     "description": "Di tích đền tháp của Vương quốc Chăm Pa cổ, mang kiến trúc Ấn Độ giáo độc đáo, được UNESCO công nhận.",
-    "tags": [
-      "di sản",
-      "đền tháp",
-      "Chăm Pa",
-      "lịch sử"
-    ],
+    "tags": ["di sản", "đền tháp", "Chăm Pa", "lịch sử"],
     "pricing": {
       "low": 150000,
       "high": 200000,
       "details": "Vé tham quan khoảng 150.000 VNĐ, bao gồm xe điện di chuyển nội khu."
     },
     "bestTime": {
-      "months": [
-        "Tháng 2",
-        "Tháng 3",
-        "Tháng 7"
-      ],
+      "months": ["Tháng 2", "Tháng 3", "Tháng 7"],
       "weather": "Khô ráo, trời nắng nhẹ"
     },
     "activities": [
@@ -562,23 +472,14 @@
       }
     },
     "description": "Thác nước Bản Giốc nằm giữa biên giới Việt - Trung, là một trong những thác nước tự nhiên đẹp nhất châu Á.",
-    "tags": [
-      "thác nước",
-      "thiên nhiên",
-      "biên giới",
-      "núi rừng"
-    ],
+    "tags": ["thác nước", "thiên nhiên", "biên giới", "núi rừng"],
     "pricing": {
       "low": 45000,
       "high": 500000,
       "details": "Vé vào cửa khoảng 45.000 VNĐ, đi thuyền thêm phí 50.000 - 100.000 VNĐ."
     },
     "bestTime": {
-      "months": [
-        "Tháng 9",
-        "Tháng 10",
-        "Tháng 11"
-      ],
+      "months": ["Tháng 9", "Tháng 10", "Tháng 11"],
       "weather": "Mùa nước nhiều, cảnh quan hùng vĩ"
     },
     "activities": [
@@ -612,23 +513,14 @@
       }
     },
     "description": "Vịnh Lăng Cô là một trong những vịnh đẹp nhất thế giới với bãi biển dài, nước trong xanh và phong cảnh yên bình.",
-    "tags": [
-      "biển",
-      "vịnh",
-      "nghỉ dưỡng",
-      "thiên nhiên"
-    ],
+    "tags": ["biển", "vịnh", "nghỉ dưỡng", "thiên nhiên"],
     "pricing": {
       "low": 0,
       "high": 1000000,
       "details": "Tắm biển miễn phí, chi phí tùy vào dịch vụ resort hoặc tour."
     },
     "bestTime": {
-      "months": [
-        "Tháng 4",
-        "Tháng 5",
-        "Tháng 6"
-      ],
+      "months": ["Tháng 4", "Tháng 5", "Tháng 6"],
       "weather": "Trời nắng đẹp, nước biển trong xanh"
     },
     "activities": [
@@ -662,23 +554,14 @@
       }
     },
     "description": "Núi Bà Đen là ngọn núi cao nhất Nam Bộ, nổi tiếng với cáp treo hiện đại, chùa Bà linh thiêng và phong cảnh hùng vĩ.",
-    "tags": [
-      "núi",
-      "cáp treo",
-      "tâm linh",
-      "chùa"
-    ],
+    "tags": ["núi", "cáp treo", "tâm linh", "chùa"],
     "pricing": {
       "low": 160000,
       "high": 500000,
       "details": "Vé cáp treo khứ hồi khoảng 160.000 - 300.000 VNĐ, combo tham quan cao hơn."
     },
     "bestTime": {
-      "months": [
-        "Tháng 1",
-        "Tháng 2",
-        "Tháng 3"
-      ],
+      "months": ["Tháng 1", "Tháng 2", "Tháng 3"],
       "weather": "Khô ráo, thuận tiện leo núi hoặc cáp treo"
     },
     "activities": [
@@ -699,7 +582,7 @@
       "source": "Vietnam Travel"
     }
   },
-  {
+    {
     "id": 15,
     "type": "Điểm đến",
     "name": "Thiền viện Trúc Lâm",
@@ -712,23 +595,14 @@
       }
     },
     "description": "Thiền viện Trúc Lâm là thiền viện lớn nhất Việt Nam, nằm trên đồi Phụng Hoàng với tầm nhìn ra hồ Tuyền Lâm tuyệt đẹp.",
-    "tags": [
-      "chùa",
-      "tâm linh",
-      "thiền viện",
-      "thiên nhiên"
-    ],
+    "tags": ["chùa", "tâm linh", "thiền viện", "thiên nhiên"],
     "pricing": {
       "low": 0,
       "high": 0,
       "details": "Vào cổng miễn phí, có xe điện hoặc cáp treo tùy chọn."
     },
     "bestTime": {
-      "months": [
-        "Tháng 11",
-        "Tháng 12",
-        "Tháng 1"
-      ],
+      "months": ["Tháng 11", "Tháng 12", "Tháng 1"],
       "weather": "Trời se lạnh, trong lành, yên tĩnh"
     },
     "activities": [
@@ -762,23 +636,14 @@
       }
     },
     "description": "Tà Xùa là điểm săn mây nổi tiếng với khung cảnh núi non hùng vĩ và biển mây kỳ ảo.",
-    "tags": [
-      "săn mây",
-      "núi",
-      "phượt",
-      "thiên nhiên"
-    ],
+    "tags": ["săn mây", "núi", "phượt", "thiên nhiên"],
     "pricing": {
       "low": 0,
       "high": 500000,
       "details": "Không mất phí vào cửa, chi phí chủ yếu là đi lại và lưu trú."
     },
     "bestTime": {
-      "months": [
-        "Tháng 12",
-        "Tháng 1",
-        "Tháng 2"
-      ],
+      "months": ["Tháng 12", "Tháng 1", "Tháng 2"],
       "weather": "Trời lạnh, xuất hiện mây sớm"
     },
     "activities": [
@@ -812,23 +677,14 @@
       }
     },
     "description": "Hòn Thơm là hòn đảo đẹp với nước biển xanh ngọc, cáp treo vượt biển dài nhất thế giới và khu vui chơi Sun World.",
-    "tags": [
-      "biển",
-      "đảo",
-      "vui chơi",
-      "cáp treo"
-    ],
+    "tags": ["biển", "đảo", "vui chơi", "cáp treo"],
     "pricing": {
       "low": 400000,
       "high": 800000,
       "details": "Vé combo cáp treo + vui chơi khoảng 400.000 - 800.000 VNĐ."
     },
     "bestTime": {
-      "months": [
-        "Tháng 11",
-        "Tháng 12",
-        "Tháng 1"
-      ],
+      "months": ["Tháng 11", "Tháng 12", "Tháng 1"],
       "weather": "Trời đẹp, biển lặng, nắng nhẹ"
     },
     "activities": [
@@ -862,23 +718,14 @@
       }
     },
     "description": "Pù Luông là khu bảo tồn thiên nhiên nổi bật với ruộng bậc thang, bản làng và thiên nhiên hoang sơ.",
-    "tags": [
-      "núi",
-      "ruộng bậc thang",
-      "bản làng",
-      "phượt"
-    ],
+    "tags": ["núi", "ruộng bậc thang", "bản làng", "phượt"],
     "pricing": {
       "low": 0,
       "high": 300000,
       "details": "Không thu vé vào cửa, chi phí homestay và hướng dẫn viên có thể có."
     },
     "bestTime": {
-      "months": [
-        "Tháng 5",
-        "Tháng 9",
-        "Tháng 10"
-      ],
+      "months": ["Tháng 5", "Tháng 9", "Tháng 10"],
       "weather": "Mùa lúa chín, thời tiết dễ chịu"
     },
     "activities": [
@@ -912,23 +759,14 @@
       }
     },
     "description": "Bản Tả Phìn nổi tiếng với cộng đồng người Dao đỏ, tắm lá thuốc truyền thống và phong cảnh núi rừng yên bình.",
-    "tags": [
-      "bản làng",
-      "tắm lá thuốc",
-      "dân tộc",
-      "đồng quê"
-    ],
+    "tags": ["bản làng", "tắm lá thuốc", "dân tộc", "đồng quê"],
     "pricing": {
       "low": 30000,
       "high": 300000,
       "details": "Tùy dịch vụ tắm lá thuốc, homestay hoặc tour dẫn đường."
     },
     "bestTime": {
-      "months": [
-        "Tháng 4",
-        "Tháng 5",
-        "Tháng 10"
-      ],
+      "months": ["Tháng 4", "Tháng 5", "Tháng 10"],
       "weather": "Mát mẻ, hoa nở và thiên nhiên tươi đẹp"
     },
     "activities": [
@@ -949,7 +787,7 @@
       "source": "Vietnam Travel"
     }
   },
-  {
+    {
     "id": 20,
     "type": "Điểm đến",
     "name": "Hồ Gươm (Hoàn Kiếm)",
@@ -962,23 +800,14 @@
       }
     },
     "description": "Hồ Gươm là biểu tượng của thủ đô Hà Nội, nổi tiếng với Tháp Rùa, cầu Thê Húc và đền Ngọc Sơn.",
-    "tags": [
-      "lịch sử",
-      "biểu tượng",
-      "thành phố",
-      "văn hóa"
-    ],
+    "tags": ["lịch sử", "biểu tượng", "thành phố", "văn hóa"],
     "pricing": {
       "low": 0,
       "high": 30000,
       "details": "Tham quan quanh hồ miễn phí, vào đền Ngọc Sơn khoảng 30.000 VNĐ."
     },
     "bestTime": {
-      "months": [
-        "Tháng 10",
-        "Tháng 11",
-        "Tháng 12"
-      ],
+      "months": ["Tháng 10", "Tháng 11", "Tháng 12"],
       "weather": "Mát mẻ, lá vàng rơi đẹp"
     },
     "activities": [
@@ -1012,23 +841,14 @@
       }
     },
     "description": "Động Thiên Đường là một trong những hang động dài và đẹp nhất ở Phong Nha - Kẻ Bàng với hệ thống nhũ đá kỳ ảo.",
-    "tags": [
-      "hang động",
-      "thiên nhiên",
-      "di sản",
-      "khám phá"
-    ],
+    "tags": ["hang động", "thiên nhiên", "di sản", "khám phá"],
     "pricing": {
       "low": 250000,
       "high": 400000,
       "details": "Vé vào động 250.000 VNĐ, có thể thêm xe điện, dịch vụ tour."
     },
     "bestTime": {
-      "months": [
-        "Tháng 2",
-        "Tháng 3",
-        "Tháng 8"
-      ],
+      "months": ["Tháng 2", "Tháng 3", "Tháng 8"],
       "weather": "Trời khô ráo, thuận tiện di chuyển"
     },
     "activities": [
@@ -1062,23 +882,14 @@
       }
     },
     "description": "Di tích Tháp Bà Ponagar của người Chăm nằm trên đồi cao nhìn ra sông Cái, là nơi thờ Thiên Y Ana – mẹ xứ sở.",
-    "tags": [
-      "văn hóa Chăm",
-      "di tích",
-      "lịch sử",
-      "tâm linh"
-    ],
+    "tags": ["văn hóa Chăm", "di tích", "lịch sử", "tâm linh"],
     "pricing": {
       "low": 25000,
       "high": 50000,
       "details": "Vé vào cổng khoảng 25.000–50.000 VNĐ/người."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 5"
-      ],
+      "months": ["Tháng 3", "Tháng 4", "Tháng 5"],
       "weather": "Trời nắng nhẹ, không mưa"
     },
     "activities": [
@@ -1112,22 +923,14 @@
       }
     },
     "description": "Mù Cang Chải nổi tiếng với ruộng bậc thang mùa lúa chín, là điểm đến hấp dẫn dân phượt và nhiếp ảnh gia.",
-    "tags": [
-      "ruộng bậc thang",
-      "núi",
-      "thiên nhiên",
-      "nhiếp ảnh"
-    ],
+    "tags": ["ruộng bậc thang", "núi", "thiên nhiên", "nhiếp ảnh"],
     "pricing": {
       "low": 0,
       "high": 500000,
       "details": "Không thu vé, chủ yếu là chi phí đi lại, ăn ở, tour địa phương."
     },
     "bestTime": {
-      "months": [
-        "Tháng 9",
-        "Tháng 10"
-      ],
+      "months": ["Tháng 9", "Tháng 10"],
       "weather": "Mùa lúa chín, trời đẹp"
     },
     "activities": [
@@ -1161,23 +964,14 @@
       }
     },
     "description": "Cầu Cần Thơ là cây cầu dây văng dài nhất Đông Nam Á bắc qua sông Hậu, biểu tượng hiện đại của vùng Đồng bằng sông Cửu Long.",
-    "tags": [
-      "cầu",
-      "kiến trúc",
-      "biểu tượng",
-      "hiện đại"
-    ],
+    "tags": ["cầu", "kiến trúc", "biểu tượng", "hiện đại"],
     "pricing": {
       "low": 0,
       "high": 0,
       "details": "Tự do tham quan, đi lại miễn phí."
     },
     "bestTime": {
-      "months": [
-        "Tháng 12",
-        "Tháng 1",
-        "Tháng 2"
-      ],
+      "months": ["Tháng 12", "Tháng 1", "Tháng 2"],
       "weather": "Trời trong xanh, khô ráo"
     },
     "activities": [
@@ -1211,23 +1005,14 @@
       }
     },
     "description": "Tòa thánh Cao Đài Tây Ninh là công trình tôn giáo lớn với kiến trúc độc đáo kết hợp giữa phương Đông và phương Tây.",
-    "tags": [
-      "tôn giáo",
-      "kiến trúc",
-      "văn hóa",
-      "du lịch tâm linh"
-    ],
+    "tags": ["tôn giáo", "kiến trúc", "văn hóa", "du lịch tâm linh"],
     "pricing": {
       "low": 0,
       "high": 0,
       "details": "Vào cổng miễn phí, có quy định về trang phục khi vào lễ đường."
     },
     "bestTime": {
-      "months": [
-        "Tháng 1",
-        "Tháng 2",
-        "Tháng 3"
-      ],
+      "months": ["Tháng 1", "Tháng 2", "Tháng 3"],
       "weather": "Thời tiết dễ chịu, thích hợp tham quan"
     },
     "activities": [
@@ -1248,7 +1033,7 @@
       "source": "Vietnam Travel"
     }
   },
-  {
+    {
     "id": 26,
     "type": "Điểm đến",
     "name": "Chùa Hương",
@@ -1261,23 +1046,14 @@
       }
     },
     "description": "Chùa Hương là quần thể văn hóa - tôn giáo nổi tiếng, thu hút hàng triệu khách hành hương mỗi năm.",
-    "tags": [
-      "chùa",
-      "tâm linh",
-      "văn hóa",
-      "lễ hội"
-    ],
+    "tags": ["chùa", "tâm linh", "văn hóa", "lễ hội"],
     "pricing": {
       "low": 80000,
       "high": 250000,
       "details": "Vé tham quan và đò khoảng 80.000–250.000 VNĐ tùy chặng."
     },
     "bestTime": {
-      "months": [
-        "Tháng 1",
-        "Tháng 2",
-        "Tháng 3"
-      ],
+      "months": ["Tháng 1", "Tháng 2", "Tháng 3"],
       "weather": "Mùa lễ hội, thời tiết mát mẻ"
     },
     "activities": [
@@ -1311,23 +1087,14 @@
       }
     },
     "description": "Sơn Đoòng là hang động lớn nhất thế giới, với hệ sinh thái riêng và khung cảnh kỳ vĩ như thế giới khác.",
-    "tags": [
-      "hang động",
-      "mạo hiểm",
-      "di sản",
-      "thám hiểm"
-    ],
+    "tags": ["hang động", "mạo hiểm", "di sản", "thám hiểm"],
     "pricing": {
       "low": 69000000,
       "high": 80000000,
       "details": "Tour mạo hiểm giới hạn người, giá khoảng 69–80 triệu VNĐ/người (4–5 ngày)."
     },
     "bestTime": {
-      "months": [
-        "Tháng 2",
-        "Tháng 3",
-        "Tháng 4"
-      ],
+      "months": ["Tháng 2", "Tháng 3", "Tháng 4"],
       "weather": "Thời tiết khô ráo, thuận lợi thám hiểm"
     },
     "activities": [
@@ -1361,23 +1128,14 @@
       }
     },
     "description": "Tháp Đôi là cụm tháp Chăm cổ còn sót lại ở Quy Nhơn, mang vẻ đẹp độc đáo và huyền bí.",
-    "tags": [
-      "Chăm",
-      "lịch sử",
-      "kiến trúc",
-      "văn hóa"
-    ],
+    "tags": ["Chăm", "lịch sử", "kiến trúc", "văn hóa"],
     "pricing": {
       "low": 20000,
       "high": 40000,
       "details": "Vé tham quan dao động từ 20.000–40.000 VNĐ/người."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 8"
-      ],
+      "months": ["Tháng 3", "Tháng 4", "Tháng 8"],
       "weather": "Trời khô ráo, dễ chụp ảnh đẹp"
     },
     "activities": [
@@ -1411,23 +1169,14 @@
       }
     },
     "description": "Lăng Bác là nơi an nghỉ của Chủ tịch Hồ Chí Minh, biểu tượng của lòng yêu nước và sự kính trọng của nhân dân.",
-    "tags": [
-      "lịch sử",
-      "tâm linh",
-      "chính trị",
-      "quốc gia"
-    ],
+    "tags": ["lịch sử", "tâm linh", "chính trị", "quốc gia"],
     "pricing": {
       "low": 0,
       "high": 0,
       "details": "Tham quan miễn phí, có quy định về trang phục và giữ gìn trật tự."
     },
     "bestTime": {
-      "months": [
-        "Tháng 5",
-        "Tháng 9",
-        "Tháng 12"
-      ],
+      "months": ["Tháng 5", "Tháng 9", "Tháng 12"],
       "weather": "Trời mát, thuận tiện xếp hàng tham quan"
     },
     "activities": [
@@ -1448,7 +1197,7 @@
       "source": "Vietnam Travel"
     }
   },
-  {
+    {
     "id": 30,
     "type": "Điểm đến",
     "name": "Biển Mỹ Khê",
@@ -1461,23 +1210,14 @@
       }
     },
     "description": "Biển Mỹ Khê từng được Forbes bình chọn là một trong những bãi biển quyến rũ nhất hành tinh, nổi tiếng với cát trắng và sóng êm.",
-    "tags": [
-      "biển",
-      "nghỉ dưỡng",
-      "tắm biển",
-      "thiên nhiên"
-    ],
+    "tags": ["biển", "nghỉ dưỡng", "tắm biển", "thiên nhiên"],
     "pricing": {
       "low": 0,
       "high": 0,
       "details": "Miễn phí vào cửa, dịch vụ ăn uống và trò chơi tính phí riêng."
     },
     "bestTime": {
-      "months": [
-        "Tháng 4",
-        "Tháng 5",
-        "Tháng 6"
-      ],
+      "months": ["Tháng 4", "Tháng 5", "Tháng 6"],
       "weather": "Trời nắng đẹp, biển lặng"
     },
     "activities": [
@@ -1511,23 +1251,14 @@
       }
     },
     "description": "Núi Hàm Rồng nằm ngay trung tâm Sa Pa, nổi tiếng với vườn hoa, cảnh quan núi non và góc nhìn toàn thị trấn.",
-    "tags": [
-      "núi",
-      "cảnh quan",
-      "chụp ảnh",
-      "hoa"
-    ],
+    "tags": ["núi", "cảnh quan", "chụp ảnh", "hoa"],
     "pricing": {
       "low": 70000,
       "high": 100000,
       "details": "Vé vào khoảng 70.000–100.000 VNĐ/người."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 10"
-      ],
+      "months": ["Tháng 3", "Tháng 4", "Tháng 10"],
       "weather": "Hoa nở đẹp, trời trong"
     },
     "activities": [
@@ -1561,23 +1292,14 @@
       }
     },
     "description": "Hồ Ba Bể là một trong những hồ nước ngọt tự nhiên lớn nhất Việt Nam, nằm trong vườn quốc gia với hệ sinh thái phong phú.",
-    "tags": [
-      "hồ",
-      "thiên nhiên",
-      "vườn quốc gia",
-      "sinh thái"
-    ],
+    "tags": ["hồ", "thiên nhiên", "vườn quốc gia", "sinh thái"],
     "pricing": {
       "low": 50000,
       "high": 150000,
       "details": "Vé vào cổng khoảng 50.000 VNĐ, đi thuyền tham quan khoảng 100.000 VNĐ."
     },
     "bestTime": {
-      "months": [
-        "Tháng 9",
-        "Tháng 10",
-        "Tháng 11"
-      ],
+      "months": ["Tháng 9", "Tháng 10", "Tháng 11"],
       "weather": "Khô ráo, nước trong xanh"
     },
     "activities": [
@@ -1611,23 +1333,14 @@
       }
     },
     "description": "Hồ Tuyền Lâm là hồ nước ngọt lớn nhất Đà Lạt, bao quanh bởi rừng thông và không gian tĩnh lặng.",
-    "tags": [
-      "hồ",
-      "rừng",
-      "dã ngoại",
-      "thiền"
-    ],
+    "tags": ["hồ", "rừng", "dã ngoại", "thiền"],
     "pricing": {
       "low": 0,
       "high": 100000,
       "details": "Miễn phí vào tham quan, thuê thuyền hoặc cano có phí."
     },
     "bestTime": {
-      "months": [
-        "Tháng 11",
-        "Tháng 12",
-        "Tháng 1"
-      ],
+      "months": ["Tháng 11", "Tháng 12", "Tháng 1"],
       "weather": "Trời lạnh, nắng nhẹ, sương sớm"
     },
     "activities": [
@@ -1661,22 +1374,14 @@
       }
     },
     "description": "Vườn quốc gia Cúc Phương là vườn quốc gia đầu tiên và lâu đời nhất Việt Nam, nổi tiếng với rừng già nguyên sinh và động vật quý hiếm.",
-    "tags": [
-      "vườn quốc gia",
-      "rừng",
-      "động vật",
-      "giáo dục"
-    ],
+    "tags": ["vườn quốc gia", "rừng", "động vật", "giáo dục"],
     "pricing": {
       "low": 60000,
       "high": 100000,
       "details": "Vé vào khoảng 60.000–100.000 VNĐ tùy đối tượng và phương tiện."
     },
     "bestTime": {
-      "months": [
-        "Tháng 4",
-        "Tháng 5"
-      ],
+      "months": ["Tháng 4", "Tháng 5"],
       "weather": "Mùa bướm rừng, khí hậu mát"
     },
     "activities": [
@@ -1697,7 +1402,7 @@
       "source": "Vietnam Travel"
     }
   },
-  {
+    {
     "id": 35,
     "type": "Điểm đến",
     "name": "Thác Dambri",
@@ -1710,23 +1415,14 @@
       }
     },
     "description": "Thác Dambri là một trong những thác nước cao và đẹp nhất miền Nam, nổi bật với dòng nước trắng xóa giữa núi rừng.",
-    "tags": [
-      "thác nước",
-      "thiên nhiên",
-      "rừng",
-      "dã ngoại"
-    ],
+    "tags": ["thác nước", "thiên nhiên", "rừng", "dã ngoại"],
     "pricing": {
       "low": 150000,
       "high": 200000,
       "details": "Vé vào cổng khoảng 150.000 VNĐ, bao gồm thang máy, máng trượt."
     },
     "bestTime": {
-      "months": [
-        "Tháng 5",
-        "Tháng 6",
-        "Tháng 7"
-      ],
+      "months": ["Tháng 5", "Tháng 6", "Tháng 7"],
       "weather": "Trời nắng, nước nhiều và mát"
     },
     "activities": [
@@ -1760,23 +1456,14 @@
       }
     },
     "description": "Đồi chè Cầu Đất là địa điểm check-in nổi tiếng ở Đà Lạt với bạt ngàn nương chè xanh mướt trải dài.",
-    "tags": [
-      "đồi chè",
-      "chụp ảnh",
-      "đà lạt",
-      "thiên nhiên"
-    ],
+    "tags": ["đồi chè", "chụp ảnh", "đà lạt", "thiên nhiên"],
     "pricing": {
       "low": 30000,
       "high": 50000,
       "details": "Vé vào khoảng 30.000–50.000 VNĐ/người."
     },
     "bestTime": {
-      "months": [
-        "Tháng 10",
-        "Tháng 11",
-        "Tháng 12"
-      ],
+      "months": ["Tháng 10", "Tháng 11", "Tháng 12"],
       "weather": "Sáng sớm có sương mù, rất nên thơ"
     },
     "activities": [
@@ -1810,23 +1497,14 @@
       }
     },
     "description": "Bãi biển Ninh Chữ có bờ cát dài, cong hình lưỡi liềm, nước biển trong xanh và ít du khách đông đúc.",
-    "tags": [
-      "biển",
-      "nghỉ dưỡng",
-      "vắng vẻ",
-      "thiên nhiên"
-    ],
+    "tags": ["biển", "nghỉ dưỡng", "vắng vẻ", "thiên nhiên"],
     "pricing": {
       "low": 0,
       "high": 200000,
       "details": "Miễn phí tắm biển, dịch vụ ăn uống tính riêng."
     },
     "bestTime": {
-      "months": [
-        "Tháng 4",
-        "Tháng 5",
-        "Tháng 6"
-      ],
+      "months": ["Tháng 4", "Tháng 5", "Tháng 6"],
       "weather": "Biển lặng, nắng đẹp"
     },
     "activities": [
@@ -1860,22 +1538,14 @@
       }
     },
     "description": "Bãi đá Cổ Thạch nổi bật với những viên đá bảy màu, tròn nhẵn tự nhiên, trải dài trên bãi biển tuyệt đẹp.",
-    "tags": [
-      "biển",
-      "đá",
-      "độc đáo",
-      "nhiếp ảnh"
-    ],
+    "tags": ["biển", "đá", "độc đáo", "nhiếp ảnh"],
     "pricing": {
       "low": 0,
       "high": 0,
       "details": "Miễn phí tham quan bãi đá."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4"
-      ],
+      "months": ["Tháng 3", "Tháng 4"],
       "weather": "Có rêu xanh phủ đá, cảnh sắc rất độc đáo"
     },
     "activities": [
@@ -1909,23 +1579,14 @@
       }
     },
     "description": "Thung lũng Tình Yêu là một trong những địa điểm lãng mạn nhất Đà Lạt, nổi bật với cảnh quan hoa lá, hồ nước và các tiểu cảnh tình yêu.",
-    "tags": [
-      "lãng mạn",
-      "hoa",
-      "chụp ảnh",
-      "nghỉ dưỡng"
-    ],
+    "tags": ["lãng mạn", "hoa", "chụp ảnh", "nghỉ dưỡng"],
     "pricing": {
       "low": 250000,
       "high": 300000,
       "details": "Vé tham quan khoảng 250.000 VNĐ, có xe điện đưa đón trong khuôn viên."
     },
     "bestTime": {
-      "months": [
-        "Tháng 11",
-        "Tháng 12",
-        "Tháng 1"
-      ],
+      "months": ["Tháng 11", "Tháng 12", "Tháng 1"],
       "weather": "Trời lạnh, hoa nở đẹp"
     },
     "activities": [
@@ -1959,23 +1620,14 @@
       }
     },
     "description": "Biển Cửa Đại nằm gần phố cổ Hội An, nổi tiếng với bãi cát trắng mịn, nước trong xanh và không khí yên bình.",
-    "tags": [
-      "biển",
-      "nghỉ dưỡng",
-      "hội an",
-      "thiên nhiên"
-    ],
+    "tags": ["biển", "nghỉ dưỡng", "hội an", "thiên nhiên"],
     "pricing": {
       "low": 0,
       "high": 0,
       "details": "Miễn phí tham quan, tắm biển. Các dịch vụ như ghế, ăn uống tính riêng."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 7"
-      ],
+      "months": ["Tháng 3", "Tháng 4", "Tháng 7"],
       "weather": "Trời đẹp, biển lặng"
     },
     "activities": [
@@ -2009,23 +1661,14 @@
       }
     },
     "description": "Hồ Núi Cốc là hồ nước nhân tạo nổi tiếng gắn liền với truyền thuyết tình yêu, có nhiều đảo, khu vui chơi và cảnh đẹp.",
-    "tags": [
-      "hồ",
-      "truyền thuyết",
-      "công viên",
-      "gia đình"
-    ],
+    "tags": ["hồ", "truyền thuyết", "công viên", "gia đình"],
     "pricing": {
       "low": 120000,
       "high": 200000,
       "details": "Vé vào cổng khoảng 120.000 VNĐ, các dịch vụ khác tính riêng."
     },
     "bestTime": {
-      "months": [
-        "Tháng 9",
-        "Tháng 10",
-        "Tháng 11"
-      ],
+      "months": ["Tháng 9", "Tháng 10", "Tháng 11"],
       "weather": "Khí hậu mát, dễ chịu"
     },
     "activities": [
@@ -2059,23 +1702,14 @@
       }
     },
     "description": "Langbiang là đỉnh núi cao nhất Đà Lạt, nơi du khách có thể ngắm toàn cảnh thành phố và trải nghiệm cưỡi xe Jeep mạo hiểm.",
-    "tags": [
-      "núi",
-      "phiêu lưu",
-      "ngắm cảnh",
-      "thiên nhiên"
-    ],
+    "tags": ["núi", "phiêu lưu", "ngắm cảnh", "thiên nhiên"],
     "pricing": {
       "low": 50000,
       "high": 150000,
       "details": "Vé vào khoảng 50.000 VNĐ, thuê xe Jeep khoảng 100.000–150.000 VNĐ/người."
     },
     "bestTime": {
-      "months": [
-        "Tháng 12",
-        "Tháng 1",
-        "Tháng 2"
-      ],
+      "months": ["Tháng 12", "Tháng 1", "Tháng 2"],
       "weather": "Se lạnh, trời trong"
     },
     "activities": [
@@ -2109,23 +1743,14 @@
       }
     },
     "description": "Làng gốm Bát Tràng là làng nghề truyền thống lâu đời với các sản phẩm gốm sứ độc đáo và trải nghiệm làm gốm thú vị.",
-    "tags": [
-      "làng nghề",
-      "gốm",
-      "truyền thống",
-      "thủ công"
-    ],
+    "tags": ["làng nghề", "gốm", "truyền thống", "thủ công"],
     "pricing": {
       "low": 0,
       "high": 100000,
       "details": "Vào làng miễn phí, làm gốm trải nghiệm từ 50.000–100.000 VNĐ/lượt."
     },
     "bestTime": {
-      "months": [
-        "Tháng 2",
-        "Tháng 3",
-        "Tháng 11"
-      ],
+      "months": ["Tháng 2", "Tháng 3", "Tháng 11"],
       "weather": "Khô ráo, thích hợp đi bộ và tham quan"
     },
     "activities": [
@@ -2159,23 +1784,14 @@
       }
     },
     "description": "Chợ đêm Đà Lạt là nơi hội tụ ẩm thực, mua sắm và không khí nhộn nhịp đặc trưng của thành phố ngàn hoa.",
-    "tags": [
-      "ẩm thực",
-      "mua sắm",
-      "văn hóa",
-      "đà lạt"
-    ],
+    "tags": ["ẩm thực", "mua sắm", "văn hóa", "đà lạt"],
     "pricing": {
       "low": 0,
       "high": 300000,
       "details": "Miễn phí vào chợ, chi phí phụ thuộc vào ăn uống và mua sắm cá nhân."
     },
     "bestTime": {
-      "months": [
-        "Tháng 11",
-        "Tháng 12",
-        "Tháng 1"
-      ],
+      "months": ["Tháng 11", "Tháng 12", "Tháng 1"],
       "weather": "Trời se lạnh, không khí náo nhiệt"
     },
     "activities": [
@@ -2196,7 +1812,7 @@
       "source": "Vietnam Travel"
     }
   },
-  {
+    {
     "id": 45,
     "type": "Điểm đến",
     "name": "Đảo Lý Sơn",
@@ -2209,23 +1825,14 @@
       }
     },
     "description": "Lý Sơn là hòn đảo núi lửa với cảnh sắc hoang sơ, nổi bật với tỏi Lý Sơn, hang Câu, cổng Tò Vò và bãi biển xanh ngọc.",
-    "tags": [
-      "đảo",
-      "biển",
-      "núi lửa",
-      "tỏi"
-    ],
+    "tags": ["đảo", "biển", "núi lửa", "tỏi"],
     "pricing": {
       "low": 300000,
       "high": 1500000,
       "details": "Chi phí tàu cao tốc từ đất liền và tham quan tùy dịch vụ, homestay."
     },
     "bestTime": {
-      "months": [
-        "Tháng 4",
-        "Tháng 5",
-        "Tháng 6"
-      ],
+      "months": ["Tháng 4", "Tháng 5", "Tháng 6"],
       "weather": "Trời nắng, biển lặng, thích hợp tham quan"
     },
     "activities": [
@@ -2259,23 +1866,14 @@
       }
     },
     "description": "Đầm Lập An là đầm nước lợ lớn ở chân đèo Hải Vân, nổi tiếng với mặt nước phẳng lặng, phản chiếu mây trời tuyệt đẹp.",
-    "tags": [
-      "đầm",
-      "sống ảo",
-      "ngắm cảnh",
-      "ẩm thực"
-    ],
+    "tags": ["đầm", "sống ảo", "ngắm cảnh", "ẩm thực"],
     "pricing": {
       "low": 0,
       "high": 200000,
       "details": "Tham quan miễn phí, chi phí ăn uống tại các nhà hàng ven đầm tùy chọn."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 9"
-      ],
+      "months": ["Tháng 3", "Tháng 4", "Tháng 9"],
       "weather": "Chiều muộn trời trong, ngắm hoàng hôn đẹp"
     },
     "activities": [
@@ -2309,23 +1907,14 @@
       }
     },
     "description": "Suối Yến là tuyến đường thủy dẫn vào Chùa Hương, nổi tiếng với phong cảnh sơn thủy hữu tình, đặc biệt vào mùa lễ hội đầu năm.",
-    "tags": [
-      "sông nước",
-      "tâm linh",
-      "lễ hội",
-      "chùa"
-    ],
+    "tags": ["sông nước", "tâm linh", "lễ hội", "chùa"],
     "pricing": {
       "low": 50000,
       "high": 150000,
       "details": "Vé đò tham quan từ 50.000–100.000 VNĐ, vé combo với chùa Hương có thể cao hơn."
     },
     "bestTime": {
-      "months": [
-        "Tháng 1",
-        "Tháng 2",
-        "Tháng 3"
-      ],
+      "months": ["Tháng 1", "Tháng 2", "Tháng 3"],
       "weather": "Mùa lễ hội, trời trong mát"
     },
     "activities": [
@@ -2359,23 +1948,14 @@
       }
     },
     "description": "Bãi Cháy là khu du lịch biển sôi động tại thành phố Hạ Long với bãi tắm nhân tạo, cầu cảng du thuyền và khu vui chơi giải trí Sun World.",
-    "tags": [
-      "biển",
-      "giải trí",
-      "thành phố",
-      "du thuyền"
-    ],
+    "tags": ["biển", "giải trí", "thành phố", "du thuyền"],
     "pricing": {
       "low": 0,
       "high": 500000,
       "details": "Tắm biển miễn phí, vé khu vui chơi Sun World khoảng 350.000–500.000 VNĐ."
     },
     "bestTime": {
-      "months": [
-        "Tháng 4",
-        "Tháng 5",
-        "Tháng 6"
-      ],
+      "months": ["Tháng 4", "Tháng 5", "Tháng 6"],
       "weather": "Trời nắng, nước ấm, thuận tiện vui chơi"
     },
     "activities": [
@@ -2409,23 +1989,14 @@
       }
     },
     "description": "Đỉnh Pha Luông, còn được gọi là 'nóc nhà Mộc Châu', là điểm trekking lý tưởng với vách đá dựng đứng và tầm nhìn sang tận biên giới Lào.",
-    "tags": [
-      "núi",
-      "trekking",
-      "biên giới",
-      "phiêu lưu"
-    ],
+    "tags": ["núi", "trekking", "biên giới", "phiêu lưu"],
     "pricing": {
       "low": 100000,
       "high": 300000,
       "details": "Chi phí bao gồm phí vào rừng và hướng dẫn viên địa phương."
     },
     "bestTime": {
-      "months": [
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 10"
-      ],
+      "months": ["Tháng 3", "Tháng 4", "Tháng 10"],
       "weather": "Trời khô, tầm nhìn xa, ít sương"
     },
     "activities": [
@@ -2459,23 +2030,14 @@
       }
     },
     "description": "Làng Cù Lần là khu du lịch sinh thái nằm giữa rừng thông Đà Lạt, nổi bật với lối kiến trúc truyền thống và suối tự nhiên thơ mộng.",
-    "tags": [
-      "làng",
-      "đà lạt",
-      "sinh thái",
-      "truyền thống"
-    ],
+    "tags": ["làng", "đà lạt", "sinh thái", "truyền thống"],
     "pricing": {
       "low": 100000,
       "high": 200000,
       "details": "Vé vào khoảng 100.000–200.000 VNĐ tùy tour và trải nghiệm."
     },
     "bestTime": {
-      "months": [
-        "Tháng 11",
-        "Tháng 12",
-        "Tháng 1"
-      ],
+      "months": ["Tháng 11", "Tháng 12", "Tháng 1"],
       "weather": "Trời se lạnh, cảnh sắc nên thơ"
     },
     "activities": [
@@ -2496,4 +2058,5 @@
       "source": "Vietnam Travel"
     }
   }
+
 ]
