@@ -11,7 +11,6 @@ const MessageSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now }
 });
 
-// Tạo index để tối ưu truy vấn
 MessageSchema.index({ conversationId: 1, timestamp: -1 });
 
 export default mongoose.model("Message", MessageSchema);
