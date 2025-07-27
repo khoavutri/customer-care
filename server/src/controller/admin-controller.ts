@@ -5,10 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import User from "../models/user.model";
 import fs from 'fs/promises';
+import { readExcelDynamicBuffer } from "../util/excel-handler";
 
 dotenv.config();
 
-export const uploadJson = async (req: Request, res: Response) => {
+export const uploadData = async (req: Request, res: Response) => {
     try {
         if (!req.file) {
             return res.status(400).json({ status: 0, message: 'No file uploaded' });
@@ -217,15 +218,33 @@ export const createLabel = async (req: Request, res: Response) => {
         if (!req.file) {
             return res.status(200).json({ status: 0, message: 'Không có file tải lên' });
         }
-
         const outPath = path.join('data/label', 'label.json');
         await fs.mkdir(path.dirname(outPath), { recursive: true });
 
+        const fileName = req.file.originalname.toLowerCase();
         let records: any[];
-        try {
-            records = JSON.parse(req.file.buffer.toString());
-        } catch (parseError) {
-            return res.status(200).json({ status: 0, message: 'File JSON không hợp lệ' });
+        if (fileName.endsWith(".json")) {
+            try {
+                const parsed = JSON.parse(req.file.buffer.toString());
+                if (!Array.isArray(parsed)) {
+                    return res.status(200).json({ status: 0, message: "Dữ liệu JSON phải là một mảng" });
+                }
+                records = parsed;
+            } catch (parseError) {
+                return res.status(200).json({ status: 0, message: "File JSON không hợp lệ" });
+            }
+        } else if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
+            try {
+                const excelData = await readExcelDynamicBuffer(req.file.buffer);
+                records = excelData.map((row) => ({
+                    label: String(row.label || "").trim(),
+                    question: String(row.question || "").trim(),
+                }));
+            } catch (excelError) {
+                return res.status(200).json({ status: 0, message: "Không thể đọc file Excel" });
+            }
+        } else {
+            return res.status(200).json({ status: 0, message: "Định dạng file không được hỗ trợ (chỉ hỗ trợ .json, .xlsx, .xls)" });
         }
 
         if (!Array.isArray(records)) {

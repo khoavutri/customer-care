@@ -1,22 +1,22 @@
 [
   {
-    "label": "biển",
+    "label": "địa điểm biển",
     "question": "Biển nào ở Việt Nam đẹp nhất để du lịch?"
   },
   {
-    "label": "núi",
+    "label": "địa điểm núi",
     "question": "Núi nào ở Việt Nam nổi tiếng để tham quan?"
   },
   {
-    "label": "thành phố",
+    "label": "địa điểm thành phố",
     "question": "Thành phố nào ở Việt Nam có nhiều điểm du lịch hấp dẫn?"
   },
   {
-    "label": "làng quê",
+    "label": "địa điểm làng quê",
     "question": "Làng quê nào ở Việt Nam đáng để khám phá?"
   },
   {
-    "label": "di tích",
+    "label": "địa điểm di tích",
     "question": "Di tích lịch sử nào ở Việt Nam nên ghé thăm?"
   },
   {
@@ -48,15 +48,15 @@
     "question": "Loại chỗ ở nào ở Việt Nam tốt nhất cho du lịch?"
   },
   {
-    "label": "phương tiện",
+    "label": "phương tiện di chuyển",
     "question": "Phương tiện nào tiện nhất để đi du lịch ở Việt Nam?"
   },
   {
-    "label": "chi phí",
+    "label": "chi phí du lịch",
     "question": "Chi phí du lịch ở Việt Nam thường là bao nhiêu?"
   },
   {
-    "label": "thời tiết",
+    "label": "thời tiết du lịch",
     "question": "Mùa nào ở Việt Nam thích hợp nhất để đi du lịch?"
   }
 ]

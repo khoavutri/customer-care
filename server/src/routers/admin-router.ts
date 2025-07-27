@@ -1,13 +1,27 @@
 
-import { cleanupVectors, createLabel, deleteUser, getUsers, grantAdmin, uploadJson } from "../controller/admin-controller";
+import { cleanupVectors, createLabel, deleteUser, getUsers, grantAdmin, uploadData } from "../controller/admin-controller";
 import { Router } from "express";
 import multer, { StorageEngine } from 'multer';
 import path from 'path';
+import fs from 'fs';
+import { v4 as uuid } from 'uuid';
+
+const ensureUploadDir: any = (
+    req: Request,
+    file: Express.Multer.File,
+    cb: (error: Error | null, destination: string) => void
+): void => {
+    const outPath = path.join('data/files');
+
+    if (!fs.existsSync(outPath)) {
+        fs.mkdirSync(outPath, { recursive: true });
+    }
+
+    cb(null, outPath);
+};
 
 const storage: StorageEngine = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'data/files');
-    },
+    destination: ensureUploadDir,
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname);
         const base = path.basename(file.originalname, ext).replace(/\s+/g, '_');
@@ -20,7 +34,7 @@ const upload = multer({ storage });
 const uploadLabel = multer({ storage: multer.memoryStorage() });
 const adminRouter: any = Router();
 
-adminRouter.post("/upload-json", upload.single('file'), uploadJson);
+adminRouter.post("/upload-data", upload.single('file'), uploadData);
 adminRouter.post("/user-list", getUsers);
 adminRouter.put("/grant-admin", grantAdmin);
 adminRouter.delete("/delete-user/:userId", deleteUser);
