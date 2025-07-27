@@ -80,7 +80,7 @@ function calculateBM25Score(query: string, document: string, k1: number = 1.2, b
     const queryTerms = query.toLowerCase().split(/\s+/);
     const docTerms = document.toLowerCase().split(/\s+/);
     const docLength = docTerms.length;
-    const avgDocLength = 100; // Giả sử độ dài trung bình của document
+    const avgDocLength = 100;
 
     let score = 0;
 
@@ -177,7 +177,6 @@ export async function hybridSearch(
         const keywordScore = keywordMap.get(id) || 0;
         const finalScore = (semanticScore * semanticWeight) + (keywordScore * keywordWeight);
 
-        // Lấy item gốc (ưu tiên từ semantic results)
         const originalItem = semanticResults.find((item: any) => item.id === id) ||
             keywordResults.find(item => item.id === id) ||
             vectors.find((item: any) => item.id === id);
@@ -191,7 +190,6 @@ export async function hybridSearch(
         };
     });
 
-    // 6. Sắp xếp và trả về top K
     return combinedResults
         .sort((a, b) => b.finalScore - a.finalScore)
         .slice(0, topK);

@@ -227,7 +227,7 @@ const Chat = () => {
               <Bot className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="font-semibold text-lg">AI Customer Support</h1>
+              <h1 className="font-semibold text-lg">Tour Bot</h1>
               <p className="text-sm text-muted-foreground">
                 Luôn sẵn sàng hỗ trợ bạn
               </p>
@@ -240,24 +240,21 @@ const Chat = () => {
         </header>
         {/* Messages */}
         <div
-          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar} ${
-            mobile ? "mb-[80px]" : ""
-          }`}
+          className={`flex-1 overflow-y-auto p-4 space-y-4 ${scrollBar} ${mobile ? "mb-[80px]" : ""
+            }`}
           style={{ backgroundColor: "222.2 84% 4.9%" }}
         >
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex items-start space-x-3 animate-fade-in ${
-                message.sender === "user"
-                  ? "flex-row-reverse space-x-reverse"
-                  : ""
-              }`}
+              className={`flex items-start space-x-3 animate-fade-in ${message.sender === "user"
+                ? "flex-row-reverse space-x-reverse"
+                : ""
+                }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                  message.sender === "user" ? "bg-chat-primary" : "bg-muted"
-                }`}
+                className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === "user" ? "bg-chat-primary" : "bg-muted"
+                  }`}
               >
                 {message.sender === "user" ? (
                   <User className="w-4 h-4 text-white" />
@@ -267,11 +264,10 @@ const Chat = () => {
               </div>
 
               <div
-                className={`chat-bubble ${
-                  message.sender === "user"
-                    ? "chat-bubble-user"
-                    : "chat-bubble-assistant"
-                }`}
+                className={`chat-bubble ${message.sender === "user"
+                  ? "chat-bubble-user"
+                  : "chat-bubble-assistant"
+                  }`}
               >
                 <div className="text-sm leading-relaxed">
                   <ReactMarkdown
@@ -282,11 +278,10 @@ const Chat = () => {
                   </ReactMarkdown>
                 </div>
                 <p
-                  className={`text-xs mt-1 opacity-70 ${
-                    message.sender === "user"
-                      ? "text-white/70"
-                      : "text-muted-foreground"
-                  }`}
+                  className={`text-xs mt-1 opacity-70 ${message.sender === "user"
+                    ? "text-white/70"
+                    : "text-muted-foreground"
+                    }`}
                 >
                   {new Date(message.timestamp).toLocaleTimeString("vi-VN", {
                     hour: "2-digit",

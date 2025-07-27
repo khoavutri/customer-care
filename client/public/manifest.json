@@ -1,6 +1,6 @@
 {
-  "name": "Customer care",
-  "short_name": "Customer care",
+  "name": "Tour Bot",
+  "short_name": "Tour Bot",
   "start_url": "/",
   "background_color": "#fff",
   "display": "standalone",
