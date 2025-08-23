@@ -1,39 +1,58 @@
-Follow these steps:
+# TourBot – RAG Du Lịch (README rút gọn)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Trợ lý hỏi đáp du lịch dùng RAG (Retrieval‑Augmented Generation). Tập trung vào trải nghiệm hỏi đáp và gợi ý lịch trình từ dữ liệu đã nạp.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Demo
 
-# Step 3: Install the necessary dependencies.
-npm i
+* Live: [https://tourbot.site](https://tourbot.site)
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+## Yêu cầu hệ thống
+
+* Node.js ≥ 18
+* MongoDB (Atlas Vector Search hoặc MongoDB local có vector index)
+* API key cho LLM (Perplexity)
+
+## Cấu trúc thư mục (tham khảo)
+
+```
+root/
+  server/   # Express + RAG API
+  client/   # React + Vite (client)
 ```
 
-**Edit a file directly in GitHub**
+## Cài đặt & chạy nhanh (Development)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Clone & cài đặt
 
-**Use GitHub Codespaces**
+```bash
+git clone <repo-url>
+cd <repo-name>
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Cài đặt API và Client
+npm run i:all
+```
 
-## What technologies are used for this project?
+2. Biến môi trường
 
-This project is built with .
+**server/.env**
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```bash
+PORT=3000
+MONGODB_URI=mongodb+srv://<user>:<pass>@<cluster>/?retryWrites=true&w=majority
+JWT_SECRET=<your-secret>
+PERPLEXITY_KEY=<your-api-key>
+```
+
+3. Chạy dự án
+
+```bash
+# Từ thư mục gốc
+npm start
+```
+
+Mặc định truy cập: [http://localhost:3000](http://localhost:3000)
+
+## Ghi chú
+
+* Production: tự cấu hình build/deploy theo nhu cầu (Docker, PM2, Vercel, v.v.).
+* Cập nhật lại `<repo-url>` và các biến `.env` cho phù hợp môi trường sử dụng.
