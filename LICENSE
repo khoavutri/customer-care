@@ -1,15 +1,27 @@
 Educational Non-Commercial License (ENCL)
 Copyright (c) 2025 Vu Tri Khoa
 
-Bằng văn bản này, tác giả cho phép bất kỳ cá nhân/tổ chức nào được sử dụng, sao chép, sửa đổi, hợp nhất, xuất bản, phân phối Phần mềm và/hoặc tài liệu đi kèm (gọi chung là “Phần mềm”) chỉ cho các mục đích học tập, nghiên cứu học thuật, hoặc đánh giá nội bộ phi thương mại.
+Permission is hereby granted to any person or organization to use, copy, modify,
+merge, publish, and distribute this software and/or accompanying documentation
+(the “Software”) solely for educational, academic research, or internal
+non-commercial evaluation purposes.
 
-Không được phép sử dụng thương mại Phần mềm — bao gồm nhưng không giới hạn: bán, cấp phép thu phí, tích hợp vào sản phẩm/dịch vụ tính phí, sử dụng để cung cấp dịch vụ thương mại (SaaS/On‑prem), hay triển khai trong môi trường sản xuất nhằm mục đích sinh lợi — nếu không có sự chấp thuận bằng văn bản từ tác giả.
+Commercial use of the Software — including but not limited to selling, licensing
+for a fee, integrating into paid products or services, providing commercial
+services (SaaS or on-prem), or deploying to production environments for profit —
+is prohibited unless prior written permission is obtained from the author.
 
-Điều kiện kèm theo:
-1. Thông báo bản quyền và giấy phép này phải được giữ nguyên và đi kèm trong mọi bản sao đáng kể của Phần mềm.
-2. Mọi phân phối lại (nếu có) chỉ được thực hiện với mục đích phi thương mại theo quy định ở trên.
+Conditions:
+1) This copyright notice and this license must be included in all substantial
+   copies of the Software.
+2) Any redistribution (if any) must be non-commercial under the terms above.
 
-Miễn trừ trách nhiệm: PHẦN MỀM ĐƯỢC CUNG CẤP “NGUYÊN TRẠNG”, KHÔNG CÓ BẤT KỲ BẢO HÀNH NÀO, dù rõ ràng hay ngụ ý, bao gồm nhưng không giới hạn bảo đảm về khả năng thương mại, phù hợp mục đích cụ thể, và không vi phạm. Trong mọi trường hợp, tác giả không chịu trách nhiệm đối với bất kỳ khiếu nại, thiệt hại hay trách nhiệm nào phát sinh từ, ngoài, hoặc liên quan đến việc sử dụng hay các giao dịch khác đối với Phần mềm.
+Disclaimer: THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO
+EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-Liên hệ cấp phép thương mại:
-Email: khoavutri@gmail.com
+Commercial licensing contact:
+khoavutri@gmail.com
