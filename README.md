@@ -9,7 +9,7 @@ Trợ lý hỏi đáp du lịch dùng RAG (Retrieval‑Augmented Generation). T�
 ## Yêu cầu hệ thống
 
 * Node.js ≥ 18
-* MongoDB (Atlas Vector Search hoặc MongoDB local có vector index)
+* MongoDB (Atlas Vector Search hoặc MongoDB local)
 * API key cho LLM (Perplexity)
 
 ## Cấu trúc thư mục (tham khảo)
