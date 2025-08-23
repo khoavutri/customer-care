@@ -4,7 +4,7 @@ Trợ lý hỏi đáp du lịch dùng RAG (Retrieval‑Augmented Generation). T�
 
 ## Demo
 
-* Live: [https://tourbot.site](https://tourbot.site)
+* Live: [tourbot.site](https://tourbot.site)
 
 ## Yêu cầu hệ thống
 
