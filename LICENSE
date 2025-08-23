@@ -1,7 +1,15 @@
-Copyright 2025 Vu Tri Khoa
+Educational Non-Commercial License (ENCL)
+Copyright (c) 2025 Vu Tri Khoa
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Bằng văn bản này, tác giả cho phép bất kỳ cá nhân/tổ chức nào được sử dụng, sao chép, sửa đổi, hợp nhất, xuất bản, phân phối Phần mềm và/hoặc tài liệu đi kèm (gọi chung là “Phần mềm”) chỉ cho các mục đích học tập, nghiên cứu học thuật, hoặc đánh giá nội bộ phi thương mại.
 
-The above copyright notices and this permission notice shall be included in all copies or substantial portions of the Software.
+Không được phép sử dụng thương mại Phần mềm — bao gồm nhưng không giới hạn: bán, cấp phép thu phí, tích hợp vào sản phẩm/dịch vụ tính phí, sử dụng để cung cấp dịch vụ thương mại (SaaS/On‑prem), hay triển khai trong môi trường sản xuất nhằm mục đích sinh lợi — nếu không có sự chấp thuận bằng văn bản từ tác giả.
 
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Điều kiện kèm theo:
+1. Thông báo bản quyền và giấy phép này phải được giữ nguyên và đi kèm trong mọi bản sao đáng kể của Phần mềm.
+2. Mọi phân phối lại (nếu có) chỉ được thực hiện với mục đích phi thương mại theo quy định ở trên.
+
+Miễn trừ trách nhiệm: PHẦN MỀM ĐƯỢC CUNG CẤP “NGUYÊN TRẠNG”, KHÔNG CÓ BẤT KỲ BẢO HÀNH NÀO, dù rõ ràng hay ngụ ý, bao gồm nhưng không giới hạn bảo đảm về khả năng thương mại, phù hợp mục đích cụ thể, và không vi phạm. Trong mọi trường hợp, tác giả không chịu trách nhiệm đối với bất kỳ khiếu nại, thiệt hại hay trách nhiệm nào phát sinh từ, ngoài, hoặc liên quan đến việc sử dụng hay các giao dịch khác đối với Phần mềm.
+
+Liên hệ cấp phép thương mại:
+Email: khoavutri@gmail.com
