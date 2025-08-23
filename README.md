@@ -1,4 +1,4 @@
-# TourBot – RAG Du Lịch (README rút gọn)
+# TourBot
 
 Trợ lý hỏi đáp du lịch dùng RAG (Retrieval‑Augmented Generation). Tập trung vào trải nghiệm hỏi đáp và gợi ý lịch trình từ dữ liệu đã nạp.
 
