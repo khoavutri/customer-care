@@ -4,13 +4,13 @@ Trợ lý hỏi đáp du lịch dùng RAG (Retrieval‑Augmented Generation). T�
 
 ## Demo
 
-* Live: [tourbot.site](https://tourbot.site)
+- Live: [tourbot.site](https://tourbot.site)
 
 ## Yêu cầu hệ thống
 
-* Node.js ≥ 18
-* MongoDB (Atlas Vector Search hoặc MongoDB local)
-* API key cho LLM (Perplexity)
+- Node.js ≥ 18
+- MongoDB
+- API key cho LLM (Perplexity)
 
 ## Cấu trúc thư mục (tham khảo)
 
@@ -54,5 +54,5 @@ Mặc định truy cập: [http://localhost:3000](http://localhost:3000)
 
 ## Ghi chú
 
-* Production: tự cấu hình build/deploy theo nhu cầu (Docker, PM2, Vercel, v.v.).
-* Cập nhật lại `<repo-url>` và các biến `.env` cho phù hợp môi trường sử dụng.
+- Production: tự cấu hình build/deploy theo nhu cầu (Docker, PM2, Vercel, v.v.).
+- Cập nhật lại `<repo-url>` và các biến `.env` cho phù hợp môi trường sử dụng.
