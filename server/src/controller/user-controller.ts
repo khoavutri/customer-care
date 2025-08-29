@@ -63,6 +63,26 @@ export const onChat = async (req: Request, res: Response) => {
       results.map((item) => item.original)
     );
 
+    let historyMessages: Array<{ role: 'user' | 'assistant'; content: string }> = [];
+    if (finalConversationId) {
+      const lastMsgs = await Message.find({
+        conversationId: finalConversationId,
+        senderId: userId,
+      })
+        .select('sender realExchange timestamp')
+        .sort({ timestamp: -1 })
+        .limit(2)
+        .lean();
+
+      historyMessages = lastMsgs
+        .filter(m => typeof m.realExchange === 'string' && m.realExchange.trim().length > 0)
+        .reverse()
+        .map(m => ({
+          role: m.sender === 'ai' ? 'assistant' : 'user',
+          content: m.realExchange,
+        }));
+    }
+
     const systemPrompt = `Bạn là chuyên gia tư vấn du lịch Việt Nam với khả năng:
 - Tư vấn chi tiết các điểm du lịch, lịch trình, ẩm thực, văn hóa Việt Nam
 - Trả lời bằng tiếng Việt tự nhiên, thân thiện
@@ -114,6 +134,7 @@ Lưu ý: Chỉ sử dụng thông tin từ dữ liệu được cung cấp, khô
         model: 'sonar-pro',
         messages: [
           { role: 'system', content: systemPrompt },
+          ...historyMessages,
           { role: 'user', content: userPrompt },
         ],
         search_mode: 'web',
@@ -127,7 +148,7 @@ Lưu ý: Chỉ sử dụng thông tin từ dữ liệu được cung cấp, khô
         presence_penalty: 0,
         frequency_penalty: 0,
         web_search_options: { search_context_size: 'low' },
-        max_tokens: 250,
+        // max_tokens: 250,
         return_citations: false,
       },
       {
@@ -137,6 +158,7 @@ Lưu ý: Chỉ sử dụng thông tin từ dữ liệu được cung cấp, khô
         },
       }
     );
+
     const reply = response.data.choices[0]?.message?.content ?? 'Hỏng rồi, không có phản hồi!';
     const aiMessageTimestamp = new Date(response.data.created * 1000);
 
