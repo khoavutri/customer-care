@@ -37,7 +37,7 @@ npm run i:all
 **server/.env**
 
 ```bash
-PORT=3000
+PORT=8080
 MONGODB_URI=mongodb+srv://<user>:<pass>@<cluster>/?retryWrites=true&w=majority
 JWT_SECRET=<your-secret>
 PERPLEXITY_KEY=<your-api-key>
